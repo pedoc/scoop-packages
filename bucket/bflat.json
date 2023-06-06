@@ -1,0 +1,26 @@
+{
+    "version": "7.0.2",
+    "description": "C# as you know it but with Go-inspired tooling (small, selfcontained, and native executables)",
+    "homepage": "https://github.com/bflattened/bflat",
+    "license": "GNU Affero General Public License v3.0",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/bflattened/bflat/releases/download/v7.0.2/bflat-7.0.2-windows-x64.zip",
+            "hash": "E3F74782F2707B5DF199820811D2CB3B317FD76714E2E0D856363263920D9934"
+        }
+    },
+    "bin": [
+        "bflat.exe"
+    ],
+    "checkver": {
+        "github": "https://github.com/bflattened/bflat"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/bflattened/bflat/releases/download/v$cleanVersion/bflat-$cleanVersion-windows-x64.zip"
+            }
+        }
+    }
+}
