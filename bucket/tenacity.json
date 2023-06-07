@@ -6,8 +6,9 @@
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://codeberg.org/attachments/9d042b48-0730-430b-b3e4-237f66b16005?type=.zip",
-            "hash": "ce86d558c23ed1630bdae4e1ec9cf1be8c500e0844153a4fad9abaf855ddf6a4"
+            "url": "https://codeberg.org/attachments/9d042b48-0730-430b-b3e4-237f66b16005?name=tenacity-win-v1.3-beta3-x86_64.zip",
+            "hash": "ce86d558c23ed1630bdae4e1ec9cf1be8c500e0844153a4fad9abaf855ddf6a4",
+            "extract_dir": "tenacity-win-v1.3-beta3-x86_64"
         }
     },
     "bin": [
@@ -15,12 +16,5 @@
     ],
     "checkver": {
         "github": "https://tenacityaudio.org/"
-    },
-    "autoupdate": {
-        "architecture": {
-            "64bit": {
-                "url": "https://github.com/bflattened/bflat/releases/download/v$cleanVersion/bflat-$cleanVersion-windows-x64.zip"
-            }
-        }
     }
 }
