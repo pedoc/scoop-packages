@@ -1,0 +1,26 @@
+{
+    "version": "1.3",
+    "description": "an easy-to-use, cross-platform multi-track audio editor/recorder",
+    "homepage": "https://tenacityaudio.org/",
+    "license": "MIT",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://codeberg.org/attachments/9d042b48-0730-430b-b3e4-237f66b16005?type=.zip",
+            "hash": "ce86d558c23ed1630bdae4e1ec9cf1be8c500e0844153a4fad9abaf855ddf6a4"
+        }
+    },
+    "bin": [
+        "Tenacity.exe"
+    ],
+    "checkver": {
+        "github": "https://tenacityaudio.org/"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/bflattened/bflat/releases/download/v$cleanVersion/bflat-$cleanVersion-windows-x64.zip"
+            }
+        }
+    }
+}
