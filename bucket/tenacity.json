@@ -6,7 +6,7 @@
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://codeberg.org/attachments/9d042b48-0730-430b-b3e4-237f66b16005#dl.zip_",
+            "url": "https://codeberg.org/attachments/9d042b48-0730-430b-b3e4-237f66b16005#dl.zip",
             "hash": "ce86d558c23ed1630bdae4e1ec9cf1be8c500e0844153a4fad9abaf855ddf6a4",
             "extract_dir": "tenacity-win-v1.3-beta3-x86_64"
         }
