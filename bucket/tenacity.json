@@ -14,6 +14,12 @@
     "bin": [
         "Tenacity.exe"
     ],
+    "shortcuts": [
+        [
+            "Tenacity.exe",
+            "Tenacity"
+        ]
+    ],
     "checkver": {
         "github": "https://tenacityaudio.org/"
     }
