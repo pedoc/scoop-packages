@@ -1,0 +1,36 @@
+{
+    "version": "5.9.4.pre3",
+    "description": "Simple Network Management Protocol (SNMP) is a widely used protocol for monitoring the health and welfare of network equipment (eg. routers), computer equipment and even devices like UPSs. Net-SNMP is a suite of applications used to implement SNMP v1, SNMP v2c and SNMP v3 using both IPv4 and IPv6. ",
+    "homepage": "http://www.net-snmp.org/",
+    "license": "BSD",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/pedoc/net-snmp-windows-builds/raw/main/net-snmp-5.9.4.pre3.zip",
+            "hash": "D342E3F124E9D220FDBF05A9EDBFAF02EF6F2F32A2957BF9257CA00C2333280E"
+        }
+    },
+    "bin": [
+        "bin/snmpget.exe",
+        "bin/snmpbulkget.exe",
+        "bin/snmptrap.exe",
+        "bin/snmpbulkwalk.exe",
+        "bin/snmpgetnext.exe",
+        "bin/snmpnetstat.exe",
+        "bin/snmpset.exe",
+        "bin/snmpstatus.exe",
+        "bin/snmptable.exe",
+        "bin/snmptranslate.exe",
+        "bin/snmptrap.exe"
+    ],
+    "checkver": {
+        "github": "ttp://www.net-snmp.org/"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/pedoc/net-snmp-windows-builds/raw/main/net-snmp-$cleanVersion.zip"
+            }
+        }
+    }
+}
