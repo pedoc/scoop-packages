@@ -6,8 +6,8 @@
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/pedoc/net-snmp-windows-builds/raw/main/net-snmp-5.9.4.pre3.zip",
-            "hash": "D342E3F124E9D220FDBF05A9EDBFAF02EF6F2F32A2957BF9257CA00C2333280E"
+            "url": "https://github.com/pedoc/net-snmp-windows-builds/files/11684241/net-snmp-5.9.4.pre3.zip",
+            "hash": "DCC0674B5F455685A07AB0BC9BCAEB2CBB25D79B2BFE7D63916D93304839A356"
         }
     },
     "bin": [
@@ -25,12 +25,5 @@
     ],
     "checkver": {
         "github": "ttp://www.net-snmp.org/"
-    },
-    "autoupdate": {
-        "architecture": {
-            "64bit": {
-                "url": "https://github.com/pedoc/net-snmp-windows-builds/raw/main/net-snmp-$cleanVersion.zip"
-            }
-        }
     }
 }
