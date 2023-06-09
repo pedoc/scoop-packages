@@ -7,7 +7,7 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/paolo-projects/auto-unlocker/releases/download/v2.0.1/Unlocker-v2.0.1-x64.zip",
-            "hash": "E3F74782F2707B5DF199820811D2CB3B317FD76714E2E0D856363263920D9934"
+            "hash": "D5211840FA79E2E322BA78DCD789FE6045C18428AD4E04088FD146CF9CF26AD4"
         }
     },
     "bin": [
