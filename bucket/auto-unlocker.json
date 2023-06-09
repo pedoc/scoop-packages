@@ -11,7 +11,7 @@
         }
     },
     "bin": [
-        "bflat.exe"
+        ["Unlocker.exe","auto-unlocker.exe"]
     ],
     "checkver": {
         "github": "https://github.com/paolo-projects/auto-unlocker"
