@@ -11,7 +11,7 @@
         }
     },
     "bin": [
-        ["Unlocker.exe","auto-unlocker.exe"]
+        ["Unlocker.exe","auto-unlocker"]
     ],
     "checkver": {
         "github": "https://github.com/paolo-projects/auto-unlocker"
