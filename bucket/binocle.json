@@ -1,0 +1,27 @@
+{
+    "version": "0.3.1",
+    "description": "a graphical tool to visualize binary data",
+    "homepage": "https://github.com/sharkdp/binocle",
+    "license": "Apache License 2.0 & MIT",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/sharkdp/binocle/releases/download/v0.3.1/binocle-v0.3.1-x86_64-pc-windows-msvc.zip",
+            "hash": "f85cfe1e4a39f7bcbee92525f0fc371ab481bda62b2e5e63d0411d219d1e1bbe",
+            "extract_dir":"binocle-v0.3.1-i686-pc-windows-msvc"
+        }
+    },
+    "bin": [
+        "binocle.exe"
+    ],
+    "checkver": {
+        "github": "https://github.com/sharkdp/binocle"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/sharkdp/binocle/releases/download/v$cleanVersion/binocle-v$cleanVersion-x86_64-pc-windows-msvc.zip"
+            }
+        }
+    }
+}
