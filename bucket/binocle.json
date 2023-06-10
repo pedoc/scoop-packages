@@ -8,7 +8,7 @@
         "64bit": {
             "url": "https://github.com/sharkdp/binocle/releases/download/v0.3.1/binocle-v0.3.1-x86_64-pc-windows-msvc.zip",
             "hash": "ef52a59e306b6916ee6d028e40992a6945ec1b70fb129fc09f73091f1a4c13f6",
-            "extract_dir":"binocle-v0.3.1-i686-pc-windows-msvc"
+            "extract_dir":"binocle-v0.3.1-x86_64-pc-windows-msvc"
         }
     },
     "bin": [
