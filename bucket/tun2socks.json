@@ -1,0 +1,26 @@
+{
+    "version": "2.5.1",
+    "description": "tun2socks - powered by gVisor TCP/IP stack",
+    "homepage": "https://github.com/xjasonlyu/tun2socks",
+    "license": "GPL-3.0",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/xjasonlyu/tun2socks/releases/download/v2.5.1/tun2socks-windows-amd64-v3.zip",
+            "hash": "DF8EF60E1804137B954C9CA3F896887789D33FCF3C24EA31DB30A18443370539"
+        }
+    },
+    "bin": [
+        ["tun2socks-windows-amd64-v3.exe", "tun2socks"]
+    ],
+    "checkver": {
+        "github": "https://github.com/xjasonlyu/tun2socks"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/xjasonlyu/tun2socks/releases/download/v$cleanVersion/tun2socks-windows-amd64-v3.zip"
+            }
+        }
+    }
+}
