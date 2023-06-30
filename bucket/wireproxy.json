@@ -1,0 +1,26 @@
+{
+    "version": "1.0.6",
+    "description": "Wireguard client that exposes itself as a socks5 proxy",
+    "homepage": "https://github.com/pufferffish/wireproxy",
+    "license": "ISC",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/pufferffish/wireproxy/releases/download/v1.0.6/wireproxy_windows_amd64.tar.gz",
+            "hash": "8d9a8c8e646b26d5242d8fa7018bc58147435076d8b9c19fb3df35be786fa2da"
+        }
+    },
+    "bin": [
+        "wireproxy.exe"
+    ],
+    "checkver": {
+        "github": "https://github.com/pufferffish/wireproxy"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/pufferffish/wireproxy/releases/download/v$cleanVersion/wireproxy_windows_amd64.tar.gz"
+            }
+        }
+    }
+}
