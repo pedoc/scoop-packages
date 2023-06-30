@@ -11,8 +11,7 @@
         }
     },
     "bin": [
-        "proxy.exe",
-        "proxy-noconsole.exe"
+        "bin64/3proxy.exe"
     ],
     "checkver": {
         "github": "https://github.com/3proxy/3proxy"
