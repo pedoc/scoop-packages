@@ -1,0 +1,27 @@
+{
+    "version": "0.9.4",
+    "description": "tiny free proxy server",
+    "homepage": "https://github.com/3proxy/3proxy",
+    "license": "3proxy 0.9 Public License Agreement",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/3proxy/3proxy/releases/download/0.9.4/3proxy-0.9.4-x64.zip",
+            "hash": "deafc2aa4aa431f358ab1bb41103a61c028591f4fc300fbc151f3ad728e4d234"
+        }
+    },
+    "bin": [
+        "proxy.exe",
+        "proxy-noconsole.exe"
+    ],
+    "checkver": {
+        "github": "https://github.com/3proxy/3proxy"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/3proxy/3proxy/releases/download/$cleanVersion/3proxy-$cleanVersion-x64.zip"
+            }
+        }
+    }
+}
