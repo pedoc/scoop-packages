@@ -1,0 +1,26 @@
+{
+    "version": "3.0.0-rc8",
+    "description": "a simple tunnel written in golang",
+    "homepage": "https://github.com/go-gost/gost",
+    "license": "ISC",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/go-gost/gost/releases/download/v3.0.0-rc8/gost_3.0.0-rc8_windows_amd64v3.zip",
+            "hash": "564a0f3db972920e005a53d22f8062e10652bcb9fa9e2ec4218fa16446c2c344"
+        }
+    },
+    "bin": [
+        "gost.exe"
+    ],
+    "checkver": {
+        "github": "https://github.com/go-gost/gost"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/go-gost/gost/releases/download/v$cleanVersion/gost_$cleanVersion_windows_amd64v3.zip"
+            }
+        }
+    }
+}
