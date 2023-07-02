@@ -15,10 +15,8 @@
         "StartT3.exe"
     ],
     "shortcuts": [
-        [
-            "T3Editor.exe",
-            "StartT3.exe"
-        ]
+        "T3Editor.exe",
+        "StartT3.exe"
     ],
     "checkver": {
         "github": "https://github.com/tooll3/t3"
