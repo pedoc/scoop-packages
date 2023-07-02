@@ -24,7 +24,7 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "ttps://github.com/tooll3/t3/releases/download/v$cleanVersion/Tooll-v$cleanVersion.zip"
+                "url": "https://github.com/tooll3/t3/releases/download/v$cleanVersion/Tooll-v$cleanVersion.zip"
             }
         }
     }
