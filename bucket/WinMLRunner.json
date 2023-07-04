@@ -8,7 +8,7 @@
         "64bit": {
             "url": "https://github.com/microsoft/Windows-Machine-Learning/releases/download/v1.3.0/WinMLRunner.zip",
             "hash": "afbd4373339f9d9824f2949256609dc439ec7dc38bb907a25ffdaf61d5747bdc",
-            "extract_dir":"x64"
+            "extract_dir":"WinMLRunner\\x64"
         }
     },
     "bin": [
