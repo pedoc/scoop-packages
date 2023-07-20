@@ -1,0 +1,26 @@
+{
+    "version": "0.9.7",
+    "description": "A command-line tool for the conversion of 3D model assets on the FBX file format to the glTF file format",
+    "homepage": "https://github.com/facebookincubator/FBX2glTF",
+    "license": "",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/facebookincubator/FBX2glTF/releases/download/v0.9.7/FBX2glTF-windows-x64.exe",
+            "hash": "8D90FB5E0A8D186A3D9A7FF8C75EAEE541C3975CE4DF0D80351F20092AE0877F"
+        }
+    },
+    "bin": [
+        ["FBX2glTF-windows-x64.exe","FBX2glTF"]
+    ],
+    "checkver": {
+        "github": "https://github.com/facebookincubator/FBX2glTF"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/facebookincubator/FBX2glTF/releases/download/v$cleanVersion/FBX2glTF-windows-x64.exe"
+            }
+        }
+    }
+}
