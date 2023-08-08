@@ -1,0 +1,19 @@
+{
+    "version": "0.1.10",
+    "description": "A simple and fast text editor",
+    "homepage": "https://github.com/focus-editor/focus",
+    "license": "",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/focus-editor/focus/releases/download/0.1.10/focus.exe",
+            "hash": "73c0d99b5edb8fc8e9c9b0803cba59a22236dfa415810bb90e5cc1ad20648d6d"
+        }
+    },
+    "bin": [
+        ["focus.exe","focus-editor"]
+    ],
+    "checkver": {
+        "github": "https://github.com/focus-editor/focus"
+    }
+}
