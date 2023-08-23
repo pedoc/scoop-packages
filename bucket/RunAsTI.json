@@ -1,0 +1,28 @@
+{
+    "version": "2.3.1",
+    "description": "Run a program as TrustedInstaller (SYSTEM)",
+    "homepage": "https://github.com/fafalone/RunAsTrustedInstaller",
+    "license": "",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/fafalone/RunAsTrustedInstaller/releases/download/v2.3.1/RunAsTI64.exe",
+            "hash": "0d61bf9b1a297334a3ae82183e290f3c75d30589aa1a4380bc22909deb6d45f1"
+        }
+    },
+    "bin": [
+        [
+            "RunAsTI64.exe",
+            "RunAsTI"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "RunAsTI64.exe",
+            "RunAsTI"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/fafalone/RunAsTrustedInstaller"
+    }
+}
