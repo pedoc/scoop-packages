@@ -1,0 +1,18 @@
+{
+    "version": "1.1.25",
+    "description": "DocFetcher is an Open Source desktop search application: It allows you to search the contents of files on your computer. — You can think of it as Google for your local files. The application runs on Windows, Linux and OS X, and is made available under the Eclipse Public License.",
+    "homepage": "https://docfetcher.sourceforge.io/en/index.html",
+    "license": "Eclipse Public License",
+    "architecture": {
+        "64bit": {
+            "url": "https://zenlayer.dl.sourceforge.net/project/docfetcher/docfetcher/1.1.25/docfetcher-1.1.25-portable.zip",
+            "hash": "805abba35f2078a6b882d5116dc068fdafcfc0c5922d12ca5c42b68341d6b8a8"
+        }
+    },
+    "shortcuts": [
+        [
+            "DocFetcher.exe",
+            "DocFetcher"
+        ]
+    ]
+}
