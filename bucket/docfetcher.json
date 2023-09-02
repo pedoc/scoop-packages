@@ -6,7 +6,8 @@
     "architecture": {
         "64bit": {
             "url": "https://zenlayer.dl.sourceforge.net/project/docfetcher/docfetcher/1.1.25/docfetcher-1.1.25-portable.zip",
-            "hash": "805abba35f2078a6b882d5116dc068fdafcfc0c5922d12ca5c42b68341d6b8a8"
+            "hash": "805abba35f2078a6b882d5116dc068fdafcfc0c5922d12ca5c42b68341d6b8a8",
+            "extract_dir": "DocFetcher-1.1.25"
         }
     },
     "shortcuts": [
