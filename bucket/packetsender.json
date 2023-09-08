@@ -1,0 +1,19 @@
+{
+    "version": "8.4.3",
+    "description": "Send & receive TCP, UDP, SSL. HTTP Requests. And Panel Generation.",
+    "homepage": "https://packetsender.com/",
+    "license": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/dannagle/PacketSender/releases/download/v8.4.3/PacketSenderPortable_v8.4.3.zip",
+            "hash": "e7aa881eb9a819a329d87eb31bede4d4a4983130f74745bd5ce32009d189be3d",
+            "extract_dir": "PacketSenderPortable"
+        }
+    },
+    "shortcuts": [
+        [
+            "packetsender.exe",
+            "PacketSender"
+        ]
+    ]
+}
