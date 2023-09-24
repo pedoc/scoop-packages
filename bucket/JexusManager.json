@@ -10,7 +10,7 @@
           "extract_dir": "Jexus Manager"
         }
     },
-    "bin": [
+    "shortcuts": [
         [
             "JexusManager.exe",
             "JexusManager"
