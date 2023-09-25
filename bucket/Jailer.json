@@ -1,0 +1,22 @@
+{
+    "version": "15.2.2",
+    "description": "Database Subsetting and Relational Data Browsing Tool.",
+    "homepage": "https://github.com/jexuswebserver/JexusManager",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+          "url": "https://github.com/Wisser/Jailer/releases/download/v15.2.2/jailer_15.2.2.zip",
+          "hash": "8d68119297a244e82f73788705b6bdbefe169229ebfd14184d100f68bf9a2ece",
+          "extract_dir": "jailer"
+        }
+    },
+    "shortcuts": [
+        [
+            "Jailer.exe",
+            "Jailer"
+        ]
+    ],
+    "autoupdate": {
+        "url": "https://github.com/Wisser/Jailer/releases/download/v$version/jailer_$version.zip"
+    }
+}
