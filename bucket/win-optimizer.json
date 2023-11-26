@@ -11,7 +11,13 @@
         }
     },
     "bin": [
-       ["Optimizer-16.2.exe", "Optimizer.exe"]
+       ["Optimizer-16.2.exe", "Optimizer"]
+    ],
+    "shortcuts": [
+        [
+            "Optimizer-16.2.exe",
+            "Optimizer"
+        ]
     ],
     "checkver": {
         "github": "https://github.com/hellzerg/optimizer"
