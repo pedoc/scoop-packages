@@ -13,6 +13,12 @@
     "bin": [
         "frpmgr.exe"
     ],
+    "shortcuts": [
+        [
+            "frpmgr.exe",
+            "FrpMgr"
+        ]
+    ],
     "checkver": {
         "github": "https://github.com/koho/frpmgr"
     }
