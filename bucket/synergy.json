@@ -1,0 +1,22 @@
+{
+    "version": "1.14.7.5",
+    "description": "Open source core of Synergy, the cross-platform keyboard and mouse sharing tool (Windows, macOS, Linux)",
+    "homepage": "https://github.com/symless/synergy-core",
+    "license": "GPL-2.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/DEAKSoftware/Synergy-Binaries/releases/download/1.14.7.5-snapshot/synergy-1.14.7.5-snapshot-windows-10-amd64.zip",
+            "hash": "05f78400b7c5f9701ffb05e5b3a3d4fbb74e784b4818ade2411268e9020397a7",
+            "extract_dir": "synergy-1.14.7.5-snapshot-windows-10-amd64"
+        }
+    },
+    "bin": [
+        "synergyc.exe"
+    ],
+    "shortcuts": [
+        [
+            "synergy.exe",
+            "Synergy"
+        ]
+    ]
+}
