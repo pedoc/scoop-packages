@@ -12,5 +12,11 @@
     },
     "bin": [
         "FlyingCarpet.exe"
+    ],
+    "shortcuts": [
+        [
+            "FlyingCarpet.exe",
+            "FlyingCarpet"
+        ]
     ]
 }
