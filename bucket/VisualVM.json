@@ -1,0 +1,23 @@
+{
+    "version": "2.1.7",
+    "description": "VisualVM is an All-in-One Java Troubleshooting Tool",
+    "homepage": "https://github.com/oracle/visualvm",
+    "license": "GPL-2.0",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/oracle/visualvm/releases/download/2.1.7/visualvm_217.zip",
+            "hash": "9af1e0e3f33fb35ae69b89a2f87e9af26dc5a91a45dc50068ef2ab9790867f33",
+            "extract_dir":"visualvm_217"
+        }
+    },
+    "bin": [
+        "bin/visualvm.exe"
+    ],
+    "shortcuts": [
+        [
+            "bin/visualvm.exe",
+            "VisualVM"
+        ]
+    ]
+}
