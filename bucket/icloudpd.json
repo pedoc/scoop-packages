@@ -13,7 +13,7 @@
     "bin": [
         [
             "icloudpd-ex-1.17.3-windows-amd64.exe"
-            ,"icloudpd.exe"
+            ,"icloudpd"
         ]
     ]
 }
