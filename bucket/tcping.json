@@ -1,0 +1,16 @@
+{
+    "version": "2.5.0",
+    "description": "Ping TCP ports using tcping. Inspired by Linux's ping utility. Written in Go",
+    "homepage": "https://github.com/pouriyajamshidi/tcping",
+    "license": "MIT",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/pouriyajamshidi/tcping/releases/download/v2.5.0/tcping_Windows.zip",
+            "hash": "46ff95bedd8f8940f4eb60e07755b1828e02b7d9608d1b3602acfcbc0fb52ba1"
+        }
+    },
+    "bin": [
+       "tcping.exe"
+    ]
+}
