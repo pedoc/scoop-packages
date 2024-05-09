@@ -7,7 +7,8 @@
     "architecture": {
         "64bit": {
             "url": "http://www.softwareok.com/Download/DirPrintOK_Portable_x64.zip",
-            "hash": "a74bde8535b6c44e0f062bb451b87c1275f482421b9f8081b51d91f1cfdcf2d6"
+            "hash": "a74bde8535b6c44e0f062bb451b87c1275f482421b9f8081b51d91f1cfdcf2d6",
+            "extract_dir":"DirPrintOK"
         }
     },
     "shortcuts": [
