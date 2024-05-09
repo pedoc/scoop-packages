@@ -7,7 +7,8 @@
     "architecture": {
         "64bit": {
             "url": "http://www.softwareok.com/Download/Find.Same.Images.OK_Portable_x64.zip",
-            "hash": "0aa9b50ffdee37a4d9ce1f686ffacca65d3e13a1e5bd4258e574d6f48ac7022a"
+            "hash": "0aa9b50ffdee37a4d9ce1f686ffacca65d3e13a1e5bd4258e574d6f48ac7022a",
+            "extract_dir":"Find.Same.Images.OK"
         }
     },
     "shortcuts": [
