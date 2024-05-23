@@ -11,6 +11,6 @@
         }
     },
     "bin": [
-        ["protoc.exe","bin/protoc.exe"]
+       "bin\\protoc.exe"
     ]
 }
