@@ -1,0 +1,16 @@
+{
+    "version": "1.4.1",
+    "description": "An interactive web UI for gRPC, along the lines of postman",
+    "homepage": "https://github.com/fullstorydev/grpcui",
+    "license": "MIT",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/fullstorydev/grpcui/releases/download/v1.4.1/grpcui_1.4.1_windows_x86_64.zip",
+            "hash": "b32719017f5c67d143fd1ddf2484878be0721d3e6ced1ff7e2978587c80896ea"
+        }
+    },
+    "bin": [
+       "grpcui.exe"
+    ]
+}
