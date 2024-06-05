@@ -12,7 +12,7 @@
     },
     "bin": [
         [
-            "icloudpd-ex-1.17.3-windows-amd64.exe"
+            "icloudpd-ex-1.19.1-windows-amd64.exe"
             ,"icloudpd"
         ]
     ]
