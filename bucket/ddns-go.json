@@ -6,7 +6,7 @@
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/jeessy2/ddns-go/releases/download/v6.6.1/ddns-go_6.6.3_windows_x86_64.zip",
+            "url": "https://github.com/jeessy2/ddns-go/releases/download/v6.6.3/ddns-go_6.6.3_windows_x86_64.zip",
             "hash": "F9FE25D787B4FD09E4FCA8577326D1D55684C805B14D8BED49715E79200F995F"
         }
     },
