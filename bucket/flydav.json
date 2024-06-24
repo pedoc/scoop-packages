@@ -1,0 +1,16 @@
+{
+    "version": "0.2.55",
+    "description": "Setup a tiny webdav server in 30 seconds. Multi-user, path prefix etc. 轻量高效的 WebDav 服务器。",
+    "homepage": "https://github.com/pluveto/flydav/",
+    "license": "MIT",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/pluveto/flydav/releases/download/v0.2.55/flydav-app-windows-amd64.zip",
+            "hash": "20e8a5fd85f3a6eff35452584256b706af0d5705ebaf5361ffb172bcf200d920"
+        }
+    },
+    "bin": [
+        "flydav.exe"
+    ]
+}
