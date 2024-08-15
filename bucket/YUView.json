@@ -1,13 +1,13 @@
 {
-    "version": "2.13",
+    "version": "2.14",
     "description": "The Free and Open Source Cross Platform YUV Viewer with an advanced analytics toolset",
     "homepage": "https://github.com/IENT/YUView",
     "license": "",
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/IENT/YUView/releases/download/v2.13/YUView-Win-noautoupdate.zip",
-            "hash": "f49c5ac530cb495b77a0c297dbb87b3253351e24e5acd8991d662805aaabc555"
+            "url": "https://github.com/IENT/YUView/releases/download/v2.14/YUView-Win.zip",
+            "hash": "34d1f04b4930e83c3d0845f523cb5955e79c1684b641ef2afd3d9b051997f353"
         }
     },
     "bin": [
