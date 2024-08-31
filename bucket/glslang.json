@@ -1,0 +1,20 @@
+{
+    "version": "14.3.0",
+    "description": "The official reference compiler front end for the OpenGL ES and OpenGL shading languages.",
+    "homepage": "https://www.khronos.org/opengles/sdk/tools/Reference-Compiler/",
+    "license": {
+        "identifier": "Freeware,MIT,...",
+        "url": "https://github.com/KhronosGroup/glslang/blob/master/LICENSE.txt"
+    },
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/KhronosGroup/glslang/releases/download/main-tot/glslang-master-windows-Release.zip",
+            "hash": "31693422ec571cda0e90887be2b048ef0a2bd7d5631f45b9ffdf0dc2bf0b8e88"
+        }
+    },
+    "bin": [
+        "bin\\glslang.exe",
+        "bin\\glslangValidator.exe",
+        "bin\\spirv-remap.exe"
+    ]
+}
