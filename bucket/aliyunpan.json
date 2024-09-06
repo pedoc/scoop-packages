@@ -1,14 +1,14 @@
 {
-    "version": "0.3.2",
+    "version": "0.3.3",
     "description": "阿里云盘命令行客户端，支持webdav文件服务，支持JavaScript插件，支持同步备份功能。",
     "homepage": "https://github.com/tickstep/aliyunpan/",
     "license": "Apache License 2.0",
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/tickstep/aliyunpan/releases/download/v0.3.2/aliyunpan-v0.3.2-windows-x64.zip",
-            "hash": "0e1635386c9e96cd21680494b13743f44b1ead10a388637d29f96a1bb99553b7",
-            "extract_dir":"aliyunpan-v0.3.2-windows-x64"
+            "url": "https://github.com/tickstep/aliyunpan/releases/download/v0.3.3/aliyunpan-v0.3.3-windows-x64.zip",
+            "hash": "BF00435E083278398F6FF55E8EE9D29B7CD30A5D1AEC8C6FF8443DE2338B1570",
+            "extract_dir":"aliyunpan-v0.3.3-windows-x64"
         }
     },
     "bin": [
