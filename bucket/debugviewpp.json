@@ -1,0 +1,30 @@
+{
+    "version": "1.9.0.28",
+    "description": "Collect, view and filter application logs.",
+    "homepage": "https://github.com/CobaltFusion/DebugViewPP",
+    "license": "BSL-1.0",
+    "notes": "The 'OutputForwarderVSIX.vsix' is located at '$dir'.",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/CobaltFusion/DebugViewPP/releases/download/v1.9.0.28/debugviewpp-1.9.0.28-win64.zip",
+            "hash": "9581B77DB285BFAAA2516E1D5FC2FB865FFB880E1D35DD07204DDE88D0CCB8F8",
+            "extract_dir":"debugviewpp-1.9.0.28-win64"
+        }
+    },
+    "bin": [
+        [
+            "bin/Debugviewpp.exe",
+            "DebugView++"
+        ],
+        [
+            "bin/DebugViewConsole.exe",
+            "DebugViewConsole"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "bin/Debugviewpp.exe",
+            "DebugView++"
+        ]
+    ]
+}
