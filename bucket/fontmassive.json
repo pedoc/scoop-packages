@@ -1,0 +1,20 @@
+{
+    "version": "3.7",
+    "description": "Font Manager,View styles in a single list.",
+    "homepage": "http://fontmassive.com/fm.php",
+    "license": "",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "http://fontmassive.com/download.php?prog=FontMassive64",
+            "hash": "975643a746ef6c503fc5bc9bad8412d4cc2e39eb62186049ec33ad0b700eb97b",
+            "extract_dir":"FontMassive Pack"
+        }
+    },
+    "shortcuts": [
+        [
+            "FontMassive64.exe",
+            "FontMassive64"
+        ]
+    ]
+}
