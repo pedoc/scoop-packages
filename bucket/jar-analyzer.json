@@ -1,0 +1,20 @@
+{
+    "version": "3.1",
+    "description": "Jar Analyzer - 一个JAR包分析工具，SCA漏洞分析，批量分析JAR包，方法调用关系搜索，字符串搜索，Spring组件分析，CFG程序分析，JVM栈帧分析，进阶表达式搜索，字节码指令级的动态调试分析，反编译JAR包一键导出，一键提取序列化数据恶意代码，一键分析BCEL字节码",
+    "homepage": "https://github.com/jar-analyzer/jar-analyzer",
+    "license": "MIT",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/jar-analyzer/jar-analyzer/releases/download/3.1/jar-analyzer-3.1-windows-full.zip",
+            "hash": "919FC2A349D469E61C32D341E6DD5C8A7879DEC203EDDCC2C3C2DCFDE8030F3B",
+            "extract_dir":"jar-analyzer-3.1-windows-full"
+        }
+    },
+    "shortcuts": [
+        [
+            "start.bat",
+            "JarAnalyzer"
+        ]
+    ]
+}
