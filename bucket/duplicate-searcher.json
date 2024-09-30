@@ -4,7 +4,7 @@
     "homepage": "https://malich.ru/duplicate_searcher",
     "architecture": {
         "64bit": {
-            "url": "https://malich.ru/download_duplicate_searcher?id=zip&sid=892b1f5468db4e908ab2d3d59e83efa7&version=10.5.0#7z.zip",
+            "url": "https://github.com/pedoc/scoop-packages/releases/download/assets/DupFilesSearchAndLink_.10_5_0.zip",
             "hash": "9c519ea9ef11e563153ae8d6c481db2cf871c6d604557ee3a5aa887dbac0cbca"
         }
     },
