@@ -9,7 +9,7 @@
             "hash": "E5246736373FC0AE4BFE3E7441967BD050EE68281E45E9BA5022595E07A65775"
         }
     },
-    "shortcuts": [
+    "bin": [
         [
             "UEFIExtract.exe",
             "UEFIExtract"
