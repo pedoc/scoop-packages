@@ -10,5 +10,10 @@
             "extract_dir":"ProxyPin"
         }
     },
-    "shotcuts": "ProxyPin.exe"
+    "shortcuts": [
+        [
+            "ProxyPin.exe",
+            "ProxyPin"
+        ]
+    ]
 }
