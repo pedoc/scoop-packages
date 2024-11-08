@@ -1,0 +1,17 @@
+{
+    "version": "3.3.2",
+    "description": "xanasoft OpenSSL Builds",
+    "homepage": "https://github.com/xanasoft/openssl-builds",
+    "license": "",
+    "notes": "",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/xanasoft/openssl-builds/releases/download/openssl-3.3.2/openssl-3.3.2.zip",
+            "hash": "2bf5fcbfed2234bbf51d0e9c337fb0a849c8e8db2a9bab10a109b7f3973d7233",
+            "extract_dir":"Win_x64\bin"
+        }
+    },
+    "bin": [
+       "openssl.exe"
+    ]
+}
