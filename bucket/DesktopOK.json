@@ -1,0 +1,18 @@
+{
+    "version": "11.45",
+    "description": "Save and restore the positions of the Windows Desktop Icons and many helpful Windows 12, 10, 11, ect. Desktop-Tools for private, office and commercial usage.",
+    "homepage": "https://www.softwareok.com/?seite=Freeware/DesktopOK",
+    "license":"",
+    "architecture": {
+        "64bit": {
+            "url": "https://www.softwareok.com/Download/DesktopOK_x64.zip",
+            "hash": "62fcc2eb4f7bcd4cb5696969c7aec6d142ca41fe032e7b9a794a38a3f21b386e"
+        }
+    },
+    "shortcuts": [
+        [
+            "DesktopOK_x64.exe",
+            "DesktopOK"
+        ]
+    ]
+}
