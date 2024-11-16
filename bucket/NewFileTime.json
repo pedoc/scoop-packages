@@ -1,5 +1,5 @@
 {
-    "version": "7.21",
+    "version": "7.37",
     "description": "NewFileTime is a Windows tool that provides you easy access to correct or manipulate any of the timestamps for any file and folder on your Microsoft Windows system.",
     "homepage": "http://www.softwareok.com/?seite=Microsoft/NewFileTime",
     "license": "",
@@ -7,7 +7,7 @@
     "architecture": {
         "64bit": {
             "url": "http://www.softwareok.com/Download/NewFileTime_x64.zip",
-            "hash": "69134b8d271dd10489e24462c9f2a7cd18ac960c841094d35689067cf71b5ca8"
+            "hash": "18591e08d66af9b3b6c70b48f085b4f1381ce37c25ab8f6524d6f6ea97897525"
         }
     },
     "shortcuts": [
