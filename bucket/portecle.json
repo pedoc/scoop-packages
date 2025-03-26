@@ -12,11 +12,12 @@
     "shortcuts": [
         [
             "portecle.bat",
-            "portecle"
+            "portecle",
+            "icons\\iconic\\portecle.ico"
         ]
     ],
-    "post_install": [
-        "echo Creating shortcut for Portecle...",
-        "echo java -jar \"$dir\\portecle.jar\" > \"$dir\\portecle.bat\""
+    "pre_install": [
+        "New-Item -Path \"$dir\\portecle.bat\" -ItemType 'file' -Force",
+        "Add-Content -Path \"$dir\\portecle.bat\" -Value \"start /B java -jar $dir\\portecle.jar\""
     ]
 }
