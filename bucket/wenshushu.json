@@ -1,0 +1,17 @@
+{
+    "version": "v1.0.0",
+    "description": "基于 https://www.wenshushu.cn （文叔叔） 上传与下载文件的 Python 脚本",
+    "homepage": "https://github.com/pedoc/wenshushu",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/pedoc/wenshushu/releases/download/v1.0.0/wss.zip",
+            "hash": "6997c9569e87e877887ba913012a45616bf74446d4c7109dcd2af70739d2a614"
+        }
+    },
+    "bin": [
+        [
+            "wss.exe"
+            ,"wss"
+        ]
+    ]
+}
