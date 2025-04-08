@@ -1,0 +1,18 @@
+{
+    "version": "0.1.7",
+    "description": "A Python implementation of ssh-copy-id that works on ALL platforms.",
+    "homepage": "https://github.com/yakuter/gossl",
+    "license": "Apache-2.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/yakuter/gossl/releases/download/v0.1.7/gossl_0.1.7_windows_amd64.zip",
+            "hash": "9909cd816ff53d5fcab29fa1cb5522739ee5f5bcdce4dc5adb00d4cc27ff87fa"
+        }
+    },
+    "shortcuts": [
+        [
+            "gossl.exe",
+            "gossl"
+        ]
+    ]
+}
