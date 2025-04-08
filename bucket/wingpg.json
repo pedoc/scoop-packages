@@ -1,0 +1,17 @@
+{
+    "homepage": "https://scand.com/products/wingpg/",
+    "version": "1.2",
+    "architecture": {
+        "64bit": {
+            "url": "https://s3.amazonaws.com/assets.scand.com/WinGPG/WinGPG-1.2-Portable-x64.zip",
+            "hash": "e15192f417a44731be56e686635bd2afc85d550ea7ac5b837b448ee290b2c48e"
+        }
+    },
+   
+    "shortcuts": [
+        [
+            "x64\\WinGPG.exe",
+            "WinGPG"
+        ]
+    ]
+}
