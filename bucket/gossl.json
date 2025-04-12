@@ -9,7 +9,7 @@
             "hash": "9909cd816ff53d5fcab29fa1cb5522739ee5f5bcdce4dc5adb00d4cc27ff87fa"
         }
     },
-    "shortcuts": [
+    "bin": [
         [
             "gossl.exe",
             "gossl"

@@ -9,7 +9,7 @@
             "hash": "ca56f294db4b90df82f9641c0769671169f3bb7453f48bbd6ec8755e89f25765"
         }
     },
-    "shortcuts": [
+    "bin": [
         [
             "ssh-copy-id.exe",
             "ssh-copy-id"
