@@ -1,0 +1,18 @@
+{
+    "homepage": "https://www.winitor.com/",
+    "description": "Malware Analysis in a private context.",
+    "version": "9.6.1",
+    "architecture": {
+        "64bit": {
+            "url": "https://www.winitor.com/tools/pestudio/current/pestudio.zip",
+            "hash": "c1e2d0c1fbf5951486cf3d850cc24b11b66e25e0a5b77a623e2eb13ffad9ddd9"
+        }
+    },
+   
+    "shortcuts": [
+        [
+            "pestudio\\pestudio.exe",
+            "pestudio"
+        ]
+    ]
+}
