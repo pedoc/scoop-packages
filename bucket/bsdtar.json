@@ -1,0 +1,17 @@
+{
+    "version": "v3.7.5-2",
+    "description": "Pre-built, statically-linked binary releases for bsdtar, from the libarchive project",
+    "homepage": "https://github.com/aspect-build/bsdtar-prebuilt",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/aspect-build/bsdtar-prebuilt/releases/download/v3.7.5-2/tar_windows_x86_64.exe",
+            "hash": "1cb376b18dfaa81a4d0a1048119830e505ce3b319fe0cfb2ebae929543995157"
+        }
+    },
+    "bin": [
+        [
+            "tar_windows_x86_64.exe"
+            ,"bsdtar"
+        ]
+    ]
+}
