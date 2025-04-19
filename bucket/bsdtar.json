@@ -11,8 +11,8 @@
     },
     "bin": [
         [
-            "bsdtar.exe"
-            ,"bsdtar"
+            "bsdtar.exe",
+            "bsdtar"
         ]
     ]
 }
