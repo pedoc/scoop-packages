@@ -1,16 +1,17 @@
 {
-    "version": "v3.7.5-2",
-    "description": "Pre-built, statically-linked binary releases for bsdtar, from the libarchive project",
-    "homepage": "https://github.com/aspect-build/bsdtar-prebuilt",
+    "version": "3.7.9",
+    "description": "Multi-format archive and compression library",
+    "homepage": "https://packages.msys2.org/packages/bsdtar?variant=x86_64",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/aspect-build/bsdtar-prebuilt/releases/download/v3.7.5-2/tar_windows_x86_64.exe",
-            "hash": "1cb376b18dfaa81a4d0a1048119830e505ce3b319fe0cfb2ebae929543995157"
+            "url": "https://github.com/pedoc/scoop-packages/releases/download/assets-bsdtar-3.7.9/bsdtar-3.7.9.zip",
+            "hash": "3f498144ed3033757aa7aafbcdc3e8ea4921290cd39918da359639135a88cf5f",
+            "extract_dir": "bsdtar-3.7.9"
         }
     },
     "bin": [
         [
-            "tar_windows_x86_64.exe"
+            "bsdtar.exe"
             ,"bsdtar"
         ]
     ]
