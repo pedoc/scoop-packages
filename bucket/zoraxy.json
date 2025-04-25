@@ -11,7 +11,9 @@
         }
     },
     "bin": [
-        "zoraxy_windows_amd64.exe",
-        "zoraxy"
+        [
+            "zoraxy_windows_amd64.exe"
+            ,"zoraxy"
+        ]
     ]
 }
