@@ -1,27 +1,17 @@
 {
-    "version": "13.2",
+    "version": "15.0",
     "description": "Proxy is a high performance HTTP(S) proxies, SOCKS5 proxies,WEBSOCKET, TCP, UDP proxy server implemented by golang. Now, it supports chain-style proxies,nat forwarding in different lan,TCP/UDP port forwarding, SSH forwarding.",
     "homepage": "https://github.com/snail007/goproxy",
     "license": "GPL-3.0",
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/snail007/goproxy/releases/download/v13.2/proxy-windows-amd64.tar.gz",
-            "hash": "9494fdad086a8d8f67549601bb8ce513f44cfb140790eee6bd4503faa508ff49"
+            "url": "https://github.com/snail007/goproxy/releases/download/v15.0/proxy-windows-amd64.tar.gz",
+            "hash": "9ef4746cfb9e4ec7fc68adafb5e80b154ede9d4f7971b2e338e1c23938efc55c"
         }
     },
     "bin": [
         "proxy.exe",
         "proxy-noconsole.exe"
-    ],
-    "checkver": {
-        "github": "https://github.com/snail007/goproxy"
-    },
-    "autoupdate": {
-        "architecture": {
-            "64bit": {
-                "url": "https://github.com/snail007/goproxy/releases/download/v$cleanVersion/proxy-windows-amd64.tar.gz"
-            }
-        }
-    }
+    ]
 }
