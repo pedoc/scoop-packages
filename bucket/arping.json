@@ -10,6 +10,6 @@
         }
     },
     "bin": [
-        ["arp-ping.exe","arpping.exe"]
+        ["arp-ping.exe","arping.exe"]
     ]
 }
