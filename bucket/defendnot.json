@@ -1,0 +1,18 @@
+{
+    "version": "1.2.0",
+    "description": "An even funnier way to disable windows defender. (through WSC api)",
+    "homepage": "https://github.com/microsoft/edit",
+    "license":"MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/es3n1n/defendnot/releases/download/v1.2.0/x64.zip",
+            "hash": "97df4e6000a9047c956f3fca57c47c0ad5d6e03a6b8aa1e1bc13c3477f291eee"
+        }
+    },
+    "shortcut": [
+        [
+            "defendnot-loader.exe"
+            ,"defendnot-loader"
+        ]
+    ]
+}
