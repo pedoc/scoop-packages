@@ -1,0 +1,17 @@
+{
+    "version": "1.0.3",
+    "description": "QRender is a lightweight template rendering tool that supports environment variable substitution and conditional statements. It helps you quickly generate configuration files or other files that require dynamic content.",
+    "homepage": "https://github.com/pedoc/qrender",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/pedoc/qrender/releases/download/v1.0.3/qrender_1.0.3_windows_amd64.tar.gz",
+            "hash": "1eb093bc11a6e785a63fb9032d0f02c0c8ddb0ab394f0dc74ffdbb8b6dfcacf3"
+        }
+    },
+    "bin": [
+        [
+            "qrender"
+            ,"qrender"
+        ]
+    ]
+}
