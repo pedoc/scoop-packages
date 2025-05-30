@@ -1,12 +1,12 @@
 {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "https://github.com/pedoc/http-echo",
     "homepage": "https://github.com/microsoft/edit",
     "license":"MPL-2.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/pedoc/http-echo/releases/download/v1.0.1/http-echo_1.0.1_windows_amd64.tar.gz",
-            "hash": "c2d063c83d6c56406f0c3e7fde15abff2f069e9b0a6c0597857ce62404393f58"
+            "url": "https://github.com/pedoc/http-echo/releases/download/v1.0.2/http-echo_1.0.2_windows_amd64.tar.gz",
+            "hash": "5eb45f03e78d61d9ab2f6bc47a2d5e9cc015719eca9b08e6edcf05caeb3d477d"
         }
     },
     "bin": [
