@@ -1,11 +1,11 @@
 {
-    "version": "2.0.5",
+    "version": "2.0.6",
     "description": "A Python implementation of ssh-copy-id that works on ALL platforms.",
     "homepage": "https://github.com/pedoc/ssh-copy-id",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/pedoc/ssh-copy-id/releases/download/v2.0.5/ssh-copy-id.exe",
+            "url": "https://github.com/pedoc/ssh-copy-id/releases/download/v2.0.6/ssh-copy-id.exe",
             "hash": "sha256:2d2e9f1c0fdd386ba526fbf562dc888b702822b221dc54419b13657c7b5dd43d"
         }
     },
