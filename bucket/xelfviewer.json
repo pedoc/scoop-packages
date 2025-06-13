@@ -1,0 +1,18 @@
+{
+    "version": "0.0.6",
+    "description": "ELF file viewer/editor for Windows, Linux and MacOS.",
+    "homepage": "https://github.com/horsicq/XELFViewer",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/horsicq/XELFViewer/releases/download/Beta/xelfviewer_win64_portable_0.06_x64.zip",
+            "hash": "sha256:c9102b63f9736b598efe7cccbc6ce1e05c1de6eba1c80056d468a8a12f796f06"
+        }
+    },
+    "shotcut": [
+        [
+            "xelfviewer.exe",
+            "xelfviewer"
+        ]
+    ]
+}
