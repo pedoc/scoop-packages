@@ -9,7 +9,7 @@
             "hash": "sha256:c9102b63f9736b598efe7cccbc6ce1e05c1de6eba1c80056d468a8a12f796f06"
         }
     },
-    "shotcut": [
+    "shortcuts": [
         [
             "xelfviewer.exe",
             "xelfviewer"
