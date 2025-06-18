@@ -6,7 +6,7 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/pedoc/portfinder/releases/download/v1.0.0/portfinder_1.0.0_windows_amd64.tar.gz",
-            "hash": "sha256:sha256:b55283c5785770d7c82c0af5421b3645237d8171e0ff740dc29624adac28b702"
+            "hash": "sha256:b55283c5785770d7c82c0af5421b3645237d8171e0ff740dc29624adac28b702"
         }
     },
     "bin": [
