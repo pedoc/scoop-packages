@@ -1,5 +1,5 @@
 {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "A tiny go web server that echos what you start it with!",
     "homepage": "https://github.com/pedoc/http-echo",
     "license":"MPL-2.0",
