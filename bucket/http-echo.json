@@ -6,7 +6,7 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/pedoc/http-echo/releases/download/v1.0.3/http-echo_1.0.3_windows_amd64.tar.gz",
-            "hash": "sha256:03dd5b3c8cfebd72d9365515b386ddb4410a56f0ff19acc2001d481844df8725"
+            "hash": "798d25c84f6a977cb6ccaf85a075eb9fe64af495b0396e47c9b6c1eb5ea81821"
         }
     },
     "bin": [
