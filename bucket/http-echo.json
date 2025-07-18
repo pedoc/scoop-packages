@@ -1,12 +1,12 @@
 {
-    "version": "1.0.3",
+    "version": "1.0.5",
     "description": "A tiny go web server that echos what you start it with!",
     "homepage": "https://github.com/pedoc/http-echo",
     "license":"MPL-2.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/pedoc/http-echo/releases/download/v1.0.3/http-echo_1.0.3_windows_amd64.tar.gz",
-            "hash": "798d25c84f6a977cb6ccaf85a075eb9fe64af495b0396e47c9b6c1eb5ea81821"
+            "url": "https://github.com/pedoc/http-echo/releases/download/v1.0.5/http-echo_1.0.5_windows_amd64.tar.gz",
+            "hash": "008104c912e0ad20e5e4a1685a4d4f495ca62df0f74974e2e523160261380f13"
         }
     },
     "bin": [
