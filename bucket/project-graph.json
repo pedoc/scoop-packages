@@ -1,0 +1,13 @@
+{
+    "version": "2.0.8",
+    "description": "A simple but powerful tool for drawing graphs",
+    "homepage": "https://github.com/graphif/project-graph",
+    "url": "https://github.com/graphif/project-graph/releases/download/v2.0.8/Project.Graph_2.0.8_x64-setup.exe",
+    "hash": "a7ac0c123cb54fb156a9e6e2efd8d6c335d668173903f891c3c59a6131fd9a87",
+    "shortcuts": [
+        [
+            "ProjectGraph.exe",
+            "ProjectGraph"
+        ]
+    ]
+}
