@@ -1,0 +1,13 @@
+{
+    "version": "6.3.10",
+    "description": "A GUI for ExifTool",
+    "homepage": "https://github.com/FrankBijnen/ExifToolGui",
+    "url": "https://github.com/FrankBijnen/ExifToolGui/releases/download/V6.3.10/ExifToolGUI_X64.exe",
+    "hash": "c19cc8267a784ae9b58e153d23e4a5af0646db41ed6b8baedddbfbf5318413fd",
+    "shortcuts": [
+        [
+            "ExifToolGUI_X64.exe",
+            "ExifTool GUI"
+        ]
+    ]
+}
