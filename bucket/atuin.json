@@ -1,0 +1,15 @@
+{
+    "version": "18.11.0",
+    "description": "✨ Magical shell history",
+    "homepage": "https://github.com/atuinsh/atuin",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/atuinsh/atuin/releases/download/v18.11.0/atuin-x86_64-pc-windows-msvc.zip",
+            "hash": "sha256:29ddb786f3e18964d3be7503d38293e60704e7e36e9a23b360311ee5fc092b1a"
+        }
+    },
+    "bin": [
+        "atuin.exe"
+    ]
+}
