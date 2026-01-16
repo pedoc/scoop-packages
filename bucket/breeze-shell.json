@@ -1,0 +1,19 @@
+{
+    "version": "0.1.32",
+    "description": "An alternative Windows context menu, and more.",
+    "homepage": "https://github.com/std-microblock/breeze-shell",
+    "license": "AGPL-3.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/std-microblock/breeze-shell/releases/download/0.1.32/windows-build.zip",
+            "hash": "sha256:ed29578f53d597b91de7f03647ac46ba9216aefac0db70de242aca2dd96225ab",
+            "extract_dir": "x64\\releasedbg"
+        }
+    },
+    "shortcuts": [
+        [
+            "breeze.exe",
+            "breeze"
+        ]
+    ]
+}
