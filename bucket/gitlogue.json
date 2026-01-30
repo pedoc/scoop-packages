@@ -1,8 +1,8 @@
 {
-    "version": "0.1.14",
-    "description": "dotnet tool that transpiles a strongly-typed, typescript-inspired scripting language (.shx) into clean, readable bash (.sh)",
-    "homepage": "https://github.com/polatengin/utah",
-    "license": "MIT",
+    "version": "0.7.0",
+    "description": "A cinematic Git commit replay tool for the terminal, turning your Git history into a living, animated story.",
+    "homepage": "https://github.com/unhappychoice/gitlogue",
+    "license": "ISC",
     "architecture": {
         "64bit": {
             "url": "https://github.com/unhappychoice/gitlogue/releases/download/v0.7.0/gitlogue-v0.7.0-x86_64-pc-windows-msvc.zip",
@@ -10,6 +10,6 @@
         }
     },
     "bin": [
-        "utah.exe"
+        "gitlogue.exe"
     ]
 }
