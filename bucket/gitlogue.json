@@ -1,0 +1,15 @@
+{
+    "version": "0.1.14",
+    "description": "dotnet tool that transpiles a strongly-typed, typescript-inspired scripting language (.shx) into clean, readable bash (.sh)",
+    "homepage": "https://github.com/polatengin/utah",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/unhappychoice/gitlogue/releases/download/v0.7.0/gitlogue-v0.7.0-x86_64-pc-windows-msvc.zip",
+            "hash": "sha256:d376d8e4d5eeb3c7916c4a0b4917a56fb29a0a9de0f5271f8c2dbb290f44a2a6"
+        }
+    },
+    "bin": [
+        "utah.exe"
+    ]
+}
