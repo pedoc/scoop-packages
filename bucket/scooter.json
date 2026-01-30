@@ -1,0 +1,15 @@
+{
+    "version": "0.8.5",
+    "description": "Interactive find-and-replace in the terminal",
+    "homepage": "https://github.com/thomasschafer/scooter",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/thomasschafer/scooter/releases/download/v0.8.5/scooter-v0.8.5-x86_64-pc-windows-msvc.zip",
+            "hash": "sha256:9b49fb90cc49705a9d06a2b4277b85481e1b0dd3993809db03b82f75428815cf"
+        }
+    },
+    "bin": [
+        "scooter.exe"
+    ]
+}
