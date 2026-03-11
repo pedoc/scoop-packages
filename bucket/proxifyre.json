@@ -1,0 +1,18 @@
+{
+    "version": "2.2.0",
+    "description": "ProxiFyre: A Windows SOCKS5 proxifier leveraging NDISAPI to transparently route TCP and UDP traffic on a per-app basis.",
+    "homepage": "https://github.com/wiresock/proxifyre",
+    "license": "AGPL-3.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/wiresock/proxifyre/releases/download/v2.2.0/ProxiFyre-v2.2.0-x64-signed.zip",
+            "hash": "89bfb7c3746b026d739d11f77f078b0636704b836349aa4f996b11863c3395b4"
+        }
+    },
+    "shortcuts": [
+        [
+            "ProxiFyre.exe",
+            "ProxiFyre"
+        ]
+    ]
+}
