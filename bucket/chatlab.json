@@ -1,0 +1,18 @@
+{
+    "version": "0.13.0",
+    "description": "Rediscover your social memories with local, AI-powered analysis. 本地化的聊天记录分析工具，通过 AI Agent 回顾你的社交记忆。",
+    "homepage": "https://github.com/hellodigua/ChatLab",
+    "license": "AGPL-3.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/hellodigua/ChatLab/releases/download/v0.13.0/ChatLab-0.13.0-setup.exe",
+            "hash": "sha256:1ba1ecd4d7c07c0b90715202e5d4301bdff5cc0fd333b7369f48e426e082ffe5"
+        }
+    },
+    "shortcuts": [
+        [
+            "ChatLab.exe",
+            "ChatLab"
+        ]
+    ]
+}
