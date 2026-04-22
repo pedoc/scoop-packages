@@ -6,13 +6,13 @@
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/icloud-photos-downloader/icloud_photos_downloader/releases/download/v1.32.2/icloudpd-1.32.2-windows-amd64.exe",
-            "hash": "c4a55ca981b66fbb977380c67ee94b4c95f59dc99242a7670e61acf7912f3cfd"
+            "url": "https://github.com/pedoc/icloud_photos_downloader/releases/download/v1.32.3/icloudpd-1.32.3-windows-amd64.exe",
+            "hash": "sha256:d1d3634925ba3a1a9d28f9d1d2268f378cbb31590b3adbe128e1680d56246eff"
         }
     },
     "bin": [
         [
-            "icloudpd-1.32.2-windows-amd64.exe"
+            "icloudpd-1.32.3-windows-amd64.exe"
             ,"icloudpd"
         ]
     ]
