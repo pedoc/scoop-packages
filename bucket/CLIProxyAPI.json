@@ -1,0 +1,17 @@
+{
+    "version": "6.9.31",
+    "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code as an OpenAI/Gemini/Claude/Codex compatible API service, allowing you to enjoy the free Gemini 2.5 Pro, GPT 5, Claude model through API",
+    "homepage": "https://github.com/router-for-me/CLIProxyAPI",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/router-for-me/CLIProxyAPI/releases/download/v6.9.31/CLIProxyAPI_6.9.31_windows_amd64.zip",
+            "hash": "sha256:cc2b290c9cd9d4ef6219ee99cc458f8d8fffe4f34b546e6320c242ad528bc82c"
+        }
+    },
+    "bin": [
+        [
+            "cli-proxy-api.exe",
+            "cli-proxy-api"
+        ]
+    ]
+}
