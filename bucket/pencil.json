@@ -1,0 +1,22 @@
+{
+    "version": "1.1.51.0",
+    "description": "Dream on canvas. Land in code.",
+    "homepage": "https://www.pencil.dev",
+    "url": "https://www.pencil.dev/download/Pencil-win-x64.exe#/dl.7z",
+    "hash": "675d5723ceff5dbc1f622c3bcbf890d975f08c6530a02b9c43e82b52b7fce2f0",
+     "architecture": {
+        "64bit": {
+            "pre_install": "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-64.7z\" \"$dir\""
+        },
+        "32bit": {
+            "pre_install": "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-32.7z\" \"$dir\""
+        }
+    },
+    "post_install": "Remove-Item \"$dir\\`$*\" -Force -Recurse",
+    "shortcuts": [
+        [
+            "Pencil.exe",
+            "Pencil"
+        ]
+    ]
+}
