@@ -1,0 +1,22 @@
+{
+    "version": "1.9.19",
+    "description": "Free, local, open-source 24/7 Cowork app and OpenClaw for Gemini CLI, Claude Code, Codex, OpenCode, Qwen Code, Goose CLI, Auggie, and more | 🌟 Star if you like it!",
+    "homepage": "https://github.com/iOfficeAI/AionUi",
+    "url": "https://github.com/iOfficeAI/AionUi/releases/download/v1.9.19/AionUi-1.9.19-win-x64.exe#/dl.7z",
+    "hash": "sha256:185372d6346f29f37349f7d901a8e30f96d05ab7bf834d83d3f8a380f317cc00",
+     "architecture": {
+        "64bit": {
+            "pre_install": "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-64.7z\" \"$dir\""
+        },
+        "32bit": {
+            "pre_install": "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-32.7z\" \"$dir\""
+        }
+    },
+    "post_install": "Remove-Item \"$dir\\`$*\" -Force -Recurse",
+    "shortcuts": [
+        [
+            "AionUi.exe",
+            "AionUi"
+        ]
+    ]
+}
