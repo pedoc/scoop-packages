@@ -1,13 +1,13 @@
 {
     "_copy_from":"https://raw.githubusercontent.com/unoun/scoop-bucket/main/bucket/qgis.json",
-    "version": "3.32.3-1",
+    "version": "4.0.1-1",
     "description": "QGIS is a user friendly Open Source Geographic Information System",
     "homepage": "https://qgis.org/",
     "license": "GPL-2.0-or-later",
     "notes": "For file associations, run 'reg import \"$dir\\apps\\qgis\\bin\\qgis.reg\"'",
-    "url": "https://download.qgis.org/downloads/QGIS-OSGeo4W-3.32.3-1.msi",
-    "hash": "5c0416ff714e49ceee7af6fd23a5b7c0244959afb6bebd617516c12d795a9de8",
-    "extract_dir": "QGIS 3.32.3",
+    "url": "https://download.qgis.org/downloads/QGIS-OSGeo4W-4.0.1-1.msi",
+    "hash": "a5341c6151a6267879f3477c92030844b9a38ecf26c0c535a21bbaf44e1ee96c",
+    "extract_dir": "QGIS 4.0.1",
     "bin": "bin\\qgis-bin.exe",
     "shortcuts": [
         [
@@ -34,8 +34,8 @@
         ]
     },
     "checkver": {
-        "url": "https://download.qgis.org/downloads/?C=N;O=D",
-        "regex": "<td><a href=\"QGIS-OSGeo4W-([\\d.-]+)\\.msi\""
+        "url": "https://qgis.org/resources/installation-guide/",
+        "regex": "<td>Latest Release</td><td>[^<>]*</td><td><a href=https://download.qgis.org/downloads/QGIS-OSGeo4W-([\\d.-]+)\\.msi>Installer</a>"
     },
     "autoupdate": {
         "url": "https://download.qgis.org/downloads/QGIS-OSGeo4W-$version.msi",
