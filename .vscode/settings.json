@@ -1,0 +1,37 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^powershell -Command \"Invoke-WebRequest -Uri 'https://github\\.com/1jehuang/mermaid-rs-renderer/releases/download/v0\\.2\\.2/mmdr-x86_64-pc-windows-msvc\\.zip' -OutFile mmdr-x86_64-pc-windows-msvc\\.zip; Get-FileHash mmdr-x86_64-pc-windows-msvc\\.zip -Algorithm SHA256 \\| Select-Object -ExpandProperty Hash\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "tar": true,
+        "/^powershell -Command \"Add-Type -AssemblyName System\\.IO\\.Compression\\.FileSystem; \\[System\\.IO\\.Compression\\.ZipFile\\]::OpenRead\\('mmdr-x86_64-pc-windows-msvc\\.zip'\\)\\.Entries \\| ForEach-Object \\{ \\$_\\.FullName \\}\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -Command \"Add-Type -AssemblyName System\\.IO\\.Compression\\.FileSystem; \\$z=\\[System\\.IO\\.Compression\\.ZipFile\\]::OpenRead\\('mmdr-x86_64-pc-windows-msvc\\.zip'\\); \\$z\\.Entries \\| ForEach-Object \\{ \\$_\\.FullName \\}; \\$z\\.Dispose\\(\\)\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -Command \"Remove-Item -Recurse -Force mmdr_unpack -ErrorAction SilentlyContinue; Expand-Archive -Path 'mmdr-x86_64-pc-windows-msvc\\.zip' -DestinationPath mmdr_unpack -Force; Get-ChildItem -Recurse mmdr_unpack \\| Select-Object -ExpandProperty FullName\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -Command \"Remove-Item -Force mmdr-x86_64-pc-windows-msvc\\.zip, -ErrorAction SilentlyContinue; Remove-Item -Recurse -Force mmdr_unpack -ErrorAction SilentlyContinue\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -Command \"Remove-Item -Force 'mmdr-x86_64-pc-windows-msvc\\.zip' -ErrorAction SilentlyContinue; Remove-Item -Recurse -Force 'mmdr_unpack' -ErrorAction SilentlyContinue\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -Command \"Remove-Item -Force 'mmdr-x86_64-pc-windows-msvc\\.zip' -ErrorAction SilentlyContinue\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -Command \"Remove-Item -Recurse -Force 'mmdr_unpack' -ErrorAction SilentlyContinue\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
