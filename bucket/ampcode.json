@@ -1,11 +1,11 @@
 {
-  "version": "latest",
+  "version": "0.0.1778242835-gd91048",
   "description": "Amp CLI — command line client for Amp",
   "homepage": "https://ampcode.com",
   "license": "MIT",
   "architecture": {
     "64bit": {
-      "url": "https://static.ampcode.com/cli/latest/amp-windows-x64-baseline.exe",
+      "url": "https://static.ampcode.com/cli/0.0.1778242835-gd91048/amp-windows-x64-baseline.exe",
       "hash": "SKIP"
     }
   },
