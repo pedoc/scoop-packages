@@ -1,0 +1,24 @@
+{
+  "version": "latest",
+  "description": "Amp CLI — command line client for Amp",
+  "homepage": "https://ampcode.com",
+  "license": "MIT",
+  "architecture": {
+    "64bit": {
+      "url": "https://static.ampcode.com/cli/latest/amp-windows-x64-baseline.exe",
+      "hash": "SKIP"
+    }
+  },
+  "bin": "amp.exe",
+  "checkver": {
+    "url": "https://static.ampcode.com/cli/cli-version.txt",
+    "re": "(?m)^(?<version>\\S+)$"
+  },
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://static.ampcode.com/cli/{{version}}/amp-windows-x64-baseline.exe"
+      }
+    }
+  }
+}
