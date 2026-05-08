@@ -6,7 +6,7 @@
   "architecture": {
     "64bit": {
       "url": "https://static.ampcode.com/cli/0.0.1778242835-gd91048/amp-windows-x64-baseline.exe",
-      "hash": "SKIP"
+      "hash": "2971270da4b05e44dc91c9599aeadf737a8436086cfc0e7154aa705df860276d"
     }
   },
   "bin": "amp.exe",
