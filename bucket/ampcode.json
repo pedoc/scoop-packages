@@ -9,7 +9,12 @@
       "hash": "2971270da4b05e44dc91c9599aeadf737a8436086cfc0e7154aa705df860276d"
     }
   },
-  "bin": "amp.exe",
+  "bin": [
+    [
+      "amp-windows-x64-baseline.exe",
+      "amp"
+    ]
+  ],
   "checkver": {
     "url": "https://static.ampcode.com/cli/cli-version.txt",
     "re": "(?m)^(?<version>\\S+)$"
