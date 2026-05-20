@@ -4,7 +4,7 @@
     "homepage": "https://github.com/pedoc/CodexPlusPlus",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/pedoc/CodexPlusPlus/releases/download/v$version/CodexPlusPlus-$version-win.zip",
+            "url": "https://github.com/pedoc/CodexPlusPlus/releases/download/v1.1.7/CodexPlusPlus-1.1.7-windows-x64.zip",
             "hash": "sha256:60c5e15bc8f314cbdeb1dd770d12cfbe485b86594670798f70485b6cd65ca596"
         }
     },
@@ -21,7 +21,7 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/pedoc/CodexPlusPlus/releases/download/v$version/CodexPlusPlus-$version-win.zip"
+                "url": "https://github.com/pedoc/CodexPlusPlus/releases/download/v$version/CodexPlusPlus-$version-windows-x64.zip"
             }
         }
     }
