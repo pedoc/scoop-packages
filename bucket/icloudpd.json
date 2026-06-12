@@ -6,8 +6,8 @@
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/pedoc/icloud_photos_downloader/releases/download/v1.32.3/icloudpd-1.32.3-windows-amd64.exe",
-            "hash": "sha256:d1d3634925ba3a1a9d28f9d1d2268f378cbb31590b3adbe128e1680d56246eff"
+            "url": "https://github.com/icloud-photos-downloader/icloud_photos_downloader/releases/download/v1.32.3/icloudpd-1.32.3-windows-amd64.exe",
+            "hash": "sha256:b691ada7a7404460a79358008586b77784b7b82fb09372f90f5c845e7eacb584"
         }
     },
     "bin": [
