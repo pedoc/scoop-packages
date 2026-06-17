@@ -1,11 +1,11 @@
 {
-    "version": "1.1.7",
+    "version": "1.2.13",
     "description": "CodexPlusPlus - Windows build",
     "homepage": "https://github.com/pedoc/CodexPlusPlus",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/pedoc/CodexPlusPlus/releases/download/v1.1.7/CodexPlusPlus-1.1.7-windows-x64.zip",
-            "hash": "sha256:60c5e15bc8f314cbdeb1dd770d12cfbe485b86594670798f70485b6cd65ca596"
+            "url": "https://github.com/pedoc/CodexPlusPlus/releases/download/v1.2.13/CodexPlusPlus-1.2.13-windows-x64.zip",
+            "hash": "sha256:5eb1996721c3529ced5cd8d843cacbf841f31cbc7aa148a640827acca665ef30"
         }
     },
     "shortcuts": [
