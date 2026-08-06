@@ -1,13 +1,13 @@
 {
-    "version": "6.6.4",
+    "version": "6.17.4",
     "description": "Simple and easy to use DDNS. Support Aliyun, Tencent Cloud, Dnspod, Cloudflare, Callback, Huawei Cloud, Baidu Cloud, Porkbun, GoDaddy, Namecheap, NameSilo...",
     "homepage": "https://github.com/pedoc/ddns-go",
     "license": "MIT",
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/pedoc/ddns-go/releases/download/v6.6.4/ddns-go_6.6.4_windows_x86_64.zip",
-            "hash": "F9FE25D787B4FD09E4FCA8577326D1D55684C805B14D8BED49715E79200F995F"
+            "url": "https://github.com/pedoc/ddns-go/releases/download/v6.17.4/ddns-go_6.17.4_windows_x86_64.zip",
+            "hash": "sha256:3450d487aebbd01691e23d79e0e1be9ae2728f30e34db59584dd5a4067c22d26"
         }
     },
     "bin": [
