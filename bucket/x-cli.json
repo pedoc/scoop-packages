@@ -1,0 +1,35 @@
+{
+    "version": "6.0.0-fork.2",
+    "description": "Command-line interface for the X API",
+    "homepage": "https://github.com/pedoc/x-cli",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/pedoc/x-cli/releases/download/v6.0.0-fork.2/x-v6.0.0-fork.2-x86_64-pc-windows-msvc.zip",
+            "hash": "6dcb63ded32460480088cc9df198c9f20d171512306ac500a7a3ae50a336bbc1"
+        },
+        "arm64": {
+            "url": "https://github.com/pedoc/x-cli/releases/download/v6.0.0-fork.2/x-v6.0.0-fork.2-aarch64-pc-windows-msvc.zip",
+            "hash": "a4cc96b9c2f0e490b882bbd8a33126c52b024dfd1aa85ebe0cb9c991f642853c"
+        }
+    },
+    "bin": "x.exe",
+    "notes": "Requires X API credentials and access. X API usage charges and platform rate limits still apply.",
+    "checkver": {
+        "url": "https://github.com/pedoc/x-cli/releases/latest",
+        "regex": "/releases/tag/v([\\w.-]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/pedoc/x-cli/releases/download/v$version/x-v$version-x86_64-pc-windows-msvc.zip"
+            },
+            "arm64": {
+                "url": "https://github.com/pedoc/x-cli/releases/download/v$version/x-v$version-aarch64-pc-windows-msvc.zip"
+            }
+        },
+        "hash": {
+            "url": "https://github.com/pedoc/x-cli/releases/download/v$version/SHA256SUMS.txt"
+        }
+    }
+}
