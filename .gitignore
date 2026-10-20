@@ -1,1 +1,5 @@
 .idea
+.scoop-core/
+.devtools/
+TestResults/
+*.coverage.xml

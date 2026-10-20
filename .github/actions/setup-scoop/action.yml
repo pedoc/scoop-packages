@@ -1,0 +1,31 @@
+name: Set up pinned Scoop tools
+description: Check out the reviewed Scoop core without installing applications.
+inputs:
+  test-tools:
+    description: Save pinned development modules for offline tests and analysis.
+    required: false
+    default: 'false'
+outputs:
+  scoop-home:
+    description: Path to the trusted Scoop source checkout.
+    value: ${{ github.workspace }}/.scoop-core
+runs:
+  using: composite
+  steps:
+    - name: Check out reviewed Scoop core
+      uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      with:
+        repository: ScoopInstaller/Scoop
+        ref: e6aa3b366bdee8ed138c1e0f7b85192ebdd35d0f
+        path: .scoop-core
+        persist-credentials: false
+    - name: Export tool paths
+      shell: pwsh
+      run: |
+        "SCOOP_HOME=$env:GITHUB_WORKSPACE/.scoop-core" >> $env:GITHUB_ENV
+        "SCOOP_CORE_SHA=e6aa3b366bdee8ed138c1e0f7b85192ebdd35d0f" >> $env:GITHUB_ENV
+        "SCOOP_TEST_MODULES=$env:RUNNER_TEMP/scoop-test-modules" >> $env:GITHUB_ENV
+    - name: Save pinned test dependencies
+      if: inputs.test-tools == 'true'
+      shell: pwsh
+      run: ./bin/install-test-tools.ps1 -ModulesDirectory "$env:RUNNER_TEMP/scoop-test-modules"

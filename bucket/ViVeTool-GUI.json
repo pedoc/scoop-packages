@@ -2,7 +2,10 @@
     "version": "1.6.99.3",
     "description": "Windows Feature Control GUI based on ViVe / ViVeTool",
     "homepage": "https://github.com/PeterStrick/ViVeTool-GUI",
-    "license": "",
+    "license": {
+        "identifier": "GPL-3.0",
+        "url": "https://github.com/PeterStrick/ViVeTool-GUI/blob/master/LICENSE"
+    },
     "notes": "",
     "architecture": {
         "64bit": {
@@ -10,9 +13,7 @@
             "hash": "8235e17ad5bdea40716bc7c0e452ac08b45dae2cef87835574e326f8301ea140"
         }
     },
-    "bin": [
-        "ViVeTool_GUI.exe"
-    ],
+    "bin": "ViVeTool_GUI.exe",
     "shortcuts": [
         [
             "ViVeTool_GUI.exe",
@@ -20,6 +21,14 @@
         ]
     ],
     "checkver": {
-        "github": "https://github.com/PeterStrick/ViVeTool-GUI"
+        "url": "https://api.github.com/repos/PeterStrick/ViVeTool-GUI/releases?per_page=20",
+        "regex": "https://github.com/PeterStrick/ViVeTool-GUI/releases/download/v([\\d.]+)/(?<asset>(?:v[\\d.]+_PRE_RELEASE_HOTFIX|ViVeTool\\.GUI\\.[\\d.]+\\.Portable)\\.zip)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/PeterStrick/ViVeTool-GUI/releases/download/v$version/$matchAsset"
+            }
+        }
     }
 }

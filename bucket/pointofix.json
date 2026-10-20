@@ -2,7 +2,10 @@
     "version": "1.8.0",
     "description": "Pointofix ist der Textmarker für Ihren Bildschirm zur Unterstützung Ihrer Vorträge, Schulungen und Präsentationen.",
     "homepage": "https://www.pointofix.de/",
-    "license": "",
+    "license": {
+        "identifier": "Freeware",
+        "url": "https://www.pointofix.de/download.php"
+    },
     "notes": "",
     "architecture": {
         "64bit": {
@@ -15,5 +18,17 @@
             "Pointofix.exe",
             "Pointofix"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://www.pointofix.de/download.php",
+        "regex": "(?<asset>pointofix(?<major>\\d)(?<minor>\\d)(?<patch>\\d)de-\\d+-direkt\\.zip)",
+        "replace": "${major}.${minor}.${patch}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://www.pointofix.de/download/$matchAsset"
+            }
+        }
+    }
 }

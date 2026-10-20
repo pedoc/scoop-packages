@@ -9,5 +9,16 @@
             "sysfontbold.exe",
             "System Font Bold"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://www.wintools.info/index.php/system-font-bold",
+        "regex": "Version:\\s+([\\d.]+)"
+    },
+    "autoupdate": {
+        "url": "https://www.wintools.info/Download/sysfontbold.exe"
+    },
+    "license": {
+        "identifier": "Proprietary",
+        "url": "https://www.wintools.info/index.php/windows-10-system-font-settings-terms-of-use"
+    }
 }

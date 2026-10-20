@@ -14,5 +14,16 @@
             "xelfviewer.exe",
             "XELFViewer"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/horsicq/XELFViewer/releases/tags/Beta",
+        "regex": "xelfviewer_win64_portable_([\\d.]+)_x64\\.zip"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/horsicq/XELFViewer/releases/download/Beta/xelfviewer_win64_portable_$version_x64.zip"
+            }
+        }
+    }
 }

@@ -2,7 +2,10 @@
     "version": "12.77",
     "description": "Save and restore the positions of the Windows Desktop Icons and many helpful Windows 12, 10, 11, ect. Desktop-Tools for private, office and commercial usage.",
     "homepage": "https://www.softwareok.com/?seite=Freeware/DesktopOK",
-    "license":"",
+    "license": {
+        "identifier": "Freeware",
+        "url": "https://www.softwareok.com/?seite=Freeware/DesktopOK/Eula"
+    },
     "architecture": {
         "64bit": {
             "url": "https://www.softwareok.com/Download/DesktopOK_x64.zip",
@@ -14,5 +17,16 @@
             "DesktopOK_x64.exe",
             "DesktopOK"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://www.softwareok.com/?seite=Freeware/DesktopOK",
+        "regex": "<title>DesktopOK ([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://www.softwareok.com/Download/DesktopOK_x64.zip"
+            }
+        }
+    }
 }

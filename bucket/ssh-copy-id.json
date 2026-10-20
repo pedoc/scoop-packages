@@ -14,5 +14,15 @@
             "ssh-copy-id.exe",
             "ssh-copy-id"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/pedoc/ssh-copy-id"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/pedoc/ssh-copy-id/releases/download/v$version/ssh-copy-id.exe"
+            }
+        }
+    }
 }

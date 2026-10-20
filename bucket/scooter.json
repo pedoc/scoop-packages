@@ -9,7 +9,18 @@
             "hash": "sha256:9b49fb90cc49705a9d06a2b4277b85481e1b0dd3993809db03b82f75428815cf"
         }
     },
-    "bin": [
-        "scooter.exe"
-    ]
+    "bin": "scooter.exe",
+    "checkver": {
+        "github": "https://github.com/thomasschafer/scooter"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/thomasschafer/scooter/releases/download/v$version/scooter-v$version-x86_64-pc-windows-msvc.zip"
+            }
+        },
+        "hash": {
+            "url": "$url.sha256"
+        }
+    }
 }

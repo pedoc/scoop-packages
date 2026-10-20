@@ -16,7 +16,12 @@
             "Mark Text"
         ]
     ],
-    "checkver": "github",
+    "checkver": {
+        "url": "https://api.github.com/repos/pedoc/marktext/releases?per_page=100",
+        "jsonpath": "$[?(@.draft == false)].assets[*].browser_download_url",
+        "regex": "download/v(?<ver>[\\d.]+)/marktext-win-x64-\\k<ver>\\.zip(?![\\w.])",
+        "replace": "${ver}"
+    },
     "autoupdate": {
         "architecture": {
             "64bit": {

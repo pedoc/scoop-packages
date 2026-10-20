@@ -14,5 +14,15 @@
             "clashmi.exe",
             "ClashMi"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/KaringX/clashmi"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/KaringX/clashmi/releases/download/v$version/clashmi_$version_windows_x64.zip"
+            }
+        }
+    }
 }

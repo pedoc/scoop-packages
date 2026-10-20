@@ -12,8 +12,18 @@
     },
     "bin": [
         [
-            "websocat.x86_64-pc-windows-gnu.exe"
-            ,"websocat"
+            "websocat.x86_64-pc-windows-gnu.exe",
+            "websocat"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/vi/websocat"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/vi/websocat/releases/download/v$version/websocat.x86_64-pc-windows-gnu.exe"
+            }
+        }
+    }
 }

@@ -14,5 +14,18 @@
             "lstr.exe",
             "lstr"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/bgreenwell/lstr/releases/latest",
+        "jsonpath": "$.assets[*].browser_download_url",
+        "regex": "download/(?<tag>v(?<ver>[\\d.]+))/(?<asset>lstr-(?:windows-x86_64|x86_64-pc-windows-msvc)\\.zip)(?![\\w.])",
+        "replace": "${ver}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/bgreenwell/lstr/releases/download/$matchTag/$matchAsset"
+            }
+        }
+    }
 }

@@ -14,5 +14,21 @@
             "nping.exe",
             "nping"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/hanshuaikang/Nping"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/hanshuaikang/Nping/releases/download/v$version/nbping-x86_64-pc-windows-msvc.zip"
+            }
+        },
+        "bin": [
+            [
+                "nbping.exe",
+                "nping"
+            ]
+        ]
+    }
 }

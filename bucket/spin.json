@@ -10,7 +10,15 @@
             "hash": "1682de35cef131bd4cc40da23336e2ffdaae7645f134b63effde71c1d91700a6"
         }
     },
-    "bin": [
-       "spin.exe"
-    ]
+    "bin": "spin.exe",
+    "checkver": {
+        "github": "https://github.com/fermyon/spin"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/fermyon/spin/releases/download/v$version/spin-v$version-windows-amd64.zip"
+            }
+        }
+    }
 }

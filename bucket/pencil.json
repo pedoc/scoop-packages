@@ -4,7 +4,7 @@
     "homepage": "https://www.pencil.dev",
     "url": "https://www.pencil.dev/download/Pencil-win-x64.exe#/dl.7z",
     "hash": "bf5617e96340d1440e3afd50722d8cadf42a677cf3e12765b1e366e8fb14c979",
-     "architecture": {
+    "architecture": {
         "64bit": {
             "pre_install": "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-64.7z\" \"$dir\""
         },
@@ -18,5 +18,9 @@
             "Pencil.exe",
             "Pencil"
         ]
-    ]
+    ],
+    "license": {
+        "identifier": "Proprietary",
+        "url": "https://www.pencil.dev/terms"
+    }
 }

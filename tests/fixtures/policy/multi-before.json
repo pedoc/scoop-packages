@@ -1,0 +1,30 @@
+{
+    "version": "2.4.0",
+    "description": "Multiple architecture and inherited array fixture",
+    "homepage": "https://example.com/multi",
+    "license": "MIT",
+    "url": ["https://example.com/multi/2.4.0/data.zip", "https://example.com/multi/2.4.0/help.zip"],
+    "hash": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"],
+    "architecture": {
+        "32bit": {},
+        "64bit": {
+            "url": ["https://example.com/multi/2.4.0/x64.zip", "https://example.com/multi/2.4.0/help.zip"],
+            "hash": ["cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"],
+            "extract_dir": ["multi-2.4.0", "help-2.4.0"]
+        },
+        "arm64": {
+            "url": ["https://example.com/multi/2.4.0/arm64.zip", "https://example.com/multi/2.4.0/help.zip"]
+        }
+    },
+    "checkver": {"url": "https://example.com/multi", "regex": "([\\d.]+)"},
+    "autoupdate": {
+        "url": ["https://example.com/multi/$version/data.zip", "https://example.com/multi/$version/help.zip"],
+        "architecture": {
+            "64bit": {
+                "url": ["https://example.com/multi/$version/x64.zip", "https://example.com/multi/$version/help.zip"],
+                "extract_dir": ["multi-$version", "help-$version"]
+            },
+            "arm64": {"url": ["https://example.com/multi/$version/arm64.zip", "https://example.com/multi/$version/help.zip"]}
+        }
+    }
+}

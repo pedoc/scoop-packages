@@ -17,5 +17,14 @@
             "ILSpy.exe",
             "ILSpy"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/icsharpcode/ILSpy/releases/latest",
+        "jsonpath": "$.assets[*].browser_download_url",
+        "regex": "download/(?<tag>v[\\d.]+)/(?<asset>ILSpy_(?:binaries|windows)_(?<ver>[\\d.]+)-x64\\.zip)(?![\\w.])",
+        "replace": "${ver}"
+    },
+    "autoupdate": {
+        "url": "https://github.com/icsharpcode/ILSpy/releases/download/$matchTag/$matchAsset"
+    }
 }

@@ -2,7 +2,10 @@
     "version": "7.37",
     "description": "NewFileTime is a Windows tool that provides you easy access to correct or manipulate any of the timestamps for any file and folder on your Microsoft Windows system.",
     "homepage": "http://www.softwareok.com/?seite=Microsoft/NewFileTime",
-    "license": "",
+    "license": {
+        "identifier": "Freeware",
+        "url": "https://www.softwareok.com/?seite=Microsoft/NewFileTime/Eula"
+    },
     "notes": "",
     "architecture": {
         "64bit": {
@@ -15,5 +18,16 @@
             "NewFileTime_x64.exe",
             "NewFileTime"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://www.softwareok.com/?seite=Microsoft/NewFileTime",
+        "regex": "New in version ([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "http://www.softwareok.com/Download/NewFileTime_x64.zip"
+            }
+        }
+    }
 }

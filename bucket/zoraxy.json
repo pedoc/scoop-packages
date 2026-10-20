@@ -12,8 +12,19 @@
     },
     "bin": [
         [
-            "zoraxy_windows_amd64.exe"
-            ,"zoraxy"
+            "zoraxy_windows_amd64.exe",
+            "zoraxy"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/tobychui/zoraxy/releases?per_page=20",
+        "regex": "\"tag_name\":\\s*\"v([\\d.]+)\""
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/tobychui/zoraxy/releases/download/v$version/zoraxy_windows_amd64.exe"
+            }
+        }
+    }
 }

@@ -10,7 +10,16 @@
             "hash": "46ff95bedd8f8940f4eb60e07755b1828e02b7d9608d1b3602acfcbc0fb52ba1"
         }
     },
-    "bin": [
-       "tcping.exe"
-    ]
+    "bin": "tcping.exe",
+    "checkver": {
+        "url": "https://api.github.com/repos/pouriyajamshidi/tcping/releases/latest",
+        "regex": "https://github.com/pouriyajamshidi/tcping/releases/download/v([\\d.]+)/(?<asset>tcping(?:_Windows|-windows-amd64-static)\\.zip)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/pouriyajamshidi/tcping/releases/download/v$version/$matchAsset"
+            }
+        }
+    }
 }

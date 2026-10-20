@@ -1,0 +1,155 @@
+name: Validate and merge Scoop update
+run-name: 'Scoop update #${{ inputs.pr_number }} (${{ inputs.app }})'
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Existing managed update PR number.
+        type: number
+        required: true
+      expected_head:
+        description: Exact PR head commit to validate and merge.
+        type: string
+        required: true
+      app:
+        description: Existing Scoop manifest name.
+        type: string
+        required: true
+      publish:
+        description: Post results and merge after validation; also requires the rollout flag.
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  GIT_CONFIG_COUNT: '1'
+  GIT_CONFIG_KEY_0: core.autocrlf
+  GIT_CONFIG_VALUE_0: 'false'
+  APP: ${{ inputs.app }}
+  PR_NUMBER: ${{ inputs.pr_number }}
+  EXPECTED_HEAD: ${{ inputs.expected_head }}
+  DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+  SCOOP_UPDATES_ENABLED: ${{ vars.SCOOP_UPDATES_ENABLED }}
+
+concurrency:
+  group: scoop-validation-${{ inputs.pr_number }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+      pull-requests: read
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Require trusted default-branch code
+        run: |
+          if ($env:GITHUB_REF -cne "refs/heads/$env:DEFAULT_BRANCH") { throw 'Dispatch this workflow on the exact default branch, never a PR branch or tag.' }
+      - name: Check out immutable trusted validator code
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up reviewed tooling
+        uses: ./.github/actions/setup-scoop
+      - name: Validate exact PR manifest data and all download hashes
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          ./bin/github-update.ps1 -Mode Validate -Repository $env:GITHUB_REPOSITORY -App $env:APP -BaseBranch $env:DEFAULT_BRANCH -PrNumber $env:PR_NUMBER -ExpectedHead $env:EXPECTED_HEAD -ScoopHome $env:SCOOP_HOME -OutputDirectory "$env:RUNNER_TEMP/validation" -RunId $env:GITHUB_RUN_ID -RunAttempt $env:GITHUB_RUN_ATTEMPT
+      - name: Retain only this run validation record
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: validation-${{ inputs.pr_number }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/validation/validation.json
+          if-no-files-found: warn
+          retention-days: 7
+
+  status:
+    needs: validate
+    if: >-
+      always() && !cancelled() &&
+      github.event_name == 'workflow_dispatch' &&
+      github.ref_type == 'branch' && github.ref_name == github.event.repository.default_branch &&
+      vars.SCOOP_UPDATES_ENABLED == 'true' && inputs.publish
+    runs-on: windows-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+      statuses: write
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Require the exact default-branch ref
+        run: |
+          if ($env:GITHUB_REF -cne "refs/heads/$env:DEFAULT_BRANCH") { throw 'Status publication is restricted to the exact default branch.' }
+      - name: Check out trusted status code without credentials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up reviewed tooling
+        uses: ./.github/actions/setup-scoop
+      - name: Download this exact run validation evidence
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: validation-${{ inputs.pr_number }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/validation-record
+      - name: Record this run result on the exact PR head
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          VALIDATION_RESULT: ${{ needs.validate.result }}
+        run: |
+          $result = ./bin/github-update.ps1 -Mode Status -Repository $env:GITHUB_REPOSITORY -App $env:APP -BaseBranch $env:DEFAULT_BRANCH -PrNumber $env:PR_NUMBER -ExpectedHead $env:EXPECTED_HEAD -ValidationPath "$env:RUNNER_TEMP/validation-record/validation.json" -ScoopHome $env:SCOOP_HOME -RunId $env:GITHUB_RUN_ID -RunAttempt $env:GITHUB_RUN_ATTEMPT -Enabled $env:SCOOP_UPDATES_ENABLED -Publish -ValidationSucceeded:($env:VALIDATION_RESULT -ceq 'success') | ConvertFrom-Json
+          if (!$result.statusPosted) { throw 'Current-run status publication was not confirmed.' }
+
+  merge:
+    needs: [validate, status]
+    if: >-
+      !cancelled() &&
+      github.event_name == 'workflow_dispatch' &&
+      github.ref_type == 'branch' && github.ref_name == github.event.repository.default_branch &&
+      vars.SCOOP_UPDATES_ENABLED == 'true' && inputs.publish &&
+      needs.validate.result == 'success' && needs.status.result == 'success'
+    runs-on: windows-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: read
+      statuses: read
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Require the exact default-branch ref
+        run: |
+          if ($env:GITHUB_REF -cne "refs/heads/$env:DEFAULT_BRANCH") { throw 'Merging is restricted to the exact default branch.' }
+      - name: Check out trusted merger code without credentials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up reviewed tooling
+        uses: ./.github/actions/setup-scoop
+      - name: Download this exact run successful validation record
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: validation-${{ inputs.pr_number }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/validation-record
+      - name: Recheck rollout gate, current inputs, and head before merge
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          $result = ./bin/github-update.ps1 -Mode Merge -Repository $env:GITHUB_REPOSITORY -App $env:APP -BaseBranch $env:DEFAULT_BRANCH -PrNumber $env:PR_NUMBER -ExpectedHead $env:EXPECTED_HEAD -ValidationPath "$env:RUNNER_TEMP/validation-record/validation.json" -ScoopHome $env:SCOOP_HOME -RunId $env:GITHUB_RUN_ID -RunAttempt $env:GITHUB_RUN_ATTEMPT -Enabled $env:SCOOP_UPDATES_ENABLED -Publish -ValidationSucceeded | ConvertFrom-Json
+          if (!$result.merged) { throw 'The API did not confirm a merge.' }

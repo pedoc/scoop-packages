@@ -8,19 +8,18 @@
         "64bit": {
             "url": "https://github.com/sharkdp/binocle/releases/download/v0.3.1/binocle-v0.3.1-x86_64-pc-windows-msvc.zip",
             "hash": "ef52a59e306b6916ee6d028e40992a6945ec1b70fb129fc09f73091f1a4c13f6",
-            "extract_dir":"binocle-v0.3.1-x86_64-pc-windows-msvc"
+            "extract_dir": "binocle-v0.3.1-x86_64-pc-windows-msvc"
         }
     },
-    "bin": [
-        "binocle.exe"
-    ],
+    "bin": "binocle.exe",
     "checkver": {
         "github": "https://github.com/sharkdp/binocle"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/sharkdp/binocle/releases/download/v$cleanVersion/binocle-v$cleanVersion-x86_64-pc-windows-msvc.zip"
+                "url": "https://github.com/sharkdp/binocle/releases/download/v$version/binocle-v$version-x86_64-pc-windows-msvc.zip",
+                "extract_dir": "binocle-v$version-x86_64-pc-windows-msvc"
             }
         }
     }

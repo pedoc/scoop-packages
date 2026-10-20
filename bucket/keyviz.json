@@ -17,5 +17,21 @@
             "keyviz.exe",
             "Keyviz"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/mulaRahul/keyviz"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/mulaRahul/keyviz/releases/download/v$version/keyviz_$version_windows.msi"
+            }
+        },
+        "shortcuts": [
+            [
+                "SourceDir\\PFiles\\keyviz\\keyviz.exe",
+                "Keyviz"
+            ]
+        ]
+    }
 }

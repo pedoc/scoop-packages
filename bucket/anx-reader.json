@@ -14,5 +14,15 @@
             "anx_reader.exe",
             "Anx Reader"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/Anxcye/anx-reader"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/Anxcye/anx-reader/releases/download/v$version/Anx-Reader-windows-$version.zip"
+            }
+        }
+    }
 }

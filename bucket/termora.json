@@ -14,5 +14,20 @@
             "Termora.exe",
             "Termora"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/TermoraDev/termora"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/TermoraDev/termora/releases/download/$version/termora-$version-windows-x86-64.zip",
+                "extract_dir": "Termora"
+            }
+        }
+    },
+    "license": {
+        "identifier": "AGPL-3.0",
+        "url": "https://github.com/TermoraDev/termora/blob/1.0.17/README.md#license"
+    }
 }

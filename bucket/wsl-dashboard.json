@@ -14,9 +14,16 @@
     ],
     "checkver": "github",
     "autoupdate": {
-        "url": "https://github.com/owu/wsl-dashboard/releases/download/v$version/wsldashboard.v$version.exe",
+        "url": "https://github.com/owu/wsl-dashboard/releases/download/v$version/WSLDashboard.$version.Portable.x64.zip",
         "hash": {
-            "url": "$url.sha256"
-        }
+            "mode": "download"
+        },
+        "bin": "WSLDashboard.$version.Portable.x64.exe",
+        "shortcuts": [
+            [
+                "WSLDashboard.$version.Portable.x64.exe",
+                "WSL Dashboard"
+            ]
+        ]
     }
 }

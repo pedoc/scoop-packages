@@ -14,5 +14,18 @@
             "ProxiFyre.exe",
             "ProxiFyre"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/wiresock/proxifyre/releases/latest",
+        "jsonpath": "$.assets[*].browser_download_url",
+        "regex": "download/(?<tag>v(?<ver>[\\d.]+))/(?<asset>ProxiFyre-v[\\d.]+-x64(?:-signed)?\\.zip)(?![\\w.])",
+        "replace": "${ver}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/wiresock/proxifyre/releases/download/$matchTag/$matchAsset"
+            }
+        }
+    }
 }

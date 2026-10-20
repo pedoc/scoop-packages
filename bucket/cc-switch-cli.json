@@ -2,6 +2,7 @@
     "version": "5.5.0",
     "description": "All-in-One Assistant for Claude Code, Codex, Gemini, OpenCode & OpenClaw",
     "homepage": "https://github.com/SaladDay/cc-switch-cli",
+    "license": "MIT",
     "architecture": {
         "64bit": {
             "url": "https://github.com/SaladDay/cc-switch-cli/releases/download/v5.5.0/cc-switch-cli-v5.5.0-windows-x64.zip",

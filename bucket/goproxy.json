@@ -13,5 +13,15 @@
     "bin": [
         "proxy.exe",
         "proxy-noconsole.exe"
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/snail007/goproxy"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/snail007/goproxy/releases/download/v$version/proxy-windows-amd64.tar.gz"
+            }
+        }
+    }
 }
