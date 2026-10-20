@@ -1,20 +1,20 @@
 {
-    "version": "1.3",
+    "version": "1.3.5",
     "description": "an easy-to-use, cross-platform multi-track audio editor/recorder",
     "homepage": "https://tenacityaudio.org/",
     "license": "GPL-2.0-or-later",
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://codeberg.org/attachments/9d042b48-0730-430b-b3e4-237f66b16005#dl.zip",
-            "hash": "ce86d558c23ed1630bdae4e1ec9cf1be8c500e0844153a4fad9abaf855ddf6a4",
-            "extract_dir": "tenacity-win-v1.3-beta3-x86_64"
+            "url": "https://codeberg.org/tenacityteam/tenacity/releases/download/v1.3.5/tenacity-win-1.3.5-x86_64.exe",
+            "hash": "e8c5d9090ca2ffb64789e3df9991cf7e05989c63482d811b9b7d8e1277643c5d",
+            "extract_dir": "{app}"
         }
     },
-    "bin": "Tenacity.exe",
+    "bin": "tenacity.exe",
     "shortcuts": [
         [
-            "Tenacity.exe",
+            "tenacity.exe",
             "Tenacity"
         ]
     ],
