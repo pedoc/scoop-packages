@@ -10,7 +10,15 @@
             "hash": "9090d135a1159042b13b4e51b210e40cb820d85a5032a6eca5f9b3ca3bdfb539"
         }
     },
-    "bin": [
-       "bin\\protoc.exe"
-    ]
+    "bin": "bin\\protoc.exe",
+    "checkver": {
+        "github": "https://github.com/protocolbuffers/protobuf"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/protocolbuffers/protobuf/releases/download/v$version/protoc-$version-win64.zip"
+            }
+        }
+    }
 }

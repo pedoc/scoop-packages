@@ -9,7 +9,15 @@
             "hash": "sha256:d376d8e4d5eeb3c7916c4a0b4917a56fb29a0a9de0f5271f8c2dbb290f44a2a6"
         }
     },
-    "bin": [
-        "gitlogue.exe"
-    ]
+    "bin": "gitlogue.exe",
+    "checkver": {
+        "github": "https://github.com/unhappychoice/gitlogue"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/unhappychoice/gitlogue/releases/download/v$version/gitlogue-v$version-x86_64-pc-windows-msvc.zip"
+            }
+        }
+    }
 }

@@ -14,5 +14,15 @@
             "DropPoint.exe",
             "DropPoint"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/GameGodS3/DropPoint"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/GameGodS3/DropPoint/releases/download/v$version/DropPoint-$version-win.zip"
+            }
+        }
+    }
 }

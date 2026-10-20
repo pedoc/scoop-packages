@@ -10,16 +10,14 @@
             "hash": "8d9a8c8e646b26d5242d8fa7018bc58147435076d8b9c19fb3df35be786fa2da"
         }
     },
-    "bin": [
-        "wireproxy.exe"
-    ],
+    "bin": "wireproxy.exe",
     "checkver": {
         "github": "https://github.com/pufferffish/wireproxy"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/pufferffish/wireproxy/releases/download/v$cleanVersion/wireproxy_windows_amd64.tar.gz"
+                "url": "https://github.com/pufferffish/wireproxy/releases/download/v$version/wireproxy_windows_amd64.tar.gz"
             }
         }
     }

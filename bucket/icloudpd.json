@@ -15,5 +15,24 @@
             "icloudpd-1.32.4-windows-amd64.exe",
             "icloudpd"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/pedoc/icloud_photos_downloader/releases/latest",
+        "jsonpath": "$.assets[*].browser_download_url",
+        "regex": "download/(?<tag>v(?<ver>[\\d.]+)-windows\\.(?<revision>\\d+))/(?<asset>icloudpd-[\\d.]+-windows-amd64\\.exe)(?![\\w.])",
+        "replace": "${ver}-windows.${revision}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://gh-proxy.org/https://github.com/pedoc/icloud_photos_downloader/releases/download/$matchTag/$matchAsset"
+            }
+        },
+        "bin": [
+            [
+                "$matchAsset",
+                "icloudpd"
+            ]
+        ]
+    }
 }

@@ -14,5 +14,15 @@
             "NetPad.exe",
             "NetPad"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/tareqimbasher/NetPad"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/tareqimbasher/NetPad/releases/download/v$version/netpad-$version-win-x64.zip"
+            }
+        }
+    }
 }

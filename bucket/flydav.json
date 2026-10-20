@@ -10,7 +10,15 @@
             "hash": "20e8a5fd85f3a6eff35452584256b706af0d5705ebaf5361ffb172bcf200d920"
         }
     },
-    "bin": [
-        "flydav.exe"
-    ]
+    "bin": "flydav.exe",
+    "checkver": {
+        "github": "https://github.com/pluveto/flydav"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/pluveto/flydav/releases/download/v$version/flydav-app-windows-amd64.zip"
+            }
+        }
+    }
 }

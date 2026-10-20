@@ -2,6 +2,7 @@
     "version": "6.3.10",
     "description": "A GUI for ExifTool",
     "homepage": "https://github.com/FrankBijnen/ExifToolGui",
+    "license": "GPL-3.0",
     "url": "https://github.com/FrankBijnen/ExifToolGui/releases/download/V6.3.10/ExifToolGUI_X64.exe",
     "hash": "c19cc8267a784ae9b58e153d23e4a5af0646db41ed6b8baedddbfbf5318413fd",
     "shortcuts": [
@@ -9,5 +10,11 @@
             "ExifToolGUI_X64.exe",
             "ExifTool GUI"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/FrankBijnen/ExifToolGui"
+    },
+    "autoupdate": {
+        "url": "https://github.com/FrankBijnen/ExifToolGui/releases/download/V$version/ExifToolGUI_X64.exe"
+    }
 }

@@ -14,5 +14,24 @@
             "NauzFileDetector.exe",
             "NauzFileDetector"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/horsicq/Nauz-File-Detector/releases/tags/Beta",
+        "jsonpath": "$.assets[*].browser_download_url",
+        "regex": "download/Beta/(?<asset>NauzFileDetector_win64_portable_(?<ver>[\\d.]+)_x64\\.zip)(?![\\w.])",
+        "replace": "${ver}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/horsicq/Nauz-File-Detector/releases/download/Beta/$matchAsset"
+            }
+        },
+        "shortcuts": [
+            [
+                "nfd.exe",
+                "NauzFileDetector"
+            ]
+        ]
+    }
 }

@@ -15,5 +15,18 @@
             "piliplus.exe",
             "PiliPlus"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/bggRGjQaUbCoE/PiliPlus/releases/latest",
+        "jsonpath": "$.assets[*].browser_download_url",
+        "regex": "download/(?<tag>(?<ver>[\\d.]+))/(?<asset>PiliPlus_windows_[^/\\s\\\"]+_x64_portable\\.zip)(?![\\w.])",
+        "replace": "${ver}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/bggRGjQaUbCoE/PiliPlus/releases/download/$matchTag/$matchAsset"
+            }
+        }
+    }
 }

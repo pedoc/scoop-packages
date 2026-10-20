@@ -1,0 +1,422 @@
+{
+    "schema": 1,
+    "manual": [
+        {
+            "app": "AFFiNE",
+            "reason": "Latest stable Windows release provides EXE installers, not the pinned portable ZIP flavor; changing packaging requires manual review.",
+            "source": "https://api.github.com/repos/toeverything/AFFiNE/releases/latest"
+        },
+        {
+            "app": "agy",
+            "reason": "Configured vendor homepage serves only the default nginx page; no reliable CLI version/download discovery endpoint was found, and license remains unverified. Existing schema issues are not waived.",
+            "source": "https://antigravity.dev"
+        },
+        {
+            "app": "AionUi",
+            "reason": "Latest release explicitly stopped publishing installers on GitHub; existing x64-only global download is also shared by a declared 32bit installation branch.",
+            "source": "https://github.com/iOfficeAI/AionUi/releases/tag/v2.2.2"
+        },
+        {
+            "app": "arping",
+            "reason": "Primary vendor page could not be verified because the TLS handshake timed out; no guessed version rule was added.",
+            "source": "https://www.elifulkerson.com/projects/arp-ping.php"
+        },
+        {
+            "app": "arpwatch-go",
+            "reason": "Pinned release has verifiable Windows assets, but the upstream repository and pinned ref have no license document or detected license. Required license metadata and existing schema issues remain unresolved.",
+            "source": "https://api.github.com/repos/heywoodlh/arpwatch-go/license?ref=1.0.4"
+        },
+        {
+            "app": "auto-unlocker",
+            "reason": "Latest stable Windows distribution was renamed to auto-unlocker.zip; compatibility with the pinned Unlocker-vVERSION-x64.zip flavor and layout is not verified. Only the dot-removing template defect was repaired.",
+            "source": "https://api.github.com/repos/paolo-projects/auto-unlocker/releases/latest"
+        },
+        {
+            "app": "BBDown",
+            "reason": "Upstream repository is archived; the dated Windows asset naming also requires release-specific date capture rather than a guessed filename.",
+            "source": "https://api.github.com/repos/nilaoda/BBDown"
+        },
+        {
+            "app": "bsdtar",
+            "reason": "Manifest version 3.8.1 maps to release v3.8.1-fix.1 while the latest wrapper release is v3.8.1-3; release revision and version policy need manual review. Binary license was verified through pinned MODULE.bazel and libarchive COPYING.",
+            "source": "https://api.github.com/repos/aspect-build/bsdtar-prebuilt/releases/latest"
+        },
+        {
+            "app": "CodeBuddy",
+            "reason": "Pinned vendor installer URL contains build-specific identifiers. Inspected official website bundles did not establish a stable version-to-download API contract for this exact build flavor.",
+            "source": "https://www.codebuddy.ai/"
+        },
+        {
+            "app": "colmap",
+            "reason": "Latest no-CUDA asset name and layout changed from COLMAP-VERSION-windows-no-cuda.zip to colmap-x64-windows-nocuda.zip; the existing versioned extract_dir cannot be verified for the latest archive.",
+            "source": "https://api.github.com/repos/colmap/colmap/releases/latest"
+        },
+        {
+            "app": "colmap-cuda",
+            "reason": "Latest CUDA asset name and layout changed from COLMAP-VERSION-windows-cuda.zip to colmap-x64-windows-cuda.zip; the existing versioned extract_dir cannot be verified for the latest archive.",
+            "source": "https://api.github.com/repos/colmap/colmap/releases/latest"
+        },
+        {
+            "app": "ComputerLock",
+            "reason": "Upstream repository is archived; the package remains pinned without a verified paired maintenance rule.",
+            "source": "https://api.github.com/repos/JiuLing-zhang/ComputerLock"
+        },
+        {
+            "app": "czkawka-gui",
+            "reason": "Existing updater selects windows_czkawka_gui_gtk46.zip, but the latest stable release only provides the gtk_412 GUI archive; do not silently change the GTK runtime flavor.",
+            "source": "https://api.github.com/repos/qarmin/czkawka/releases/latest"
+        },
+        {
+            "app": "debugviewpp",
+            "reason": "Latest release repacked Debugview-1.2.0.0-x64.zip as debugviewpp-v1.30.0.0.zip. Pinned tag, asset version and extract_dir already disagree, so archive layout needs manual validation.",
+            "source": "https://api.github.com/repos/CobaltFusion/DebugViewPP/releases/latest"
+        },
+        {
+            "app": "DefaultProgramsEditor",
+            "reason": "Official page verifies the version and stable ZIP, but neither the page nor the downloaded official archive supplies verifiable license terms; do not invent required license metadata.",
+            "source": "https://defaultprogramseditor.com/"
+        },
+        {
+            "app": "diskpd",
+            "reason": "Latest v2.3 release explicitly ships amd64 and arm64 only, but this manifest also declares 32bit/x86. No valid updater covers every declared architecture for the latest stable release.",
+            "source": "https://github.com/microsoft/diskspd/releases/tag/v2.3"
+        },
+        {
+            "app": "diskspd",
+            "reason": "Latest v2.3 release explicitly ships amd64 and arm64 only, but this manifest also declares 32bit/x86. No valid updater covers every declared architecture for the latest stable release.",
+            "source": "https://github.com/microsoft/diskspd/releases/tag/v2.3"
+        },
+        {
+            "app": "docfetcher",
+            "reason": "Primary SourceForge homepage and best_release.json API could not be verified because TLS certificate validation reports an expired certificate; no current portable Windows release mapping was assumed.",
+            "source": "https://docfetcher.sourceforge.io/en/index.html"
+        },
+        {
+            "app": "duplicate-searcher",
+            "reason": "Pinned file is manually mirrored under the bucket assets tag rather than a versioned upstream release. Primary vendor verification failed TLS certificate validation, and license metadata and existing schema issues remain unresolved.",
+            "source": "https://malich.ru/duplicate_searcher"
+        },
+        {
+            "app": "DXVAChecker",
+            "reason": "Expanding the pinned legacy ZIP pattern to official current version 4.8.0 returns HTTP 200 text/html rather than an archive; the new vendor version/hash download route could not be verified. Only license and version-page metadata were repaired.",
+            "source": "https://bluesky-soft.com/en/DXVAChecker.html"
+        },
+        {
+            "app": "etcd-workbench",
+            "reason": "Pinned ZIP is a one-off GitHub user attachment; the latest upstream release uses a different versioned EXE/NSIS packaging flavor. License was filled without guessing an attachment or update mapping.",
+            "source": "https://github.com/tzfun/etcd-workbench/releases/latest"
+        },
+        {
+            "app": "FBX2glTF",
+            "reason": "All upstream releases, including pinned v0.9.7, are marked prerelease, so releases/latest returns 404 and the default github checker cannot discover a stable release. Only the current URL template was repaired.",
+            "source": "https://api.github.com/repos/facebookincubator/FBX2glTF/releases"
+        },
+        {
+            "app": "FlyingCarpet",
+            "reason": "Windows packaging changed from the pinned FlyingCarpet.exe to versioned EXE/MSI packages; installer and extraction compatibility have not been verified.",
+            "source": "https://api.github.com/repos/spieglt/FlyingCarpet/releases/latest"
+        },
+        {
+            "app": "fontdetect",
+            "reason": "Original vendor domain is not a verified live product source: TLS verification fails and HTTPS redirects off-product to bianchimotorsport.com. Version and license remain unavailable.",
+            "source": "http://fontmassive.com/fd.php"
+        },
+        {
+            "app": "fontmassive",
+            "reason": "Original vendor domain is not a verified live product source: TLS verification fails and its HTTPS root redirects off-product to bianchimotorsport.com. Version and license remain unavailable.",
+            "source": "http://fontmassive.com/fm.php"
+        },
+        {
+            "app": "fonttemp",
+            "reason": "Original vendor domain is not a verified live product source: TLS verification fails and its HTTPS root redirects off-product to bianchimotorsport.com. Version and license remain unavailable.",
+            "source": "http://fontmassive.com/ft.php"
+        },
+        {
+            "app": "ganttproject",
+            "reason": "Primary vendor page could not be verified because TLS certificate validation reports an expired certificate; no guessed current download layout was added.",
+            "source": "https://www.ganttproject.biz/"
+        },
+        {
+            "app": "gimp-dev",
+            "reason": "Existing checkver points at stable downloads, not development releases. Official development page reports no recent development version; do not switch the development package to stable.",
+            "source": "https://www.gimp.org/downloads/devel/"
+        },
+        {
+            "app": "glslang",
+            "reason": "Pinned rolling main-tot release no longer contains glslang-master-windows-Release.zip, while the latest stable release uses a different versioned asset. The rolling source/channel policy needs manual review.",
+            "source": "https://api.github.com/repos/KhronosGroup/glslang/releases/tags/main-tot"
+        },
+        {
+            "app": "gmsh",
+            "reason": "Primary vendor endpoint could not be reached because the connection timed out or was refused; no unverified version/download pattern was added.",
+            "source": "https://gmsh.info/"
+        },
+        {
+            "app": "gost",
+            "reason": "Pinned nightly release v3.0.0-nightly.20250218 returns 404. No compatible forward nightly rule was verified; changing to latest stable would change the selected release channel.",
+            "source": "https://api.github.com/repos/go-gost/gost/releases/tags/v3.0.0-nightly.20250218"
+        },
+        {
+            "app": "grub2win",
+            "reason": "Primary SourceForge page and API could not be verified because TLS certificate validation reports an expired certificate; the static ZIP has no separately verified version feed.",
+            "source": "https://sourceforge.net/projects/grub2win/"
+        },
+        {
+            "app": "hwatch",
+            "reason": "Latest Windows asset changed target from pc-windows-gnu to pc-windows-msvc. Pinned extract_dir embeds the GNU target layout, so toolchain and archive compatibility need manual validation.",
+            "source": "https://api.github.com/repos/blacknon/hwatch/releases/latest"
+        },
+        {
+            "app": "iSparta",
+            "reason": "Repository metadata, recursive tree and package.json supply no license declaration. Existing cleanVersion rules also strip required version dots. No license was invented; existing rules require explicit manual review.",
+            "source": "https://github.com/iSparta/iSparta/blob/master/package.json"
+        },
+        {
+            "app": "jar-analyzer",
+            "reason": "Pinned 3.1 is MIT; latest 6.2 is GPL-3.0. autoupdate.license records the actual future license, so the first update requires a manual metadata transition before this exception can be removed.",
+            "source": "https://github.com/jar-analyzer/jar-analyzer/blob/6.2/LICENSE"
+        },
+        {
+            "app": "k6-web-dashboard",
+            "reason": "Repository is archived and redirected to grafana-cold-storage. No verified paired ongoing-maintenance rule was established for the bundled k6-web-dashboard flavor.",
+            "source": "https://api.github.com/repos/grafana-cold-storage/xk6-dashboard"
+        },
+        {
+            "app": "monibuca",
+            "reason": "Pinned v4.6.4 is MIT; latest v5.1.6 is AGPL-3.0. autoupdate.license records the actual future license, so the first update requires a manual metadata transition before this exception can be removed.",
+            "source": "https://github.com/langhuihui/monibuca/blob/v5.1.6/LICENSE"
+        },
+        {
+            "app": "Neptune",
+            "reason": "No project license declaration was found in repository metadata, root listing or README. Existing rules also confuse release tag v2.0 with asset version 1.0 and strip version dots. No license or version mapping was invented.",
+            "source": "https://github.com/LorenzoDePasquale/FF-Video-Converter/releases/tag/v2.0"
+        },
+        {
+            "app": "net-snmp",
+            "reason": "Existing checkver URL is malformed. Custom Windows-build fork has only a 5.9.4.pre3 prerelease without release assets, while the pinned binary is an issue attachment; no verified future Windows artifact template exists.",
+            "source": "https://api.github.com/repos/pedoc/net-snmp-windows-builds/releases"
+        },
+        {
+            "app": "nvflash",
+            "reason": "Pinned TechPowerUp URL contains a time-limited token and the current primary download page returns HTTP 403. No reliable public version plus durable artifact mapping was verified.",
+            "source": "https://www.techpowerup.com/download/nvidia-nvflash/"
+        },
+        {
+            "app": "pencil",
+            "reason": "Vendor supplies a fixed Windows installer URL but no reliable public version metadata was found on its download page. This is not Evolus Pencil. Proprietary vendor terms repair license metadata without inventing update rules.",
+            "source": "https://www.pencil.dev/download"
+        },
+        {
+            "app": "pot-desktop",
+            "reason": "Upstream repository is archived and last stable 3.0.7 remains pinned; no verified paired ongoing-maintenance rule was established.",
+            "source": "https://api.github.com/repos/pot-app/pot-desktop"
+        },
+        {
+            "app": "potplayer-beta",
+            "reason": "Primary vendor site timed out, so beta-version detection could not be verified. The URL array includes an installer and a remote PowerShell customization script; no partial or guessed array updater was added.",
+            "source": "https://potplayer.daum.net/"
+        },
+        {
+            "app": "PrettyZoo",
+            "reason": "Upstream is archived. Last stable v2.1.1 assets remain, but no verified paired ongoing-maintenance rule was established.",
+            "source": "https://api.github.com/repos/vran-dev/PrettyZoo"
+        },
+        {
+            "app": "project-graph",
+            "reason": "Latest stable v4.2.5 has no matching non-GPU x64 setup executable. Pinned precompiled binary terms identify it as proprietary despite GPL source code. License/schema were repaired without an incompatible GPU migration.",
+            "source": "https://api.github.com/repos/graphif/project-graph/releases/latest"
+        },
+        {
+            "app": "prometheus-promlens",
+            "reason": "Upstream repository is archived. Last stable v0.4.0 exists, but no verified paired ongoing-maintenance rule was established.",
+            "source": "https://api.github.com/repos/prometheus/promlens"
+        },
+        {
+            "app": "Qoder",
+            "reason": "Existing checkver has only a changelog URL without a version regex/script. Fetched changelog is a JavaScript shell with no verifiable editor version; a static latest installer alone does not establish a machine-readable version source.",
+            "source": "https://qoder.com/changelog"
+        },
+        {
+            "app": "Ryujinx",
+            "reason": "Pinned public release repository and pinned/latest release API endpoints return 404. No unverified continuation source was substituted for the original package.",
+            "source": "https://api.github.com/repos/Ryujinx/release-channel-master"
+        },
+        {
+            "app": "t3",
+            "reason": "Current replacement is the Tixl 4.2.1 Inno installer, not the old Tooll ZIP. Tagged installer documentation requires .NET SDK 10, Visual C++ runtime and Windows Graphics Tools. Extraction, dependency and system-feature migration need separate review.",
+            "source": "https://github.com/tixl3d/tixl/blob/v4.2.1/Installer/README.md"
+        },
+        {
+            "app": "trae-cli",
+            "reason": "Primary vendor CLI documentation returns a 404 page. A reliable current CLI version source and license statement were not verified; a versioned CDN asset does not supply either. The existing missing-license schema error is not waived.",
+            "source": "https://docs.trae.cn/cli/what-is-trae-cli?_lang=zh"
+        },
+        {
+            "app": "UniHacker",
+            "reason": "Original public repository and latest/pinned release API endpoints return 404, and no original-source license can be verified. Do not replace the package with an unrelated fork.",
+            "source": "https://api.github.com/repos/tylearymf/UniHacker"
+        },
+        {
+            "app": "utah",
+            "reason": "Pinned binary is an ad-hoc GitHub user-attachment ZIP. Current upstream v0.1.18 publishes Linux/macOS binaries only, with no stable Windows release asset for a verified replacement template.",
+            "source": "https://api.github.com/repos/polatengin/utah/releases/latest"
+        },
+        {
+            "app": "weflow",
+            "reason": "Original public GitHub latest release endpoint returns HTTP 404 in both real Scoop checkver and authenticated API checks. Existing paired fields are not presented as working, and no unrelated fork was substituted.",
+            "source": "https://api.github.com/repos/hicccc77/WeFlow/releases/latest"
+        },
+        {
+            "app": "wenshushu",
+            "reason": "Fork has valid Windows release assets, but the pinned root, README, pyproject.toml and repository metadata supply no license declaration. No license was invented; the existing required-license schema error is not waived.",
+            "source": "https://github.com/pedoc/wenshushu/tree/v2.0.9"
+        },
+        {
+            "app": "xk6",
+            "reason": "Latest Windows bundles build only xk6.exe, while the pinned package also exposes xk6ea.exe. Removing that command requires an explicitly reviewed layout migration; version-only automation must not produce a missing shim or silently drop the command.",
+            "source": "https://github.com/grafana/xk6/blob/v1.4.14/.goreleaser.yaml"
+        },
+        {
+            "app": "xpra",
+            "reason": "Current Windows source is available, but the manifest version is the literal stable. Actual Scoop ordering treats 6.5.5-r0 as a downgrade from stable. A reviewed real-version/URL/hash/layout baseline is required; an obsolete pinned URL alone is not this blocker.",
+            "source": "https://xpra.org/stable/windows/"
+        }
+    ],
+    "warnings": [
+        {
+            "app": "CellProfiler",
+            "reason": "Verified Windows forward rules remain eligible. Pinned installer SHA256 repeats the unrelated DriverExplorer digest, and no replacement checksum was verified in reviewed release metadata. Preserve the historical hash and warn rather than invent a repair or exclude future updates.",
+            "source": "https://api.github.com/repos/CellProfiler/CellProfiler/releases/tags/v4.2.8"
+        },
+        {
+            "app": "clashmi",
+            "reason": "Historical v1.0.18.403 release metadata is unavailable, but latest stable 1.0.31.1703 Windows asset and forward mapping are verified. Pinned version/URL/hash remain unchanged; missing historical metadata does not disable future checking.",
+            "source": "https://api.github.com/repos/KaringX/clashmi/releases/latest"
+        },
+        {
+            "app": "dnsjumper",
+            "reason": "Reviewed vendor-path migration verifies the future 2.3 ZIP at files/download/dns-jumper/DnsJumper.zip. Old pinned 2.2 URL returns 404 and is preserved. The verified future rule remains eligible without reproducing the dead historical URL.",
+            "source": "https://www.sordum.org/downloads/?dns-jumper"
+        },
+        {
+            "app": "glances",
+            "reason": "Latest 4.3.1 custom-builder asset and forward mapping are verified. Historical URL names unavailable v1.0.18 although the manifest already says 4.3.1; no replacement checksum was verified. Preserve this same-version baseline without disabling future version-increasing updates.",
+            "source": "https://api.github.com/repos/pedoc/build-glances/releases/latest"
+        },
+        {
+            "app": "icloudpd",
+            "reason": "Historical version omits the fork packaging revision. Forward detection preserves actual version 1.32.4-windows.1, with verified Scoop ordering for later revisions and correct fork/tag/asset captures. Current version/URL/hash/bin remain unchanged.",
+            "source": "https://api.github.com/repos/pedoc/icloud_photos_downloader/releases/latest"
+        },
+        {
+            "app": "imagemagick-portable",
+            "reason": "Historical ZIP and host are stale. Official forward RDF identifies Q16 x64 7z, and bounded archive metadata proves magick.exe is at archive root. Obsolete extract_dir was removed as setup metadata; current version/URL/hash remain unchanged. No full-byte equivalence is claimed.",
+            "source": "https://download.imagemagick.org/archive/binaries/digest.rdf"
+        },
+        {
+            "app": "keyviz",
+            "reason": "Verified forward stable packaging is MSI rather than the pinned alpha ZIP. Bounded read-only MSI metadata proves SourceDir/PFiles/keyviz/keyviz.exe; future URL/shortcuts migrate without changing current pin fields. No installer/custom actions or full MSI hash validation occurred.",
+            "source": "https://api.github.com/repos/mulaRahul/keyviz/releases/latest"
+        },
+        {
+            "app": "launch4j",
+            "reason": "Historical udomain mirror no longer resolves. Forward canonical SourceForge template is verified by official file listing and HTTP 200. Current URL/version/hash remain unchanged because no completed digest equivalence was established.",
+            "source": "https://sourceforge.net/projects/launch4j/files/launch4j-3/3.50/"
+        },
+        {
+            "app": "LM-Studio",
+            "reason": "Historical version omits the installer build. Forward detection uses actual Windows x64 version-build 0.4.26-4, with verified Scoop ordering for build-only updates. Current version/URL/hash/installer definition remain unchanged.",
+            "source": "https://lmstudio.ai/download"
+        },
+        {
+            "app": "marktext",
+            "reason": "Custom fork labels its pinned Windows release as prerelease. Verified rules intentionally follow that fork release feed, not unrelated upstream or a nonexistent stable/latest endpoint; no stable publisher channel is claimed.",
+            "source": "https://api.github.com/repos/pedoc/marktext/releases?per_page=100"
+        },
+        {
+            "app": "mvel2",
+            "reason": "Rules follow the highest actually mirrored numeric MVEL JAR at asset-mvel2, not unseen Maven artifacts. The bounded metadata parser validates names, sorts System.Version values and fails on malformed/no-asset input; it never evaluates response content as code.",
+            "source": "https://api.github.com/repos/pedoc/scoop-packages/releases/tags/asset-mvel2"
+        },
+        {
+            "app": "Nauz-File-Detector",
+            "reason": "Historical 0.1.0 asset is gone from the moving Beta tag. Verified forward Beta metadata identifies 1.0.0 and bounded ZIP inspection identifies nfd.exe; future shortcuts migrate while all current pin and shortcut fields remain unchanged.",
+            "source": "https://api.github.com/repos/horsicq/Nauz-File-Detector/releases/tags/Beta"
+        },
+        {
+            "app": "netpad-next",
+            "reason": "Forward vnext packaging is MSI rather than ZIP. Bounded read-only MSI tables prove SourceDir/PFiles/NetPad vNext/NetPad vNext.exe. Future URL/shortcuts preserve the -vnext suffix and all current pin fields. No installer/custom actions or full MSI hash validation occurred.",
+            "source": "https://api.github.com/repos/tareqimbasher/NetPad/releases/latest"
+        },
+        {
+            "app": "NetSetManFree",
+            "reason": "Verified rules track actually mirrored stable ZIP assets, not newer vendor versions absent from the mirror. Manually curated publisher uploads remain the authoritative artifact channel specified by the pinned manifest.",
+            "source": "https://api.github.com/repos/pedoc/scoop-packages/releases?per_page=100"
+        },
+        {
+            "app": "nping",
+            "reason": "Publisher renamed the binary to nbping. Actual latest Windows asset and release workflow verify future URL/bin migration while preserving the nping command alias and every current pin/bin field.",
+            "source": "https://github.com/hanshuaikang/NBping/blob/v0.7.1/.github/workflows/release.yml"
+        },
+        {
+            "app": "openssl1-portable",
+            "reason": "Historical v1.1.1w tag is gone. Published legacy Windows asset exists under v3.5.0, and forward rules capture release tag separately from the 1.x asset version. Current version/URL/hash remain unchanged; no same-version byte equivalence is claimed.",
+            "source": "https://api.github.com/repos/pedoc/openssl-builds/releases/latest"
+        },
+        {
+            "app": "quicklook-pre",
+            "reason": "Moving latest tag no longer retains the old preview asset. Repaired forward rule independently detects the real continuous ZIP/version on the intended preview channel; the missing historical asset does not disable future checking.",
+            "source": "https://api.github.com/repos/QL-Win/QuickLook/releases/tags/latest"
+        },
+        {
+            "app": "redpanda-c++",
+            "reason": "Pinned SourceForge mirror is unreachable and old v3.2 lookup returns 404. Current v3.4 official MinGW64 portable asset, compiler component and RedPanda-CPP IDE path are verified. Only future templates use the same upstream GitHub release source; baseline pin fields remain untouched.",
+            "source": "https://api.github.com/repos/royqh1979/RedPanda-CPP/releases/latest"
+        },
+        {
+            "app": "tenacity",
+            "reason": "Old pin records a 1.3-beta3 ZIP attachment as 1.3. Reviewed declarative setup supports future stable Inno extraction and {app} paths while preserving the old ZIP layout and hooks. Tagged primary source verifies GPL-2.0-or-later. No installer was executed; normal trusted Inno helper acquisition may be needed.",
+            "source": "https://codeberg.org/tenacityteam/tenacity/raw/tag/v1.3.5/win/Inno_Setup_Wizard/tenacity.iss.in"
+        },
+        {
+            "app": "veracrypt-portable",
+            "reason": "Old official Launchpad pin disagrees with existing PortableApps hooks. Future PortableApps 1.26.29 wrapper and filename are independently verified by primary RSS; tested download-mode hashing avoids SourceForge SHA1 auto-detection. No baseline repair or application execution occurred.",
+            "source": "https://sourceforge.net/projects/portableapps/rss?path=/VeraCrypt%20Portable"
+        },
+        {
+            "app": "ViVeTool-GUI",
+            "reason": "Archived source has an assetless deprecated latest marker, but the releases feed verifies portable hotfix v1.6.999.3 and ViVeTool_GUI.exe. Actual Scoop ordering confirms a forward update from 1.6.99.3. Upstream describes later hotfix work as unfinished/unmaintained; lifecycle warning does not disable the verified rule.",
+            "source": "https://api.github.com/repos/PeterStrick/ViVeTool-GUI/releases?per_page=20"
+        },
+        {
+            "app": "win-optimizer",
+            "reason": "Repository is archived, but terminal release 16.7, executable naming and dotted version detection remain public and verified. Archival is a lifecycle warning, not a reason to suppress the reliable final update.",
+            "source": "https://api.github.com/repos/hellzerg/optimizer/releases/latest"
+        },
+        {
+            "app": "wsl-dashboard",
+            "reason": "Pinned standalone versioned EXE differs from the verified current portable ZIP. Future URL/bin/shortcut templates follow v0.12.0 packaging while preserving the baseline. Download SHA256 mode replaces the obsolete sidecar rule because the current release has no .sha256 asset.",
+            "source": "https://api.github.com/repos/owu/wsl-dashboard/releases/latest"
+        },
+        {
+            "app": "xelfviewer",
+            "reason": "Manifest records 0.0.6 although its Beta asset is named 0.06. Forward detection preserves Beta and uses the published 0.06; actual Scoop ordering confirms it is newer. Current pin fields remain unchanged, and same-version mutable Beta replacements remain outside automatic updates.",
+            "source": "https://api.github.com/repos/horsicq/XELFViewer/releases/tags/Beta"
+        },
+        {
+            "app": "xk6-dashboard",
+            "reason": "Repository redirects to archived grafana-cold-storage, but terminal v0.8.1 Windows asset and versioned root are verified. Archive contains extensionless k6, compatible with the unchanged rename hook. Archival does not disable this verified forward rule.",
+            "source": "https://api.github.com/repos/grafana/xk6-dashboard/releases/latest"
+        },
+        {
+            "app": "xnretro",
+            "reason": "Primary vendor HTML, version and static x64 URL were verified, but stock Scoop checkver currently receives HTTP 403, including a browser-useragent fixture. Retain safe check-only retries and report unavailable; never claim current or publish a candidate without successful detection. This is not a permanent manual-source skip.",
+            "source": "https://www.xnview.com/en/xnretro/"
+        },
+        {
+            "app": "xnsketch",
+            "reason": "Primary vendor HTML, version and static x64 URL were verified, but stock Scoop checkver currently receives HTTP 403, including a browser-useragent fixture. Retain safe check-only retries and report unavailable; never claim current or publish a candidate without successful detection. This is not a permanent manual-source skip.",
+            "source": "https://www.xnview.com/en/xnsketch/"
+        }
+    ]
+}

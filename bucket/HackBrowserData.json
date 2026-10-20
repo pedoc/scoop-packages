@@ -11,6 +11,25 @@
         }
     },
     "bin": [
-        ["hack-browser-data-windows-64bit.exe","HackBrowserData"]
-    ]
+        [
+            "hack-browser-data-windows-64bit.exe",
+            "HackBrowserData"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/moonD4rk/HackBrowserData"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/moonD4rk/HackBrowserData/releases/download/v$version/hack-browser-data-windows-64bit.zip"
+            }
+        },
+        "bin": [
+            [
+                "hack-browser-data.exe",
+                "HackBrowserData"
+            ]
+        ]
+    }
 }

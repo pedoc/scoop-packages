@@ -10,7 +10,15 @@
             "hash": "sha256:3450d487aebbd01691e23d79e0e1be9ae2728f30e34db59584dd5a4067c22d26"
         }
     },
-    "bin": [
-        "ddns-go.exe"
-    ]
+    "bin": "ddns-go.exe",
+    "checkver": {
+        "github": "https://github.com/pedoc/ddns-go"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/pedoc/ddns-go/releases/download/v$version/ddns-go_$version_windows_x86_64.zip"
+            }
+        }
+    }
 }

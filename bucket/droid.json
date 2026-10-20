@@ -9,5 +9,18 @@
             "hash": "68ec8572485ea2c4d571829bd3c4f4f207b215eec9c5bb9e88189a75336e19e7"
         }
     },
-    "bin": "droid.bat"
+    "bin": "droid.bat",
+    "checkver": {
+        "github": "https://api.github.com/repos/digital-preservation/droid/releases/latest",
+        "jsonpath": "$.assets[?(@.name =~ /-bin-win64-with-jre\\.zip$/)].browser_download_url",
+        "regex": "/releases/download/(?<tag>(?:droid-)?(?<version>[\\d.]+))/droid-binary-[\\d.]+-bin-win64-with-jre\\.zip",
+        "replace": "${version}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/digital-preservation/droid/releases/download/$matchTag/droid-binary-$version-bin-win64-with-jre.zip"
+            }
+        }
+    }
 }

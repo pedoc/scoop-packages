@@ -11,5 +11,13 @@
             "eDiary.exe",
             "eDiary"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://www.haoxg.net/download.php",
+        "regex": "ediary-([\\d.]+)-win64-portable\\.zip"
+    },
+    "autoupdate": {
+        "url": "https://down.haoxg.net/download/ediary/windows/ediary-$version-win64-portable.zip",
+        "extract_dir": "eDiary-$version-win64"
+    }
 }

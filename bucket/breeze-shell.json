@@ -15,5 +15,15 @@
             "breeze.exe",
             "breeze"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/std-microblock/breeze-shell"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/std-microblock/breeze-shell/releases/download/$version/windows-build.zip"
+            }
+        }
+    }
 }

@@ -11,6 +11,19 @@
         }
     },
     "bin": [
-        ["redpanda-connect.exe","redpanda-connect"]
-    ]
+        [
+            "redpanda-connect.exe",
+            "redpanda-connect"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/redpanda-data/connect"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/redpanda-data/connect/releases/download/v$version/redpanda-connect_$version_windows_amd64.tar.gz"
+            }
+        }
+    }
 }

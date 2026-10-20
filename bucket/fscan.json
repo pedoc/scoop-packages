@@ -11,16 +11,28 @@
         }
     },
     "bin": [
-        ["fscan64.exe","fscan"]
+        [
+            "fscan64.exe",
+            "fscan"
+        ]
     ],
     "checkver": {
-        "github": "https://github.com/shadow1ng/fscan"
+        "github": "https://api.github.com/repos/shadow1ng/fscan/releases/latest",
+        "jsonpath": "$.assets[?(@.name =~ /^(?:fscan64|fscan_[\\d.]+_windows_x64)\\.exe$/)].browser_download_url",
+        "regex": "/releases/download/(?<tag>v?(?<version>[\\d.]+))/(?<filename>fscan(?:64|_[\\d.]+_windows_x64)\\.exe)",
+        "replace": "${version}"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/shadow1ng/fscan/releases/download/$cleanVersion/fscan64.exe"
+                "url": "https://github.com/shadow1ng/fscan/releases/download/$matchTag/$matchFilename"
             }
-        }
+        },
+        "bin": [
+            [
+                "$matchFilename",
+                "fscan"
+            ]
+        ]
     }
 }

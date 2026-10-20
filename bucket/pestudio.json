@@ -8,11 +8,25 @@
             "hash": "c1e2d0c1fbf5951486cf3d850cc24b11b66e25e0a5b77a623e2eb13ffad9ddd9"
         }
     },
-   
     "shortcuts": [
         [
             "pestudio\\pestudio.exe",
             "pestudio"
         ]
-    ]
+    ],
+    "license": {
+        "identifier": "Freeware",
+        "url": "https://www.winitor.com/disclaimer"
+    },
+    "checkver": {
+        "url": "https://www.winitor.com/download2",
+        "regex": "pestudio\\s*(?:<!--\\s*-->\\s*)?([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://www.winitor.com/tools/pestudio/current/pestudio.zip"
+            }
+        }
+    }
 }

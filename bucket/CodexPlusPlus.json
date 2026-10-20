@@ -2,6 +2,7 @@
     "version": "1.3.3",
     "description": "CodexPlusPlus - Windows build",
     "homepage": "https://github.com/pedoc/CodexPlusPlus",
+    "license": "AGPL-3.0",
     "architecture": {
         "64bit": {
             "url": "https://github.com/pedoc/CodexPlusPlus/releases/download/v1.3.3/CodexPlusPlus-1.3.3-windows-x64.zip",
@@ -24,5 +25,8 @@
                 "url": "https://github.com/pedoc/CodexPlusPlus/releases/download/v$version/CodexPlusPlus-$version-windows-x64.zip"
             }
         }
+    },
+    "checkver": {
+        "github": "https://github.com/pedoc/CodexPlusPlus"
     }
 }

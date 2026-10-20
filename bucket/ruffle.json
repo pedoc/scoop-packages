@@ -10,10 +10,17 @@
             "hash": "435c27a911d1e960e7ac80aa42c5fe3f5465cff05519873c20d21c8153df37f2"
         }
     },
-    "bin": [
-        "ruffle.exe"
-    ],
+    "bin": "ruffle.exe",
     "checkver": {
-        "github": "https://github.com/ruffle-rs/ruffle"
+        "url": "https://api.github.com/repos/ruffle-rs/ruffle/releases?per_page=20",
+        "regex": "releases/download/nightly-(\\d{4})-(\\d{2})-(\\d{2})/ruffle-nightly-\\d{4}_\\d{2}_\\d{2}-windows-x86_64\\.zip",
+        "replace": "$1.$2.$3"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/ruffle-rs/ruffle/releases/download/nightly-$dashVersion/ruffle-nightly-$underscoreVersion-windows-x86_64.zip"
+            }
+        }
     }
 }

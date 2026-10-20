@@ -13,5 +13,18 @@
             "Termix.exe",
             "Termix"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/Termix-SSH/Termix",
+        "regex": "^(?<tag>(?:v|release-)(?<version>[\\d.]+)(?:-tag)?)$",
+        "replace": "${version}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/Termix-SSH/Termix/releases/download/$matchTag/termix_windows_x64_portable.zip"
+            }
+        }
+    },
+    "license": "Apache-2.0"
 }

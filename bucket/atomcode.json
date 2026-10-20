@@ -14,5 +14,23 @@
             "atomcode-v4.21.0-windows-x64.exe",
             "atomcode"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://atomgit.com/api/v5/repos/atomgit_atomcode/atomcode/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "v([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://atomgit.com/atomgit_atomcode/atomcode/releases/download/v$version/atomcode-v$version-windows-x64.exe"
+            }
+        },
+        "bin": [
+            [
+                "atomcode-v$version-windows-x64.exe",
+                "atomcode"
+            ]
+        ]
+    }
 }

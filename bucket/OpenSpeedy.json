@@ -3,12 +3,21 @@
     "description": "🎮 An open-source game speed modifier.[一款开源的游戏变速器]",
     "homepage": "https://github.com/game1024/OpenSpeedy",
     "license": "GPL-3.0",
-    "url": "https://github.com/game1024/OpenSpeedy/releases/download/v1.7.7/OpenSpeedy-v1.7.7-signed.zip",
+    "url": "https://github.com/game1024/OpenSpeedy/releases/download/v1.7.7/Speedy-v1.7.7.zip",
     "hash": "sha256:39ee4cf6d144a7e764d588b8c9d0a9f231b867fb35dccd4bb9ad39f8d3593189",
     "shortcuts": [
         [
             "OpenSpeedy.exe",
             "OpenSpeedy"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/game1024/OpenSpeedy/releases/latest",
+        "jsonpath": "$.assets[*].browser_download_url",
+        "regex": "download/(?<tag>v?(?<ver>[\\d.]+))/(?<asset>(?:Speedy-v[\\d.]+|OpenSpeedy-v?[\\d.]+(?:-portable)?-signed)\\.zip)(?![\\w.])",
+        "replace": "${ver}"
+    },
+    "autoupdate": {
+        "url": "https://github.com/game1024/OpenSpeedy/releases/download/$matchTag/$matchAsset"
+    }
 }

@@ -9,5 +9,9 @@
             "ProjectGraph.exe",
             "ProjectGraph"
         ]
-    ]
+    ],
+    "license": {
+        "identifier": "Proprietary",
+        "url": "https://github.com/graphif/project-graph/blob/v2.0.8/docs/content/docs/app/misc/terms.zh-CN.mdx"
+    }
 }

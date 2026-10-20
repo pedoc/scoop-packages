@@ -39,13 +39,18 @@
     "post_uninstall": "Remove-Item \"$env:APPDATA\\Microsoft\\Windows\\Start Menu\\Programs\\Scoop Apps\\LM Studio\" -Force -Recurse -ErrorAction SilentlyContinue",
     "persist": "LOCALAPPDATA",
     "checkver": {
-        "url": "https://lmstudio.ai/beta-releases.html",
-        "regex": "(\\d+\\.\\d+\\.\\d+)"
+        "url": "https://lmstudio.ai/download",
+        "regex": "\\\\\"win32\\\\\":\\{\\\\\"x64\\\\\":\\{\\\\\"version\\\\\":\\\\\"(?<ver>[\\d.]+)\\\\\",\\\\\"build\\\\\":\\\\\"(?<build>\\d+)\\\\\"",
+        "replace": "${ver}-${build}"
     },
     "autoupdate": {
-        "url": "https://s3.amazonaws.com/releases.lmstudio.ai/$version/LM+Studio-$version+Setup.exe#/LMStudio.exe",
-        "hash": {
-            "mode": "download"
+        "architecture": {
+            "64bit": {
+                "url": "https://installers.lmstudio.ai/win32/x64/$version/LM-Studio-$version-x64.exe"
+            }
+        },
+        "installer": {
+            "file": "LM-Studio-$version-x64.exe"
         }
     }
 }

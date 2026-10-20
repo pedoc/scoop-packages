@@ -2,7 +2,7 @@
     "version": "1.5",
     "description": "A cross-platform desktop utility for computing message digests or checksums",
     "homepage": "https://github.com/gtkhash/gtkhash/",
-    "license": "",
+    "license": "GPL-2.0",
     "notes": "",
     "architecture": {
         "64bit": {
@@ -10,9 +10,7 @@
             "hash": "2ef6948071bcd2d7b768c28fbcc2c720c5a83c2a0944f87c59a36b92e8c28384"
         }
     },
-    "bin": [
-        "org.gtkhash.gtkhash.exe"
-    ],
+    "bin": "org.gtkhash.gtkhash.exe",
     "shortcuts": [
         [
             "org.gtkhash.gtkhash.exe",
@@ -20,6 +18,16 @@
         ]
     ],
     "checkver": {
-        "github": "https://github.com/gtkhash/gtkhash/"
+        "github": "https://api.github.com/repos/gtkhash/gtkhash/releases/latest",
+        "jsonpath": "$.assets[?(@.name =~ /^gtkhash-w64-.*-standalone\\.zip$/)].browser_download_url",
+        "regex": "/releases/download/v(?<version>[\\d.]+)/gtkhash-w64-[\\d.]+-(?<build>\\d+)-standalone\\.zip",
+        "replace": "${version}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/gtkhash/gtkhash/releases/download/v$version/gtkhash-w64-$version-$matchBuild-standalone.zip"
+            }
+        }
     }
 }

@@ -15,5 +15,15 @@
             "Tiny RDM.exe",
             "Tiny RDM"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/tiny-craft/tiny-rdm"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/tiny-craft/tiny-rdm/releases/download/v$version/TinyRDM_Portable_$version_windows_x64.zip"
+            }
+        }
+    }
 }

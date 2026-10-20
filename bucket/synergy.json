@@ -10,13 +10,23 @@
             "extract_dir": "synergy-1.14.7.5-snapshot-windows-10-amd64"
         }
     },
-    "bin": [
-        "synergyc.exe"
-    ],
+    "bin": "synergyc.exe",
     "shortcuts": [
         [
             "synergy.exe",
             "Synergy"
         ]
-    ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/DEAKSoftware/Synergy-Binaries/releases?per_page=20",
+        "regex": "releases/download/([\\d.]+)-snapshot/synergy-\\1-snapshot-windows-10-amd64\\.zip"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/DEAKSoftware/Synergy-Binaries/releases/download/$version-snapshot/synergy-$version-snapshot-windows-10-amd64.zip",
+                "extract_dir": "synergy-$version-snapshot-windows-10-amd64"
+            }
+        }
+    }
 }

@@ -2,7 +2,7 @@
     "version": "0.1.10",
     "description": "A simple and fast text editor",
     "homepage": "https://github.com/focus-editor/focus",
-    "license": "",
+    "license": "GPL-3.0",
     "notes": "",
     "architecture": {
         "64bit": {
@@ -11,9 +11,19 @@
         }
     },
     "bin": [
-        ["focus.exe","focus-editor"]
+        [
+            "focus.exe",
+            "focus-editor"
+        ]
     ],
     "checkver": {
         "github": "https://github.com/focus-editor/focus"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/focus-editor/focus/releases/download/$version/focus.exe"
+            }
+        }
     }
 }

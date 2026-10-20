@@ -11,7 +11,10 @@
         }
     },
     "bin": [
-        ["tun2socks-windows-amd64-v3.exe", "tun2socks"]
+        [
+            "tun2socks-windows-amd64-v3.exe",
+            "tun2socks"
+        ]
     ],
     "checkver": {
         "github": "https://github.com/xjasonlyu/tun2socks"
@@ -19,7 +22,7 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/xjasonlyu/tun2socks/releases/download/v$cleanVersion/tun2socks-windows-amd64-v3.zip"
+                "url": "https://github.com/xjasonlyu/tun2socks/releases/download/v$version/tun2socks-windows-amd64-v3.zip"
             }
         }
     }

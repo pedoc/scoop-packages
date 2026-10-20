@@ -1,6 +1,6 @@
 {
     "version": "0.1.7",
-    "description": "A Python implementation of ssh-copy-id that works on ALL platforms.",
+    "description": "Cross-platform SSL/TLS toolset.",
     "homepage": "https://github.com/yakuter/gossl",
     "license": "Apache-2.0",
     "architecture": {
@@ -14,5 +14,15 @@
             "gossl.exe",
             "gossl"
         ]
-    ]
+    ],
+    "checkver": {
+        "github": "https://github.com/yakuter/gossl"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/yakuter/gossl/releases/download/v$version/gossl_$version_windows_amd64.zip"
+            }
+        }
+    }
 }

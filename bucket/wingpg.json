@@ -7,11 +7,26 @@
             "hash": "e15192f417a44731be56e686635bd2afc85d550ea7ac5b837b448ee290b2c48e"
         }
     },
-   
     "shortcuts": [
         [
             "x64\\WinGPG.exe",
             "WinGPG"
         ]
-    ]
+    ],
+    "description": "Windows interface for GnuPG encryption, decryption and digital signatures.",
+    "license": "GPL-3.0",
+    "checkver": {
+        "url": "https://scand.com/products/wingpg/",
+        "regex": "WinGPG-([\\d.]+)-Portable-x64\\.zip\"\\s+target=\"_blank\""
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://s3.amazonaws.com/assets.scand.com/WinGPG/WinGPG-$version-Portable-x64.zip"
+            }
+        },
+        "hash": {
+            "url": "$url.sha256"
+        }
+    }
 }

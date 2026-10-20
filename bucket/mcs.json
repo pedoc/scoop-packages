@@ -11,6 +11,20 @@
         }
     },
     "bin": [
-        ["bin/mcs.exe", "mcs"]
-    ]
+        [
+            "bin/mcs.exe",
+            "mcs"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/mthmulders/mcs"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/mthmulders/mcs/releases/download/v$version/mcs-$version-windows-x86_64.zip",
+                "extract_dir": "mcs-$version-windows-x86_64"
+            }
+        }
+    }
 }

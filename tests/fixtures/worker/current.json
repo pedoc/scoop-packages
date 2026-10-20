@@ -1,0 +1,15 @@
+{
+    "version": "1.0.0",
+    "description": "Offline update worker fixture",
+    "homepage": "https://example.com/widget",
+    "license": "MIT",
+    "url": "https://example.com/widget-1.0.0.zip",
+    "hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "checkver": {
+        "url": "https://example.com/widget/version.txt",
+        "regex": "([\\d.]+)"
+    },
+    "autoupdate": {
+        "url": "https://example.com/widget-$version.zip"
+    }
+}

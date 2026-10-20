@@ -1,0 +1,257 @@
+name: Update Scoop manifests
+
+on:
+  schedule:
+    - cron: '17 2,14 * * *'
+  workflow_dispatch:
+    inputs:
+      apps:
+        description: Optional comma-separated app names; otherwise check eligible manifests.
+        type: string
+        required: false
+        default: ''
+      publish:
+        description: Create update PRs and dispatch validation; also requires SCOOP_UPDATES_ENABLED=true.
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  GIT_CONFIG_COUNT: '1'
+  GIT_CONFIG_KEY_0: core.autocrlf
+  GIT_CONFIG_VALUE_0: 'false'
+
+concurrency:
+  group: scoop-updates-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  inventory:
+    if: github.ref_type == 'branch' && github.ref_name == github.event.repository.default_branch
+    runs-on: windows-latest
+    timeout-minutes: 10
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      selected_count: ${{ steps.plan.outputs.selected_count }}
+      base_sha: ${{ steps.plan.outputs.base_sha }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out trusted source snapshot
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up reviewed tooling
+        uses: ./.github/actions/setup-scoop
+      - name: Inventory and select bounded batches
+        id: plan
+        env:
+          REQUESTED_APPS: ${{ inputs.apps }}
+        run: ./bin/maintenance.ps1 -Mode Inventory -Apps $env:REQUESTED_APPS -OutputDirectory "$env:RUNNER_TEMP/inventory"
+      - name: Retain the exact selection snapshot
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: scoop-inventory-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/inventory/*.json
+          retention-days: 7
+
+  generate:
+    needs: inventory
+    if: needs.inventory.outputs.selected_count != '0'
+    runs-on: windows-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.inventory.outputs.matrix) }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out the original immutable snapshot
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.inventory.outputs.base_sha }}
+          persist-credentials: false
+      - name: Set up reviewed tooling
+        uses: ./.github/actions/setup-scoop
+      - name: Generate isolated per-app candidates
+        env:
+          BATCH_APPS: ${{ toJSON(matrix.apps) }}
+          BASE_SHA: ${{ needs.inventory.outputs.base_sha }}
+          GITHUB_TOKEN: ${{ github.token }}
+          SCOOP_GH_TOKEN: ${{ github.token }}
+        run: |
+          ./bin/maintenance.ps1 -Mode Batch -AppsJson $env:BATCH_APPS -BaseSha $env:BASE_SHA -ScoopHome $env:SCOOP_HOME -OutputDirectory "$env:RUNNER_TEMP/workers" -TimeoutSeconds 300
+      - name: Retain data only, never download caches or scripts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: scoop-updates-${{ github.run_attempt }}-${{ matrix.batch }}
+          path: |
+            ${{ runner.temp }}/workers/*/result.json
+            ${{ runner.temp }}/workers/*/candidate.json
+          if-no-files-found: warn
+          retention-days: 7
+
+  collect:
+    needs: [inventory, generate]
+    if: always() && !cancelled() && needs.inventory.result == 'success'
+    runs-on: windows-latest
+    timeout-minutes: 10
+    outputs:
+      publish_matrix: ${{ steps.aggregate.outputs.publish_matrix }}
+      has_updates: ${{ steps.aggregate.outputs.has_updates }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out trusted collectors
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up reviewed tooling
+        uses: ./.github/actions/setup-scoop
+      - name: Download this run selection
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: scoop-inventory-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/inventory
+      - name: Download this attempt worker outcomes
+        if: needs.inventory.outputs.selected_count != '0'
+        continue-on-error: true
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: scoop-updates-${{ github.run_attempt }}-*
+          path: ${{ runner.temp }}/worker-artifacts
+          merge-multiple: false
+      - name: Reconcile every selected app and retain healthy siblings
+        id: aggregate
+        env:
+          BASE_SHA: ${{ needs.inventory.outputs.base_sha }}
+        run: |
+          ./bin/maintenance.ps1 -Mode Collect -ArtifactDirectory "$env:RUNNER_TEMP/worker-artifacts" -SelectedAppsPath "$env:RUNNER_TEMP/inventory/selection.json" -OutputDirectory "$env:RUNNER_TEMP/collection" -BaseSha $env:BASE_SHA -RunNumber $env:GITHUB_RUN_NUMBER -MaxUpdates 32
+      - name: Retain complete results, including failures and deferrals
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: scoop-results-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/collection/report.json
+          if-no-files-found: warn
+          retention-days: 7
+
+  source-verdict:
+    needs: collect
+    if: always() && !cancelled() && needs.collect.result == 'success'
+    runs-on: windows-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out trusted source-report checks
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up reviewed tooling
+        uses: ./.github/actions/setup-scoop
+      - name: Download this run reconciled source report
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: scoop-results-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/source-report
+      - name: Report source failures without blocking healthy siblings
+        run: ./bin/maintenance.ps1 -Mode Verdict -CollectedReportPath "$env:RUNNER_TEMP/source-report/report.json"
+
+  publish:
+    needs: [inventory, collect]
+    if: >-
+      !cancelled() &&
+      github.ref_type == 'branch' && github.ref_name == github.event.repository.default_branch &&
+      needs.collect.result == 'success' &&
+      needs.collect.outputs.has_updates == 'true' &&
+      vars.SCOOP_UPDATES_ENABLED == 'true' &&
+      (github.event_name == 'schedule' || inputs.publish)
+    runs-on: windows-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix: ${{ fromJSON(needs.collect.outputs.publish_matrix) }}
+    concurrency:
+      group: scoop-publish-${{ matrix.app }}
+      cancel-in-progress: false
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      APP: ${{ matrix.app }}
+      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      SCOOP_UPDATES_ENABLED: ${{ vars.SCOOP_UPDATES_ENABLED }}
+      BASE_SHA: ${{ needs.inventory.outputs.base_sha }}
+    steps:
+      - name: Require the exact default-branch ref
+        run: |
+          if ($env:GITHUB_REF -cne "refs/heads/$env:DEFAULT_BRANCH") { throw 'Publication is restricted to the exact default branch.' }
+      - name: Check out trusted publisher code without credentials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up reviewed tooling
+        uses: ./.github/actions/setup-scoop
+      - name: Download only this run candidate batch
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ runner.temp }}/candidates
+      - name: Validate provenance and stage exactly one manifest
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          $candidate = Join-Path "$env:RUNNER_TEMP/candidates" $env:APP
+          $result = ./bin/github-update.ps1 -Mode Stage -Repository $env:GITHUB_REPOSITORY -App $env:APP -BaseBranch $env:DEFAULT_BRANCH -CandidateDirectory $candidate -ScoopHome $env:SCOOP_HOME -BaseSha $env:BASE_SHA -RunId $env:GITHUB_RUN_ID -RunAttempt $env:GITHUB_RUN_ATTEMPT -Enabled $env:SCOOP_UPDATES_ENABLED -Publish | ConvertFrom-Json
+          if (!$result.staged) { throw 'No verified candidate was staged for publication.' }
+      - name: Create or reuse the single-package PR
+        id: pr
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          token: ${{ github.token }}
+          sign-commits: true
+          base: ${{ github.event.repository.default_branch }}
+          branch: automation/update-${{ matrix.app }}
+          add-paths: bucket/${{ matrix.app }}.json
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          commit-message: 'chore(${{ matrix.app }}): update manifest'
+          title: 'chore(${{ matrix.app }}): update manifest'
+          body: |
+            Automated Scoop version update. Only the named manifest is included.
+
+            Trusted source run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Validation is explicitly dispatched with the PR head SHA. Creation or dispatch does not mean validation or merging has succeeded.
+          delete-branch: false
+      - name: Explicitly dispatch trusted validation, including unchanged open PRs
+        if: steps.pr.outputs.pull-request-number != ''
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.pr.outputs.pull-request-number }}
+          PR_HEAD: ${{ steps.pr.outputs.pull-request-head-sha }}
+        run: |
+          $head = $env:PR_HEAD
+          if (!$head) { $head = gh api "repos/$env:GITHUB_REPOSITORY/pulls/$env:PR_NUMBER" --jq '.head.sha'; if ($LASTEXITCODE -ne 0) { throw 'Could not resolve the current PR head.' } }
+          $result = ./bin/github-update.ps1 -Mode Dispatch -Repository $env:GITHUB_REPOSITORY -App $env:APP -BaseBranch $env:DEFAULT_BRANCH -PrNumber $env:PR_NUMBER -ExpectedHead $head -RunId $env:GITHUB_RUN_ID -RunAttempt $env:GITHUB_RUN_ATTEMPT -Enabled $env:SCOOP_UPDATES_ENABLED -Publish | ConvertFrom-Json
+          if (!$result.dispatched) { throw 'Validation dispatch was not confirmed.' }
