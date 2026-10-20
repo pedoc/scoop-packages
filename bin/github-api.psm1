@@ -263,8 +263,9 @@ function Get-GithubBranchChange {
         $comparison.merge_base_commit.sha -ceq $HeadSha) { return @{ Integrated = $true } }
     if ($comparison.total_commits -lt 1 -or $comparison.total_commits -gt 250 -or @($comparison.commits).Count -ne $comparison.total_commits) { throw 'Managed branch commit history is empty or incomplete.' }
     foreach ($commit in $comparison.commits) {
+        # GitHub-mediated signing reports web-flow as the committer of bot-authored commits.
         if ($null -eq $commit.author -or $null -eq $commit.committer -or
-            $commit.author.login -cne 'github-actions[bot]' -or $commit.committer.login -cne 'github-actions[bot]') { throw 'Human commits on managed branch require manual review.' }
+            $commit.author.login -cne 'github-actions[bot]' -or $commit.committer.login -cnotin @('github-actions[bot]', 'web-flow')) { throw 'Human commits on managed branch require manual review.' }
         if ($commit.commit.verification.verified -isnot [bool] -or -not $commit.commit.verification.verified -or
             $commit.commit.verification.reason -cne 'valid') { throw 'Managed branch commits must be verified bot-signed commits; unsigned bot email identities are not proof.' }
     }
