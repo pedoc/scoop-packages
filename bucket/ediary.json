@@ -1,11 +1,11 @@
 {
-    "version": "4.4",
+    "version": "4.4.3",
     "description": "eDiary (电子日记本)",
     "homepage": "https://www.haoxg.net",
     "license": "Freeware",
-    "url": "https://down.haoxg.net/download/ediary/windows/ediary-4.4-win64-portable.zip",
-    "hash": "9190620937bf9d0465c7b8b9c2c71e47d9e28fbfd07d331c8ccb8d2ade86a0e6",
-    "extract_dir": "eDiary-4.4-win64",
+    "url": "https://down.haoxg.net/download/ediary/windows/ediary-4.4.3-win64-portable.zip",
+    "hash": "b25d41b215d42ab75a8d382b34122f05d5aa3d85a44be4c7a8ae2ff5b3f781dc",
+    "extract_dir": "eDiary-4.4.3-win64",
     "shortcuts": [
         [
             "eDiary.exe",
