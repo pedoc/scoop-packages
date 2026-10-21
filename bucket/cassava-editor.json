@@ -1,13 +1,13 @@
 {
-    "version": "2.7.2",
+    "version": "2.8.2",
     "description": "CSV editor",
     "homepage": "https://www.asukaze.net/soft/cassava/",
     "license": "MIT",
     "notes": "INI file will be stored in AppData\\Roaming\\Asukaze\\Cassava\\",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/asukaze55/cassava-editor/releases/download/v2.7.2/Cassava2_7_2_64.zip",
-            "hash": "ad0d5bc444f822f57a04e5f10f9f3792622b410e75c7bbb69832f71bc2b60fb2"
+            "url": "https://github.com/asukaze55/cassava-editor/releases/download/v2.8.2/Cassava2_8_2_64.zip",
+            "hash": "c8a6c90d5301bc6e8e874300465d864da3a723c809ae7e0ee479daa866b43c48"
         }
     },
     "extract_dir": "Cassava",
