@@ -1,13 +1,13 @@
 {
-    "version": "2.2",
+    "version": "2.3",
     "description": "Quickly and easily change IPv4 and IPv6 DNS settings.",
     "homepage": "https://www.sordum.org/dns-jumper/",
     "license": {
         "identifier": "Freeware",
         "url": "https://www.sordum.org/eula/"
     },
-    "url": "https://www.sordum.org/files/dns-jumper/DnsJumper.zip",
-    "hash": "721f65f7ccd7939cffb3136449596125bff90293f281666e618e8efa556d899e",
+    "url": "https://www.sordum.org/files/download/dns-jumper/DnsJumper.zip",
+    "hash": "4533b284f87251e689ce25020de9108e776a174f9da98f707e0e1b3c9264c169",
     "extract_dir": "DnsJumper",
     "bin": "dnsjumper.exe",
     "shortcuts": [
