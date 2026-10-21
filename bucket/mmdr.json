@@ -1,12 +1,12 @@
 {
-    "version": "0.2.0",
+    "version": "0.3.1",
     "description": "Fast Mermaid renderer in Rust - 23 diagram types, 100-1400x faster than mermaid-cli",
     "homepage": "https://github.com/1jehuang/mermaid-rs-renderer",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/1jehuang/mermaid-rs-renderer/releases/download/v0.2.0/mmdr-x86_64-pc-windows-msvc.zip",
-            "hash": "5e2def235829035a9f8f4ac6d9be04d5d3a73d3b106276fdc649187145f32627"
+            "url": "https://github.com/1jehuang/mermaid-rs-renderer/releases/download/v0.3.1/mmdr-x86_64-pc-windows-msvc.zip",
+            "hash": "11df20c6a2b22c6dad95a8f0176c5530d4dc9de36ef289653ee9fea13027b14c"
         }
     },
     "bin": "mmdr.exe",
