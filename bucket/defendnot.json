@@ -1,12 +1,12 @@
 {
-    "version": "1.2.0",
+    "version": "1.6.0",
     "description": "An even funnier way to disable windows defender. (through WSC api)",
     "homepage": "https://github.com/es3n1n/defendnot",
     "license": "Apache-2.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/es3n1n/defendnot/releases/download/v1.2.0/x64.zip",
-            "hash": "97df4e6000a9047c956f3fca57c47c0ad5d6e03a6b8aa1e1bc13c3477f291eee"
+            "url": "https://github.com/es3n1n/defendnot/releases/download/v1.6.0/x64.zip",
+            "hash": "7f1e804c7e147c9d4b569c9545a725995a46727744eacd37d9437c8d6e71500e"
         }
     },
     "shortcuts": [
