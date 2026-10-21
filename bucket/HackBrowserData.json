@@ -1,18 +1,18 @@
 {
-    "version": "0.4.5",
+    "version": "1.1.0",
     "description": "Extract and decrypt browser data, supporting multiple data types, runnable on various operating systems (macOS, Windows, Linux).",
     "homepage": "https://github.com/moonD4rk/HackBrowserData",
     "license": "MIT",
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/moonD4rk/HackBrowserData/releases/download/v0.4.5/hack-browser-data-windows-64bit.zip",
-            "hash": "52C54E36CC278993F45D25A56307059F6B6682D802045EAF8EAB92AE577EB2E4"
+            "url": "https://github.com/moonD4rk/HackBrowserData/releases/download/v1.1.0/hack-browser-data-windows-64bit.zip",
+            "hash": "7c6ae319b2bb380027f93e99c88035478114de24d8eec04f88562a98a39aabad"
         }
     },
     "bin": [
         [
-            "hack-browser-data-windows-64bit.exe",
+            "hack-browser-data.exe",
             "HackBrowserData"
         ]
     ],
