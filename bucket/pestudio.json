@@ -1,7 +1,7 @@
 {
     "homepage": "https://www.winitor.com/",
     "description": "Malware Analysis in a private context.",
-    "version": "9.6.1",
+    "version": "9.61",
     "architecture": {
         "64bit": {
             "url": "https://www.winitor.com/tools/pestudio/current/pestudio.zip",
