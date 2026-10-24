@@ -56,11 +56,30 @@ Describe 'Verified forward payload layouts' {
         ([Uri]$url).AbsolutePath | Should -Match 'mvel2-9999\.0\.0\.Final\.jar$'
     }
 
+    It 'ships capa as a standalone 64-bit Windows command from official versioned releases' {
+        $manifest = Get-ForwardManifest 'capa'
+        $version = $manifest['version']
+        $url = "https://github.com/mandiant/capa/releases/download/v$version/capa-v$version-windows.zip"
+
+        $manifest['architecture'].Count | Should -Be 1
+        $manifest['architecture'].Contains('64bit') | Should -BeTrue
+        $manifest['architecture']['64bit']['url'] | Should -BeExactly $url
+        @($manifest['bin']).Count | Should -Be 1
+        $manifest['bin'] | Should -BeExactly 'capa.exe'
+        $manifest.Contains('depends') | Should -BeFalse
+        $manifest.Contains('installer') | Should -BeFalse
+        $manifest['license'] | Should -BeExactly 'Apache-2.0'
+        $manifest['checkver'] | Should -BeExactly 'github'
+        $expandedUrl = Expand-ForwardTemplate $manifest['autoupdate']['architecture']['64bit']['url'] $version
+        $expandedUrl | Should -BeExactly $manifest['architecture']['64bit']['url']
+    }
+
     It 'accepts the reviewed <App> migration through the real update policy' -ForEach @(
         @{ App = '3proxy' },
         @{ App = 'HackBrowserData' },
         @{ App = 'patchelf' },
-        @{ App = 'mvel2' }
+        @{ App = 'mvel2' },
+        @{ App = 'capa' }
     ) {
         $before = Get-ForwardManifest $App
         $after = $before | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
