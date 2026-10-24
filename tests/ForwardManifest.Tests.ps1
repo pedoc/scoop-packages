@@ -74,6 +74,71 @@ Describe 'Verified forward payload layouts' {
         $expandedUrl | Should -BeExactly $manifest['architecture']['64bit']['url']
     }
 
+    It 'ships hcli as a standalone 64bit command from the official MIT project' {
+        $manifest = Get-ForwardManifest 'hcli'
+
+        $manifest['homepage'] | Should -BeExactly 'https://github.com/HexRaysSA/ida-hcli'
+        $manifest['license'] | Should -BeExactly 'MIT'
+        @($manifest['bin']).Count | Should -Be 1
+        $manifest['bin'] | Should -BeExactly 'hcli.exe'
+        foreach ($architectures in @($manifest['architecture'], $manifest['autoupdate']['architecture'])) {
+            $architectures.Count | Should -Be 1
+            $architectures.Contains('64bit') | Should -BeTrue
+        }
+        $manifest['checkver'] | Should -BeOfType [Collections.IDictionary]
+        $manifest['checkver']['url'] | Should -BeExactly 'https://api.github.com/repos/HexRaysSA/ida-hcli/releases?per_page=100'
+        foreach ($scope in @($manifest, $manifest['architecture']['64bit'])) {
+            foreach ($field in @('depends', 'installer', 'pre_install', 'post_install', 'env_set', 'env_add_path')) {
+                $scope.Contains($field) | Should -BeFalse -Because "hcli uses a standard Scoop shim without $field"
+            }
+        }
+    }
+
+    It 'selects the newest stable hcli tag while excluding dev, rc and post-tag variants' {
+        $manifest = Get-ForwardManifest 'hcli'
+        $manifest['checkver'] | Should -BeOfType [Collections.IDictionary]
+        $regex = [regex]::new($manifest['checkver']['regex'])
+        $releases = '[{"tag_name": "v0.28.0.dev1"}, {"tag_name": "v0.27.1"}, {"tag_name": "v0.27.0"}]'
+        $release = $regex.Match($releases)
+
+        $release.Success | Should -BeTrue
+        $release.Groups[1].Value | Should -BeExactly '0.27.1'
+        foreach ($tag in @('v0.28.0.dev1', 'v0.28.0-rc1', 'v0.28.0.post1', 'v0.28.0-post1')) {
+            $regex.IsMatch('{"tag_name": "' + $tag + '"}') | Should -BeFalse -Because "$tag is not a stable release"
+        }
+    }
+
+    It 'keeps hcli downloads on official versioned x86_64 releases with a stable shim filename' {
+        $manifest = Get-ForwardManifest 'hcli'
+        $version = $manifest['version']
+        $asset = $manifest['architecture']['64bit']
+        $template = $manifest['autoupdate']['architecture']['64bit']['url']
+        $url = "https://github.com/HexRaysSA/ida-hcli/releases/download/v$version/hcli-windows-x86_64-$version.exe#/hcli.exe"
+
+        $asset['url'] | Should -BeExactly $url
+        $asset['hash'] | Should -BeOfType [string]
+        $asset['hash'] | Should -Match '^[a-fA-F0-9]{64}$'
+        (Expand-ForwardTemplate $template $version) | Should -BeExactly $url
+        $futureVersion = '9999.0.0'
+        $futureUrl = Expand-ForwardTemplate $template $futureVersion
+        $futureUrl | Should -BeExactly "https://github.com/HexRaysSA/ida-hcli/releases/download/v$futureVersion/hcli-windows-x86_64-$futureVersion.exe#/hcli.exe"
+    }
+
+    It 'accepts a future hcli 64bit update through the real update policy' {
+        $before = Get-ForwardManifest 'hcli'
+        $after = $before | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $version = '9999.0.0'
+        $after['version'] = $version
+        $template = $before['autoupdate']['architecture']['64bit']
+        $after['architecture']['64bit']['url'] = Expand-ForwardTemplate $template['url'] $version
+        $after['architecture']['64bit']['hash'] = 'a' * 64
+
+        $decision = Get-ManifestUpdateDecision -Before $before -After $after -ScoopHome $core
+
+        $decision.Allowed | Should -BeTrue -Because $decision.Reason
+        $decision.Assets.Count | Should -Be 1
+    }
+
     It 'accepts the reviewed <App> migration through the real update policy' -ForEach @(
         @{ App = '3proxy' },
         @{ App = 'HackBrowserData' },
