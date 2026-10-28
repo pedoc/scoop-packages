@@ -95,3 +95,7 @@ pwsh -NoLogo -NoProfile -File ./bin/checkver.ps1 -App spirula-studio
 `checkver.ps1 -Update` 是显式修改本地清单的底层工具，不是 dry-run。自动化使用隔离副本与额外证据校验，不能只凭底层工具的退出码判断所有源均检查成功。
 
 本地脚本默认使用安装的 Scoop，可通过 `-ScoopHome` 或 `SCOOP_HOME` 指定源码目录。CI 的 Scoop 核心与外部 Actions 均固定在已确认的提交，详见 [setup-scoop](.github/actions/setup-scoop/action.yml)；工具版本变化也需要测试与审查。
+
+## 新增一个包
+
+新增包的完整步骤与踩坑记录见 [docs/adding-a-package.md](docs/adding-a-package.md)，涵盖研究安装包格式、编写清单与回归测试、用 Scoop 自身函数做真实解包验证、提交推送、自动合并 PR 以及合并后的分支清理。
