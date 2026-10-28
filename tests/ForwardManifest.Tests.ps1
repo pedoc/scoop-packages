@@ -325,3 +325,165 @@ Describe 'MiniMax Code portable package contracts' {
         Get-Content -LiteralPath $userData -Raw | Should -BeExactly '用户设置'
     }
 }
+
+Describe 'DeskBox Inno Setup package contracts' {
+    It 'uses distinct official installers for both architectures with Scoop-managed update guidance' {
+        $manifest = Get-ForwardManifest 'deskbox'
+        $version = $manifest['version']
+        $platforms = @{ '64bit' = 'x64'; 'arm64' = 'arm64' }
+
+        $manifest['homepage'] | Should -BeExactly 'https://github.com/Tianyu199509/DeskBox'
+        $manifest['license'] | Should -BeExactly 'GPL-3.0-only'
+        $manifest['innosetup'] | Should -BeOfType [bool]
+        $manifest['innosetup'] | Should -BeTrue
+        $manifest['architecture'].Count | Should -Be 2
+        foreach ($architecture in @('64bit', 'arm64')) {
+            $manifest['architecture'].Contains($architecture) | Should -BeTrue
+            $asset = $manifest['architecture'][$architecture]
+            $asset['url'] | Should -BeExactly "https://github.com/Tianyu199509/DeskBox/releases/download/v$version/DeskBox_Setup_${version}_$($platforms[$architecture]).exe"
+            $asset['hash'] | Should -BeOfType [string]
+            $asset['hash'] | Should -Match '^[a-fA-F0-9]{64}$'
+            $asset['extract_dir'] | Should -BeExactly '{app}'
+        }
+        $manifest['architecture']['64bit']['hash'] | Should -Not -Be $manifest['architecture']['arm64']['hash']
+        foreach ($scope in @($manifest, $manifest['architecture']['64bit'], $manifest['architecture']['arm64'])) {
+            foreach ($field in @('persist', 'installer', 'uninstaller', 'depends', 'env_set')) {
+                $scope.Contains($field) | Should -BeFalse -Because "DeskBox does not require $field"
+            }
+        }
+        @($manifest['shortcuts']).Count | Should -Be 1
+        @($manifest['shortcuts'][0]).Count | Should -Be 4
+        $manifest['shortcuts'][0][0] | Should -BeExactly 'DeskBox.exe'
+        $manifest['shortcuts'][0][1] | Should -BeExactly 'DeskBox'
+        $manifest['shortcuts'][0][2] | Should -BeExactly ''
+        $manifest['shortcuts'][0][3] | Should -BeExactly 'Assets\deskbox.ico'
+        $notes = @($manifest['notes']) -join "`n"
+        $notes | Should -Match 'scoop update deskbox'
+        $notes | Should -Match '(?i)(native|built-in|in-app|self-updat|应用内|原生|内置)'
+        $notes | Should -Match '(?i)(block|disabl|prevent|remov|阻止|禁用|移除|删除)'
+        $notes | Should -Match '(?i)(may|might|still|仍|可能)'
+        $notes | Should -Match '(?i)(update[^\r\n]*(prompt|notif)|(prompt|notif)[^\r\n]*update|更新提示|更新通知)'
+    }
+
+    It 'checks official stable releases and validates any custom tag parsing rule' {
+        $manifest = Get-ForwardManifest 'deskbox'
+        $checkver = $manifest['checkver']
+        $checkver | Should -BeOfType [Collections.IDictionary]
+        if ($checkver.Contains('github')) {
+            $checkver['github'] | Should -BeExactly 'https://github.com/Tianyu199509/DeskBox'
+            $source = $checkver['github'] + '/releases/latest'
+        } else {
+            $source = $checkver['url']
+        }
+        # GitHub's latest release endpoint excludes drafts and prereleases upstream.
+        @(
+            'https://github.com/Tianyu199509/DeskBox/releases/latest',
+            'https://api.github.com/repos/Tianyu199509/DeskBox/releases/latest'
+        ) | Should -Contain $source
+        if ($checkver.Contains('regex')) {
+            $checkver['regex'] | Should -Not -BeNullOrEmpty
+            $regex = [regex]::new($checkver['regex'])
+            foreach ($tag in @('v1.5.9', '', 'v1.5.9-rc.1', 'v1.5.9-beta', 'v1.5.9+build', 'v1.5.9garbage', 'v1.5.9.0', 'v1.5', 'v1x5x9', 'not-a-version')) {
+                $release = if ($source.StartsWith('https://api.github.com/')) {
+                    '{"tag_name": "' + $tag + '", "prerelease": false, "draft": false}'
+                } else {
+                    '<a href="/Tianyu199509/DeskBox/releases/tag/' + $tag + '">' + $tag + '</a>'
+                }
+                $match = $regex.Match($release)
+                if ($tag -ceq 'v1.5.9') {
+                    $match.Success | Should -BeTrue
+                    $version = if ($checkver.Contains('replace')) { $match.Result($checkver['replace']) } else { $match.Groups[1].Value }
+                    $version | Should -BeExactly '1.5.9'
+                } else {
+                    $match.Success | Should -BeFalse -Because "'$tag' is not a complete stable version tag"
+                }
+            }
+        }
+    }
+
+    It 'accepts two future architecture assets through the real policy without mutating either manifest' {
+        $before = Get-ForwardManifest 'deskbox'
+        $original = $before | ConvertTo-Json -Depth 100 -Compress
+        $after = $original | ConvertFrom-Json -AsHashtable
+        $version = '9999.0.0'
+        $after['version'] = $version
+        $platforms = @{ '64bit' = 'x64'; 'arm64' = 'arm64' }
+        $templates = $before['autoupdate']['architecture']
+        $templates.Count | Should -Be 2
+        foreach ($architecture in @('64bit', 'arm64')) {
+            $templates.Contains($architecture) | Should -BeTrue
+            $template = $templates[$architecture]
+            $template.Contains('url') | Should -BeTrue
+            $template.Contains('hash') | Should -BeTrue
+            $template['hash'] | Should -Not -BeNullOrEmpty
+            (Expand-ForwardTemplate $template['url'] $before['version']) | Should -BeExactly $before['architecture'][$architecture]['url']
+            # The sidecar must belong to this architecture's installer, not the other one.
+            $expandedUrl = Expand-ForwardTemplate $template['url'] $version
+            $expandedHashUrl = Expand-ForwardTemplate $template['hash']['url'] $version
+            $expandedHashUrl | Should -BeExactly "$expandedUrl.sha256"
+            $expandedHashUrl | Should -Match "_$($platforms[$architecture])\.exe\.sha256$"
+            $sidecar = '3B8FAD94B8A0E0AE136572AE8DA378C72C406C7C370F875212CB71B8CB586E4A'
+            $captured = [regex]::new($template['hash']['regex']).Match($sidecar)
+            $captured.Success | Should -BeTrue
+            $captured.Groups[1].Value.ToLowerInvariant() | Should -BeExactly $sidecar.ToLowerInvariant()
+            $after['architecture'][$architecture]['url'] = $expandedUrl
+            $after['architecture'][$architecture]['hash'] = if ($architecture -ceq '64bit') { 'a' * 64 } else { 'b' * 64 }
+            $after['architecture'][$architecture]['url'] | Should -BeExactly "https://github.com/Tianyu199509/DeskBox/releases/download/v$version/DeskBox_Setup_${version}_$($platforms[$architecture]).exe"
+        }
+        $candidate = $after | ConvertTo-Json -Depth 100 -Compress
+
+        $decision = Get-ManifestUpdateDecision -Before $before -After $after -ScoopHome $core
+
+        $decision.Allowed | Should -BeTrue -Because $decision.Reason
+        $decision.Assets.Count | Should -Be 2
+        (@($decision.Assets.Architecture | Sort-Object) -join ',') | Should -BeExactly '64bit,arm64'
+        foreach ($asset in $decision.Assets) {
+            $asset.Url | Should -BeExactly $after['architecture'][$asset.Architecture]['url']
+            $asset.Hash | Should -BeExactly $after['architecture'][$asset.Architecture]['hash']
+        }
+        ($before | ConvertTo-Json -Depth 100 -Compress) | Should -BeExactly $original
+        ($after | ConvertTo-Json -Depth 100 -Compress) | Should -BeExactly $candidate
+    }
+
+    It 'removes only the native updater while preserving application files and external user settings' {
+        $manifest = Get-ForwardManifest 'deskbox'
+        $dir = Join-Path $TestDrive 'install'
+        $businessFiles = @('DeskBox.exe', 'Assets\deskbox.ico', 'Microsoft.WindowsAppRuntime.Bootstrap.dll')
+        foreach ($file in @('DeskBox.Updater.exe') + $businessFiles) {
+            $path = Join-Path $dir $file
+            New-Item -ItemType Directory -Path (Split-Path -Parent $path) -Force | Out-Null
+            Set-Content -LiteralPath $path -Value $file -NoNewline
+        }
+        $localAppData = Join-Path $TestDrive 'AppData/Local'
+        $userData = Join-Path $localAppData 'DeskBox/settings.json'
+        $settings = '{"theme":"dark","label":"用户设置"}'
+        New-Item -ItemType Directory -Path (Split-Path -Parent $userData) -Force | Out-Null
+        Set-Content -LiteralPath $userData -Value $settings -NoNewline
+        function Expand-7zipArchive { param($Path, $DestinationPath) throw 'DeskBox hooks must not extract archives.' }
+        Mock Expand-7zipArchive { throw 'DeskBox hooks must not extract archives.' }
+        Mock Start-Process { throw 'Hook tests must not launch installers.' }
+        Mock Invoke-WebRequest { throw 'Hook tests must not access the network.' }
+        Mock Invoke-RestMethod { throw 'Hook tests must not access the network.' }
+        $postInstall = @($manifest['post_install']) -join "`n"
+        $postInstall | Should -Not -BeNullOrEmpty
+        $postInstall | Should -Match 'DeskBox\.Updater\.exe'
+        $originalLocalAppData = $env:LOCALAPPDATA
+
+        try {
+            $env:LOCALAPPDATA = $localAppData
+            & ([scriptblock]::Create($postInstall))
+
+            Join-Path $dir 'DeskBox.Updater.exe' | Should -Not -Exist
+            foreach ($file in $businessFiles) {
+                Get-Content -LiteralPath (Join-Path $dir $file) -Raw | Should -BeExactly $file
+            }
+            Get-Content -LiteralPath $userData -Raw | Should -BeExactly $settings
+            Should -Invoke Expand-7zipArchive -Times 0 -Exactly -Scope It
+            Should -Invoke Start-Process -Times 0 -Exactly -Scope It
+            Should -Invoke Invoke-WebRequest -Times 0 -Exactly -Scope It
+            Should -Invoke Invoke-RestMethod -Times 0 -Exactly -Scope It
+        } finally {
+            $env:LOCALAPPDATA = $originalLocalAppData
+        }
+    }
+}
