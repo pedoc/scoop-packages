@@ -199,3 +199,129 @@ Describe 'Verified forward payload layouts' {
         $url | Should -BeExactly 'https://github.com/ORelio/Spotlight-Downloader/releases/download/v2.0.0-r1/SpotlightDL-v2.0.0-r1.zip'
     }
 }
+
+Describe 'MiniMax Code portable package contracts' {
+    It 'shares the official installer asset across two portable architectures with explicit update guidance' {
+        $manifest = Get-ForwardManifest 'minimax-code'
+        $version = $manifest['version']
+
+        $manifest['url'] | Should -BeExactly "https://filecdn.minimax.chat/public/minimax-agent-prod/release/MiniMax%20Code%20Setup%20$version.exe#/dl.7z"
+        $manifest['hash'] | Should -BeOfType [string]
+        $manifest['hash'] | Should -Match '^[a-fA-F0-9]{64}$'
+        $manifest['architecture'].Count | Should -Be 2
+        foreach ($architecture in @('64bit', 'arm64')) {
+            $manifest['architecture'].Contains($architecture) | Should -BeTrue
+            foreach ($field in @('url', 'hash', 'installer', 'uninstaller', 'persist', 'env_set')) {
+                $manifest['architecture'][$architecture].Contains($field) | Should -BeFalse
+            }
+        }
+        foreach ($field in @('installer', 'uninstaller', 'persist', 'env_set')) {
+            $manifest.Contains($field) | Should -BeFalse
+        }
+        @($manifest['shortcuts']).Count | Should -Be 1
+        @($manifest['shortcuts'][0]).Count | Should -Be 2
+        $manifest['shortcuts'][0][0] | Should -BeExactly 'MiniMax Code.exe'
+        $manifest['shortcuts'][0][1] | Should -BeExactly 'MiniMax Code'
+        $manifest['license']['identifier'] | Should -BeExactly 'Proprietary'
+        $manifest['license']['url'] | Should -BeExactly 'https://agent.minimax.cn/doc/zh/terms-of-service.html'
+        $notes = @($manifest['notes']) -join "`n"
+        $notes | Should -Match 'scoop update minimax-code'
+        $notes | Should -Match '(?i)(native|built-in|原生|内置)'
+        $notes | Should -Match '(?i)(block|disabl|prevent|阻止|禁用)'
+        $notes | Should -Match '(?i)(may|might|still|仍|可能)'
+        $notes | Should -Match '(?i)(update[^\r\n]*(prompt|notif)|(prompt|notif)[^\r\n]*update|更新提示|更新通知)'
+    }
+
+    It 'matches only a complete stable version line in the official production YAML feed' {
+        $manifest = Get-ForwardManifest 'minimax-code'
+        $manifest['checkver']['url'] | Should -BeExactly 'https://filecdn.minimax.chat/public/minimax-agent-prod/release/latest.yml'
+        $regex = [regex]::new($manifest['checkver']['regex'])
+        foreach ($newline in @("`n", "`r`n")) {
+            $match = $regex.Match("version: 9999.0.0${newline}files:${newline}  - url: installer.exe${newline}")
+            $match.Success | Should -BeTrue
+            $match.Groups[1].Value | Should -BeExactly '9999.0.0'
+        }
+        foreach ($feed in @(
+            '', 'files: []', 'version:', 'version: 3.2.0-rc.1', 'version: 3.2.0-beta',
+            'version: 3.2.0+build', 'version: 3.2.0.1', 'version: 3.2', 'version: 3x2x0',
+            'version: 3.2.0garbage', 'version: 3.2.0 trailing', 'notversion: 3.2.0',
+            '# version: 3.2.0', "files:`n  - version: 3.2.0"
+        )) {
+            $regex.IsMatch($feed) | Should -BeFalse -Because "'$feed' has no top-level stable version line"
+        }
+    }
+
+    It 'accepts a future shared SHA256 download through the real policy without mutating either manifest' {
+        $before = Get-ForwardManifest 'minimax-code'
+        $original = $before | ConvertTo-Json -Depth 100 -Compress
+        $after = $original | ConvertFrom-Json -AsHashtable
+        $template = $before['autoupdate']
+        $template['url'] | Should -BeExactly 'https://filecdn.minimax.chat/public/minimax-agent-prod/release/MiniMax%20Code%20Setup%20$version.exe#/dl.7z'
+        $template['hash']['mode'] | Should -BeExactly 'download'
+        $template['hash'].Contains('url') | Should -BeFalse
+        $template.Contains('architecture') | Should -BeFalse
+        (Expand-ForwardTemplate $template['url'] $before['version']) | Should -BeExactly $before['url']
+        $version = '9999.0.0'
+        $after['version'] = $version
+        $after['url'] = Expand-ForwardTemplate $template['url'] $version
+        $after['hash'] = 'a' * 64
+        $after['url'] | Should -BeExactly "https://filecdn.minimax.chat/public/minimax-agent-prod/release/MiniMax%20Code%20Setup%20$version.exe#/dl.7z"
+        $candidate = $after | ConvertTo-Json -Depth 100 -Compress
+
+        $decision = Get-ManifestUpdateDecision -Before $before -After $after -ScoopHome $core
+
+        $decision.Allowed | Should -BeTrue -Because $decision.Reason
+        $decision.Assets.Count | Should -Be 2
+        (@($decision.Assets.Architecture | Sort-Object) -join ',') | Should -BeExactly '64bit,arm64'
+        foreach ($asset in $decision.Assets) {
+            $asset.Url | Should -BeExactly $after['url']
+            $asset.Hash | Should -BeExactly $after['hash']
+        }
+        ($before | ConvertTo-Json -Depth 100 -Compress) | Should -BeExactly $original
+        ($after | ConvertTo-Json -Depth 100 -Compress) | Should -BeExactly $candidate
+    }
+
+    It 'extracts <Payload> for <Architecture> and removes only installer and updater remnants' -ForEach @(
+        @{ Architecture = '64bit'; Payload = 'app-64.7z' },
+        @{ Architecture = 'arm64'; Payload = 'app-arm64.7z' }
+    ) {
+        $manifest = Get-ForwardManifest 'minimax-code'
+        $dir = Join-Path $TestDrive "$Architecture/install"
+        $userData = Join-Path $TestDrive "$Architecture/AppData/MiniMax Code/settings.json"
+        $remnants = @('$PLUGINSDIR', '$R0', 'uninstallerIcon.ico', 'resources/app-update.yml')
+        $businessFiles = @('MiniMax Code.exe', 'resources/app.asar', 'resources/business.yml', 'business.txt')
+        $fixtureFiles = @('$PLUGINSDIR/app-64.7z', '$PLUGINSDIR/app-arm64.7z', '$R0/setup.bin', 'uninstallerIcon.ico', 'resources/app-update.yml') + $businessFiles
+        foreach ($file in $fixtureFiles) {
+            $path = Join-Path $dir $file
+            New-Item -ItemType Directory -Path (Split-Path -Parent $path) -Force | Out-Null
+            Set-Content -LiteralPath $path -Value $file -NoNewline
+        }
+        New-Item -ItemType Directory -Path (Split-Path -Parent $userData) -Force | Out-Null
+        Set-Content -LiteralPath $userData -Value '用户设置' -NoNewline
+        function Expand-7zipArchive { param($Path, $DestinationPath) throw 'Archive extraction must be mocked.' }
+        Mock Expand-7zipArchive { param($Path, $DestinationPath) $Path | Should -Exist }
+        Mock Start-Process { throw 'Hook tests must not launch installers.' }
+        Mock Invoke-WebRequest { throw 'Hook tests must not access the network.' }
+        Mock Invoke-RestMethod { throw 'Hook tests must not access the network.' }
+        $preInstall = @($manifest['architecture'][$Architecture]['pre_install']) -join "`n"
+        $postInstall = @($manifest['post_install']) -join "`n"
+        $preInstall | Should -Not -BeNullOrEmpty
+        $postInstall | Should -Not -BeNullOrEmpty
+
+        & ([scriptblock]::Create($preInstall))
+        Should -Invoke Expand-7zipArchive -Times 1 -Exactly -Scope It
+        Should -Invoke Expand-7zipArchive -Times 1 -Exactly -Scope It -ParameterFilter {
+            $Path -eq (Join-Path $dir ('$PLUGINSDIR/' + $Payload)) -and $DestinationPath -eq $dir
+        }
+        & ([scriptblock]::Create($postInstall))
+
+        foreach ($remnant in $remnants) {
+            Join-Path $dir $remnant | Should -Not -Exist
+        }
+        foreach ($file in $businessFiles) {
+            Get-Content -LiteralPath (Join-Path $dir $file) -Raw | Should -BeExactly $file
+        }
+        Join-Path $dir 'resources' | Should -Exist
+        Get-Content -LiteralPath $userData -Raw | Should -BeExactly '用户设置'
+    }
+}
