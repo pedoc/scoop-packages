@@ -489,7 +489,7 @@ Describe 'DeskBox Inno Setup package contracts' {
 }
 
 Describe 'NSSM fork release package contracts' {
-    It 'uses verified fork release archives while preserving both upstream command aliases' {
+    It 'uses verified fork release archives while exposing only the nssm command' {
         $manifest = Get-ForwardManifest 'nssm'
         $version = $manifest['version']
         $platforms = @{ '64bit' = 'win64'; '32bit' = 'win32' }
@@ -498,10 +498,8 @@ Describe 'NSSM fork release package contracts' {
         $manifest['license'] | Should -BeExactly 'Public Domain'
         $manifest['checkver']['github'] | Should -BeExactly 'https://github.com/pedoc/nssm'
         $manifest['architecture'].Count | Should -Be 2
-        @($manifest['bin']).Count | Should -Be 2
-        $manifest['bin'][0] | Should -BeExactly 'nssm.exe'
-        $manifest['bin'][1][0] | Should -BeExactly 'nssm.exe'
-        $manifest['bin'][1][1] | Should -BeExactly 'service'
+        @($manifest['bin']).Count | Should -Be 1
+        $manifest['bin'] | Should -BeExactly 'nssm.exe'
         foreach ($architecture in @('64bit', '32bit')) {
             $asset = $manifest['architecture'][$architecture]
             $asset['url'] | Should -BeExactly "https://github.com/pedoc/nssm/releases/download/v$version/nssm-$($platforms[$architecture]).zip"
