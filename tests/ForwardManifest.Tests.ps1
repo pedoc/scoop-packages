@@ -487,3 +487,73 @@ Describe 'DeskBox Inno Setup package contracts' {
         }
     }
 }
+
+Describe 'NSSM fork release package contracts' {
+    It 'uses verified fork release archives while preserving both upstream command aliases' {
+        $manifest = Get-ForwardManifest 'nssm'
+        $version = $manifest['version']
+        $platforms = @{ '64bit' = 'win64'; '32bit' = 'win32' }
+
+        $manifest['homepage'] | Should -BeExactly 'https://github.com/pedoc/nssm'
+        $manifest['license'] | Should -BeExactly 'Public Domain'
+        $manifest['checkver']['github'] | Should -BeExactly 'https://github.com/pedoc/nssm'
+        $manifest['architecture'].Count | Should -Be 2
+        @($manifest['bin']).Count | Should -Be 2
+        $manifest['bin'][0] | Should -BeExactly 'nssm.exe'
+        $manifest['bin'][1][0] | Should -BeExactly 'nssm.exe'
+        $manifest['bin'][1][1] | Should -BeExactly 'service'
+        foreach ($architecture in @('64bit', '32bit')) {
+            $asset = $manifest['architecture'][$architecture]
+            $asset['url'] | Should -BeExactly "https://github.com/pedoc/nssm/releases/download/v$version/nssm-$($platforms[$architecture]).zip"
+            $asset['hash'] | Should -Match '^[a-fA-F0-9]{64}$'
+            foreach ($scope in @($manifest, $asset)) {
+                foreach ($field in @('extract_dir', 'installer', 'pre_install', 'post_install', 'persist', 'depends')) {
+                    $scope.Contains($field) | Should -BeFalse -Because "NSSM is a standalone root-level executable without $field"
+                }
+            }
+        }
+    }
+
+    It 'binds the future <Architecture> payload and checksum to <Platform>' -ForEach @(
+        @{ Architecture = '64bit'; Platform = 'win64'; HashCharacter = 'b'; OtherPlatform = 'win32' },
+        @{ Architecture = '32bit'; Platform = 'win32'; HashCharacter = 'a'; OtherPlatform = 'win64' }
+    ) {
+        $manifest = Get-ForwardManifest 'nssm'
+        $version = '9999.0.0'
+        $template = $manifest['autoupdate']['architecture'][$Architecture]
+        $url = Expand-ForwardTemplate $template['url'] $version
+        $hashUrl = Expand-ForwardTemplate $template['hash']['url'] $version
+
+        $url | Should -BeExactly "https://github.com/pedoc/nssm/releases/download/v$version/nssm-$Platform.zip"
+        $hashUrl | Should -BeExactly ([Uri]::new([Uri]$url, 'SHA256SUMS.txt').AbsoluteUri)
+        $checksums = ('a' * 64) + "  nssm-win32.zip`r`n" + ('b' * 64) + "  nssm-win64.zip`r`n"
+        $regex = [regex]::new($template['hash']['regex'])
+        $match = $regex.Match($checksums)
+        $match.Success | Should -BeTrue
+        $match.Groups[1].Value | Should -BeExactly ($HashCharacter * 64)
+        $regex.IsMatch(('c' * 64) + "  nssm-$OtherPlatform.zip`n") | Should -BeFalse
+    }
+
+    It 'accepts a real future NSSM update but rejects swapped architecture URLs' {
+        $before = Get-ForwardManifest 'nssm'
+        $original = $before | ConvertTo-Json -Depth 100 -Compress
+        $after = $original | ConvertFrom-Json -AsHashtable
+        $version = '9999.0.0'
+        $after['version'] = $version
+        foreach ($architecture in @('64bit', '32bit')) {
+            $template = $before['autoupdate']['architecture'][$architecture]
+            $after['architecture'][$architecture]['url'] = Expand-ForwardTemplate $template['url'] $version
+            $after['architecture'][$architecture]['hash'] = if ($architecture -ceq '64bit') { 'b' * 64 } else { 'a' * 64 }
+        }
+
+        $decision = Get-ManifestUpdateDecision -Before $before -After $after -ScoopHome $core
+        $decision.Allowed | Should -BeTrue -Because $decision.Reason
+        $decision.Assets.Count | Should -Be 2
+        ($before | ConvertTo-Json -Depth 100 -Compress) | Should -BeExactly $original
+        $swapped = $after | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $swapped['architecture']['64bit']['url'] = $after['architecture']['32bit']['url']
+        $swapped['architecture']['32bit']['url'] = $after['architecture']['64bit']['url']
+        $rejected = Get-ManifestUpdateDecision -Before $before -After $swapped -ScoopHome $core
+        $rejected.Allowed | Should -BeFalse
+    }
+}
