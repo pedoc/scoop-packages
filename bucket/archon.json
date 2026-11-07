@@ -1,12 +1,12 @@
 {
-    "version": "0.13.2",
+    "version": "0.14.0",
     "description": "Archon CLI — workflow runner",
     "homepage": "https://github.com/coleam00/Archon",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/coleam00/Archon/releases/download/v0.13.2/archon-windows-x64.exe",
-            "hash": "2ff11d7607a7b51df3ab03ced7bb22ff8dbc177db2dd4cb2de86bf7a3b1e91da"
+            "url": "https://github.com/coleam00/Archon/releases/download/v0.14.0/archon-windows-x64.exe",
+            "hash": "aebc48ee8422ce9fbe426af730e17261f058923cd27293b46254d1cf9555744c"
         }
     },
     "bin": [
