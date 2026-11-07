@@ -13,13 +13,7 @@
             "hash": "89197dcfee9f6aaa697bc8bacb3559c97b2ef43e877f4eb300fbec8d3094707c"
         }
     },
-    "bin": [
-        "nssm.exe",
-        [
-            "nssm.exe",
-            "service"
-        ]
-    ],
+    "bin": "nssm.exe",
     "checkver": {
         "github": "https://github.com/pedoc/nssm"
     },
