@@ -555,3 +555,100 @@ Describe 'NSSM fork release package contracts' {
         $rejected.Allowed | Should -BeFalse
     }
 }
+
+Describe 'Independent NSSM Next GUI package contracts' {
+    It 'installs the complete x64 Next runtime without replacing the legacy nssm command' {
+        $manifest = Get-ForwardManifest 'nssmnext'
+        $version = $manifest['version']
+
+        $manifest['homepage'] | Should -BeExactly 'https://github.com/pedoc/nssm/tree/main/next'
+        $manifest['license'] | Should -BeExactly 'Public Domain'
+        $manifest['architecture'].Count | Should -Be 1
+        $manifest['architecture'].Contains('64bit') | Should -BeTrue
+        $manifest['architecture']['64bit']['url'] | Should -BeExactly "https://github.com/pedoc/nssm/releases/download/next-v$version/NssmNext-$version-win-x64.zip"
+        $manifest['architecture']['64bit']['hash'] | Should -Match '^[a-fA-F0-9]{64}$'
+        $manifest['extract_dir'] | Should -BeExactly 'NssmNext'
+        @($manifest['bin']).Count | Should -Be 1
+        $manifest['bin'][0][0] | Should -BeExactly 'NssmNext.exe'
+        $manifest['bin'][0][1] | Should -BeExactly 'nssmnext'
+        $manifest['shortcuts'][0][0] | Should -BeExactly 'NssmNext.exe'
+        $manifest['shortcuts'][0][1] | Should -BeExactly 'NSSM Next'
+        $manifest['pre_install'] | Should -Match 'Version\.Build -lt 19041'
+        foreach ($field in @('installer', 'post_install', 'uninstaller', 'pre_uninstall', 'post_uninstall', 'persist', 'depends')) {
+            $manifest.Contains($field) | Should -BeFalse -Because "the portable GUI must not add $field side effects or move service data"
+        }
+        (Get-ForwardManifest 'nssm')['bin'] | Should -BeExactly 'nssm.exe'
+    }
+
+    It 'detects only stable Next tags from <Case> public release feeds' -ForEach @(
+        @{
+            Case = 'mixed'
+            Payload = '<feed><entry><id>tag:github.com,2008:Repository/42/v9999.0.0</id></entry><entry><id>tag:github.com,2008:Repository/42/next-v9999.0.0-preview.1</id></entry><entry><id>tag:github.com,2008:Repository/42/next-v9999.0.0-rc.1</id></entry><entry><id>tag:github.com,2008:Repository/42/next-v9999.0.0+build.1</id></entry><entry><id>tag:github.com,2008:Repository/42/next-v9.8.7</id></entry><entry><id>tag:github.com,2008:Repository/42/next-v9.8.6</id></entry></feed>'
+            Expected = '9.8.7'
+        },
+        @{
+            Case = 'single'
+            Payload = '<feed><entry><id>tag:github.com,2008:Repository/42/next-v9.8.7</id></entry></feed>'
+            Expected = '9.8.7'
+        },
+        @{
+            Case = 'legacy-only'
+            Payload = '<feed><entry><id>tag:github.com,2008:Repository/42/v9999.0.0</id></entry></feed>'
+            Expected = ''
+        }
+    ) {
+        $manifest = Get-ForwardManifest 'nssmnext'
+        $manifest['checkver']['url'] | Should -BeExactly 'https://github.com/pedoc/nssm/releases.atom'
+        $manifest['checkver'].Contains('github') | Should -BeFalse
+        $match = [regex]::Match($Payload, $manifest['checkver']['regex'])
+        if ($Expected) {
+            $match.Success | Should -BeTrue
+            $match.Groups[1].Value | Should -BeExactly $Expected
+        } else {
+            $match.Success | Should -BeFalse
+        }
+    }
+
+    It 'binds future checksums to the exact Next asset name and version' {
+        $manifest = Get-ForwardManifest 'nssmnext'
+        $version = '9999.0.0'
+        $template = $manifest['autoupdate']['architecture']['64bit']
+        $url = Expand-ForwardTemplate $template['url'] $version
+        $hashUrl = Expand-ForwardTemplate $template['hash']['url'] $version
+        $url | Should -BeExactly "https://github.com/pedoc/nssm/releases/download/next-v$version/NssmNext-$version-win-x64.zip"
+        $hashUrl | Should -BeExactly ([Uri]::new([Uri]$url, 'SHA256SUMS.txt').AbsoluteUri)
+        $basename = [IO.Path]::GetFileName(([Uri]$url).AbsolutePath)
+        $pattern = & {
+            param($Text, $Name, $ScoopCore)
+            Set-StrictMode -Off
+            . (Join-Path $ScoopCore 'lib/core.ps1')
+            substitute $Text @{ '$basename' = $Name } $true
+        } $template['hash']['regex'] $basename $core
+        $regex = [regex]::new($pattern)
+        $checksums = ('a' * 64) + "  nssm-win64.zip`r`n" + ('b' * 64) + "  $basename`r`n"
+        $regex.Match($checksums).Groups[1].Value | Should -BeExactly ('b' * 64)
+        foreach ($other in @('nssm-win64.zip', "NssmNext-$version-win-arm64.zip", 'NssmNext-9998.0.0-win-x64.zip', 'NssmNext-9999x0x0-win-x64.zip')) {
+            $regex.IsMatch(('c' * 64) + "  $other`n") | Should -BeFalse
+        }
+    }
+
+    It 'accepts a future Next update but rejects legacy payload or command substitution' {
+        $before = Get-ForwardManifest 'nssmnext'
+        $original = $before | ConvertTo-Json -Depth 100 -Compress
+        $after = $original | ConvertFrom-Json -AsHashtable
+        $after['version'] = '9999.0.0'
+        $after['architecture']['64bit']['url'] = Expand-ForwardTemplate $before['autoupdate']['architecture']['64bit']['url'] $after['version']
+        $after['architecture']['64bit']['hash'] = 'b' * 64
+        $decision = Get-ManifestUpdateDecision -Before $before -After $after -ScoopHome $core
+        $decision.Allowed | Should -BeTrue -Because $decision.Reason
+        $decision.Assets.Count | Should -Be 1
+        $decision.Assets[0].Architecture | Should -BeExactly '64bit'
+        $wrong = $after | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $wrong['architecture']['64bit']['url'] = 'https://github.com/pedoc/nssm/releases/download/v9999.0.0/nssm-win64.zip'
+        (Get-ManifestUpdateDecision -Before $before -After $wrong -ScoopHome $core).Allowed | Should -BeFalse
+        $wrong = $after | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $wrong['bin'][0][1] = 'nssm'
+        (Get-ManifestUpdateDecision -Before $before -After $wrong -ScoopHome $core).Allowed | Should -BeFalse
+        ($before | ConvertTo-Json -Depth 100 -Compress) | Should -BeExactly $original
+    }
+}
