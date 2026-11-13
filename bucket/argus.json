@@ -1,0 +1,31 @@
+{
+    "version": "0.5.0",
+    "description": "A modern Windows task manager built with Rust and GPUI.",
+    "homepage": "https://github.com/Ray-lea/Argus",
+    "license": "AGPL-3.0-or-later",
+    "notes": "Portable edition: use 'scoop update argus' for updates. Settings and history remain in AppData. Scoop does not install the optional privileged service or sensor driver.",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/Ray-lea/Argus/releases/download/v0.5.0/Argus_0.5.0_x64.exe#/argus.exe",
+            "hash": "a23fd2a4d0afa18e4f2a6fc52bea559e4a326466ad95f2775873a13284359bde"
+        }
+    },
+    "shortcuts": [
+        [
+            "argus.exe",
+            "Argus"
+        ]
+    ],
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/Ray-lea/Argus/releases/download/v$version/Argus_$version_x64.exe#/argus.exe",
+                "hash": {
+                    "url": "https://github.com/Ray-lea/Argus/releases/download/v$version/SHA256SUMS.txt",
+                    "regex": "(?m)^$sha256[\\x20\\t]+\\*?$basename\\r?$"
+                }
+            }
+        }
+    }
+}

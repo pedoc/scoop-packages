@@ -20,6 +20,59 @@ BeforeAll {
 }
 
 Describe 'Verified forward payload layouts' {
+    It 'ships Argus as a standalone x64 task manager without installer hooks or relocated user data' {
+        $manifest = Get-ForwardManifest 'argus'
+        $version = $manifest['version']
+
+        $manifest['homepage'] | Should -BeExactly 'https://github.com/Ray-lea/Argus'
+        $manifest['license'] | Should -BeExactly 'AGPL-3.0-or-later'
+        $manifest['architecture'].Count | Should -Be 1
+        $manifest['architecture'].Contains('64bit') | Should -BeTrue
+        $manifest['architecture']['64bit']['url'] | Should -BeExactly "https://github.com/Ray-lea/Argus/releases/download/v$version/Argus_${version}_x64.exe#/argus.exe"
+        $manifest['architecture']['64bit']['hash'] | Should -Match '^[a-fA-F0-9]{64}$'
+        $manifest.Contains('bin') | Should -BeFalse
+        $manifest['shortcuts'][0][0] | Should -BeExactly 'argus.exe'
+        $manifest['shortcuts'][0][1] | Should -BeExactly 'Argus'
+        $manifest['checkver'] | Should -BeExactly 'github'
+        foreach ($scope in @($manifest, $manifest['architecture']['64bit'])) {
+            foreach ($field in @('depends', 'installer', 'uninstaller', 'pre_install', 'post_install', 'persist')) {
+                $scope.Contains($field) | Should -BeFalse -Because "the portable executable needs no $field"
+            }
+        }
+    }
+
+    It 'binds Argus checksum selection to the portable asset rather than the setup executable' {
+        $manifest = Get-ForwardManifest 'argus'
+        $template = $manifest['autoupdate']['architecture']['64bit']
+        $version = '9999.0.0'
+        $basename = "Argus_${version}_x64.exe"
+        $hashUrl = Expand-ForwardTemplate $template['hash']['url'] $version
+        $regex = (Expand-ForwardTemplate $template['hash']['regex'] $version).
+            Replace('$sha256', '([a-fA-F0-9]{64})').Replace('$basename', [regex]::Escape($basename))
+        $checksums = ('a' * 64) + " *Argus_${version}_x64-setup.exe`n" + ('b' * 64) + " *$basename`n"
+
+        $hashUrl | Should -BeExactly "https://github.com/Ray-lea/Argus/releases/download/v$version/SHA256SUMS.txt"
+        $match = [regex]::Match($checksums, $regex)
+        $match.Success | Should -BeTrue
+        $match.Groups[1].Value | Should -BeExactly ('b' * 64)
+        [regex]::IsMatch((('a' * 64) + " *Argus_${version}_x64-setup.exe`n"), $regex) | Should -BeFalse
+    }
+
+    It 'accepts a future Argus portable update through the real update policy' {
+        $before = Get-ForwardManifest 'argus'
+        $after = $before | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $version = '9999.0.0'
+        $template = $before['autoupdate']['architecture']['64bit']
+        $after['version'] = $version
+        $after['architecture']['64bit']['url'] = Expand-ForwardTemplate $template['url'] $version
+        $after['architecture']['64bit']['hash'] = 'a' * 64
+
+        $after['architecture']['64bit']['url'] | Should -BeExactly "https://github.com/Ray-lea/Argus/releases/download/v$version/Argus_${version}_x64.exe#/argus.exe"
+        $decision = Get-ManifestUpdateDecision -Before $before -After $after -ScoopHome $core
+        $decision.Allowed | Should -BeTrue -Because $decision.Reason
+        $decision.Assets.Count | Should -Be 1
+    }
+
     It 'flattens the published 3proxy archive root before resolving bin64' {
         $manifest = Get-ForwardManifest '3proxy'
         $template = $manifest['autoupdate']['architecture']['64bit']
