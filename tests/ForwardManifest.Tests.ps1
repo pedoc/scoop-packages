@@ -705,3 +705,94 @@ Describe 'Independent NSSM Next GUI package contracts' {
         ($before | ConvertTo-Json -Depth 100 -Compress) | Should -BeExactly $original
     }
 }
+
+Describe 'WinShun portable package contracts' {
+    It 'installs the official x64 portable archive with persistent in-folder data' {
+        $manifest = Get-ForwardManifest 'winshun'
+        $version = $manifest['version']
+
+        $manifest['homepage'] | Should -BeExactly 'https://github.com/LingCore/WinShun'
+        $manifest['license'] | Should -BeExactly 'MIT'
+        $manifest['checkver'] | Should -BeExactly 'github'
+        $manifest['url'] | Should -BeExactly "https://github.com/LingCore/WinShun/releases/download/v$version/WinShun-$version-x64-portable.zip"
+        $manifest['hash'] | Should -Match '^[a-fA-F0-9]{64}$'
+        $manifest['extract_dir'] | Should -BeExactly 'WinShun'
+        $manifest['bin'] | Should -BeExactly 'bin\ws.exe'
+        $manifest['persist'] | Should -BeExactly 'data'
+        @($manifest['shortcuts']).Count | Should -Be 1
+        $manifest['shortcuts'][0][0] | Should -BeExactly 'WinShun.exe'
+        $manifest['shortcuts'][0][1] | Should -BeExactly 'WinShun'
+        foreach ($field in @('architecture', 'installer', 'uninstaller', 'pre_install', 'post_install', 'depends')) {
+            $manifest.Contains($field) | Should -BeFalse -Because "the portable archive needs no $field"
+        }
+    }
+
+    It 'binds future checksums to the portable zip rather than the setup executables' {
+        $manifest = Get-ForwardManifest 'winshun'
+        $version = '9999.0.0'
+        $template = $manifest['autoupdate']
+        $url = Expand-ForwardTemplate $template['url'] $version
+        $basename = [IO.Path]::GetFileName(([Uri]$url).AbsolutePath)
+
+        $url | Should -BeExactly "https://github.com/LingCore/WinShun/releases/download/v$version/WinShun-$version-x64-portable.zip"
+        # Scoop resolves $baseurl from the asset URL, keeping checksums in the same release.
+        $template['hash']['url'] | Should -BeExactly '$baseurl/SHA256SUMS.txt'
+        ([Uri]::new([Uri]$url, 'SHA256SUMS.txt')).AbsoluteUri | Should -BeExactly "https://github.com/LingCore/WinShun/releases/download/v$version/SHA256SUMS.txt"
+        $pattern = & {
+            param($Text, $Name, $ScoopCore)
+            Set-StrictMode -Off
+            . (Join-Path $ScoopCore 'lib/core.ps1')
+            $pattern = substitute $Text @{ '$sha256' = '([a-fA-F0-9]{64})' }
+            substitute $pattern @{ '$basename' = $Name } $true
+        } $template['hash']['regex'] $basename $core
+        $regex = [regex]::new($pattern)
+        $checksums = ('a' * 64) + "  WinShun-$version-x64-setup.exe`r`n" + ('b' * 64) + "  $basename`r`n"
+        $regex.Match($checksums).Groups[1].Value | Should -BeExactly ('b' * 64)
+        foreach ($other in @("WinShun-$version-x64-setup.exe", "WinShun-$version-x64-offline-setup.exe", 'WinShun-9998.0.0-x64-portable.zip', "WinShun-$version-arm64-portable.zip")) {
+            $regex.IsMatch(('c' * 64) + "  $other`n") | Should -BeFalse
+        }
+    }
+
+    It 'accepts a future WinShun portable update and rejects payload or persist changes' {
+        $before = Get-ForwardManifest 'winshun'
+        $original = $before | ConvertTo-Json -Depth 100 -Compress
+        $after = $original | ConvertFrom-Json -AsHashtable
+        $after['version'] = '9999.0.0'
+        $after['url'] = Expand-ForwardTemplate $before['autoupdate']['url'] $after['version']
+        $after['hash'] = 'b' * 64
+
+        $decision = Get-ManifestUpdateDecision -Before $before -After $after -ScoopHome $core
+        $decision.Allowed | Should -BeTrue -Because $decision.Reason
+        $decision.Assets.Count | Should -Be 1
+        $decision.Assets[0].Url | Should -BeExactly $after['url']
+        $decision.Assets[0].Hash | Should -BeExactly ('b' * 64)
+
+        $wrong = $after | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $wrong['url'] = 'https://github.com/LingCore/WinShun/releases/download/v9999.0.0/WinShun-9999.0.0-x64-setup.exe'
+        (Get-ManifestUpdateDecision -Before $before -After $wrong -ScoopHome $core).Allowed | Should -BeFalse
+        $wrong = $after | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $wrong['persist'] = 'other'
+        (Get-ManifestUpdateDecision -Before $before -After $wrong -ScoopHome $core).Allowed | Should -BeFalse
+        ($before | ConvertTo-Json -Depth 100 -Compress) | Should -BeExactly $original
+    }
+
+    It 'runs its registration cleanup only on uninstall, never during scoop update' {
+        $manifest = Get-ForwardManifest 'winshun'
+        $hook = @($manifest['pre_uninstall']) -join "`n"
+
+        $manifest.Contains('post_install') | Should -BeFalse -Because 'installation must not change the portable payload'
+        $hook | Should -Match '\$cmd -eq ''uninstall'''
+        $hook | Should -Match '--uninstall-cleanup'
+        $hook.IndexOf('$cmd -eq') | Should -BeLessThan $hook.IndexOf('--uninstall-cleanup')
+
+        Mock Start-Process { throw 'pre_uninstall must not run during scoop update.' }
+        $cmd = 'update'
+        $dir = Join-Path $TestDrive 'install'
+        New-Item -ItemType Directory -Path $dir -Force | Out-Null
+        Set-Content -LiteralPath (Join-Path $dir 'WinShun.exe') -Value 'stub' -NoNewline
+
+        & ([scriptblock]::Create($hook))
+
+        Should -Invoke Start-Process -Times 0 -Exactly -Scope It
+    }
+}
