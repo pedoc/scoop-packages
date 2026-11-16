@@ -7,6 +7,15 @@ BeforeAll {
         Read-StrictJsonFile -Path (Join-Path $repositoryRoot "bucket/$App.json")
     }
 
+    # 让钩子测试可以 Mock Scoop 自己的函数（Invoke-ExternalCommand 等）。
+    # core.ps1 在 StrictMode 下 dot-source 会因自己的初始化代码报错，与 bin/test.ps1 一样关掉它。
+    & {
+        Set-StrictMode -Off
+        $env:SCOOP = Join-Path (Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $core))) ''
+        . (Join-Path $core 'lib/core.ps1')
+        . (Join-Path $core 'lib/install.ps1')
+    }
+
     function Expand-ForwardTemplate([string]$Template, [string]$Version) {
         & {
             param($Text, $NewVersion, $ScoopCore)
@@ -794,5 +803,148 @@ Describe 'WinShun portable package contracts' {
         & ([scriptblock]::Create($hook))
 
         Should -Invoke Start-Process -Times 0 -Exactly -Scope It
+    }
+}
+
+Describe 'Airhand service package contracts' {
+    It 'ships the official x64 installer asset unpacked, with the service driven by Scoop' {
+        $manifest = Get-ForwardManifest 'airhand'
+        $version = $manifest['version']
+
+        $manifest['homepage'] | Should -BeExactly 'https://github.com/sqlpxc/airhand'
+        $manifest['license'] | Should -BeExactly 'MIT'
+        $manifest['checkver'] | Should -BeOfType [Collections.IDictionary]
+        $manifest['checkver']['github'] | Should -BeExactly 'https://github.com/sqlpxc/airhand'
+        $manifest['url'] | Should -BeExactly "https://github.com/sqlpxc/airhand/releases/download/v$version/Airhand_${version}_x64-setup.exe#/dl.7z"
+        $manifest['hash'] | Should -Match '^[a-fA-F0-9]{64}$'
+        $manifest['persist'] | Should -BeExactly 'config.toml'
+        @($manifest['shortcuts']).Count | Should -Be 1
+        $manifest['shortcuts'][0][0] | Should -BeExactly 'airhand.exe'
+        $manifest['shortcuts'][0][1] | Should -BeExactly 'Airhand'
+        $manifest['architecture'] | Should -BeNullOrEmpty -Because 'Airhand ships one x64 installer'
+        $notes = @($manifest['notes']) -join "`n"
+        $notes | Should -Match '(?i)admin'
+        $notes | Should -Match '(?i)service'
+    }
+
+    It 'unpacks the NSIS payload in pre_install and restores the persisted config before --install' {
+        $manifest = Get-ForwardManifest 'airhand'
+        $preInstall = @($manifest['pre_install']) -join "`n"
+        $installer = @($manifest['installer']['script']) -join "`n"
+        $postInstall = @($manifest['post_install']) -join "`n"
+
+        $preInstall | Should -Match 'Expand-7zipArchive'
+        $preInstall | Should -Match 'config\.toml'
+        # Scoop runs "installer" before persist_data, so the config must be in place by then.
+        $configLiteral = [regex]::Escape('config.toml').Replace('\.', '.')
+        $preInstall.IndexOf($configLiteral) | Should -BeGreaterThan -1
+        $installer | Should -Match '--install'
+        $installer | Should -Match 'is_admin'
+        $installer | Should -Match 'throw'
+        $installer.IndexOf('is_admin') | Should -BeLessThan $installer.IndexOf('--install')
+        $installer | Should -Match '(?i)RunAs|Invoke-ExternalCommand'
+        $postInstall | Should -Match 'PLUGINSDIR'
+        $postInstall | Should -Match 'uninstall\.exe'
+        $postInstall | Should -Not -Match 'airhand\.exe'
+    }
+
+    It 'removes the service through --uninstall and never through --install' {
+        $manifest = Get-ForwardManifest 'airhand'
+        $uninstaller = @($manifest['uninstaller']['script']) -join "`n"
+
+        $uninstaller | Should -Match '--uninstall'
+        $uninstaller | Should -Match 'is_admin'
+        $uninstaller | Should -Match 'throw'
+        $uninstaller.IndexOf('is_admin') | Should -BeLessThan $uninstaller.IndexOf('--uninstall')
+        $uninstaller | Should -Not -Match '--install'
+    }
+
+    It 'accepts a future Airhand update but rejects a wrong-architecture payload' {
+        $before = Get-ForwardManifest 'airhand'
+        $original = $before | ConvertTo-Json -Depth 100 -Compress
+        $after = $original | ConvertFrom-Json -AsHashtable
+        $version = '9999.0.0'
+        $futureUrl = Expand-ForwardTemplate $before['autoupdate']['url'] $version
+        $after['version'] = $version
+        $after['url'] = $futureUrl
+        $after['hash'] = 'b' * 64
+
+        $futureUrl | Should -BeExactly "https://github.com/sqlpxc/airhand/releases/download/v$version/Airhand_${version}_x64-setup.exe#/dl.7z"
+        $decision = Get-ManifestUpdateDecision -Before $before -After $after -ScoopHome $core
+        $decision.Allowed | Should -BeTrue -Because $decision.Reason
+        $decision.Assets.Count | Should -Be 1
+        $decision.Assets[0].Url | Should -BeExactly $futureUrl
+        $decision.Assets[0].Hash | Should -BeExactly ('b' * 64)
+        ($before | ConvertTo-Json -Depth 100 -Compress) | Should -BeExactly $original
+
+        $wrong = $after | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $wrong['url'] = "https://github.com/sqlpxc/airhand/releases/download/v$version/Airhand_${version}_arm64-setup.exe#/dl.7z"
+        (Get-ManifestUpdateDecision -Before $before -After $wrong -ScoopHome $core).Allowed | Should -BeFalse
+        $wrong = $after | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $wrong['persist'] = 'config'
+        (Get-ManifestUpdateDecision -Before $before -After $wrong -ScoopHome $core).Allowed | Should -BeFalse
+        $wrong = $after | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $wrong['installer']['script'] = @('Invoke-ExternalCommand "$dir\airhand.exe" -ArgumentList @(''--uninstall'')')
+        (Get-ManifestUpdateDecision -Before $before -After $wrong -ScoopHome $core).Allowed | Should -BeFalse
+    }
+
+    It 'restores config.toml and keeps the program when the pre_install and post_install hooks run' {
+        $manifest = Get-ForwardManifest 'airhand'
+        $dir = Join-Path $TestDrive 'install'
+        $persistDir = Join-Path $TestDrive 'persist'
+        New-Item -ItemType Directory -Path $dir, $persistDir -Force | Out-Null
+        Set-Content -LiteralPath (Join-Path $persistDir 'config.toml') -Value '# control code' -NoNewline
+        foreach ($file in @('airhand.exe', '$PLUGINSDIR/System.dll', 'uninstall.exe')) {
+            $path = Join-Path $dir $file
+            New-Item -ItemType Directory -Path (Split-Path -Parent $path) -Force | Out-Null
+            Set-Content -LiteralPath $path -Value $file -NoNewline
+        }
+        $preInstall = @($manifest['pre_install']) -join "`n"
+        $postInstall = @($manifest['post_install']) -join "`n"
+
+        $dir = $dir; $persist_dir = $persistDir
+        # 这里只验证 config.toml 还原与脚手架清理，不解包真实资产、不运行安装器。
+        $withoutExtraction = $preInstall -replace 'Expand-7zipArchive[^\r\n]*', 'Write-Output "extraction skipped for this test"'
+        & ([scriptblock]::Create($withoutExtraction))
+        & ([scriptblock]::Create($postInstall))
+
+        Get-Content -LiteralPath (Join-Path $dir 'config.toml') -Raw | Should -BeExactly '# control code'
+        Join-Path $dir 'airhand.exe' | Should -Exist
+        Join-Path $dir '$PLUGINSDIR' | Should -Not -Exist
+        Join-Path $dir 'uninstall.exe' | Should -Not -Exist
+    }
+}
+
+Describe 'Airhand relay server package contracts' {
+    It 'ships the official x64 server binary as a plain command' {
+        $manifest = Get-ForwardManifest 'airhand-server'
+        $version = $manifest['version']
+
+        $manifest['homepage'] | Should -BeExactly 'https://github.com/sqlpxc/airhand'
+        $manifest['license'] | Should -BeExactly 'MIT'
+        $manifest['checkver'] | Should -BeOfType [Collections.IDictionary]
+        $manifest['checkver']['github'] | Should -BeExactly 'https://github.com/sqlpxc/airhand'
+        $manifest['url'] | Should -BeExactly "https://github.com/sqlpxc/airhand/releases/download/v$version/airhand-server.exe#/airhand-server.exe"
+        $manifest['hash'] | Should -Match '^[a-fA-F0-9]{64}$'
+        @($manifest['bin']).Count | Should -Be 1
+        $manifest['bin'][0][0] | Should -BeExactly 'airhand-server.exe'
+        $manifest['bin'][0][1] | Should -BeExactly 'airhand-server'
+        foreach ($field in @('architecture', 'installer', 'uninstaller', 'pre_install', 'post_install', 'persist', 'shortcuts', 'depends')) {
+            $manifest.Contains($field) | Should -BeFalse -Because "the relay binary needs no $field"
+        }
+    }
+
+    It 'accepts a future server update through the real policy' {
+        $before = Get-ForwardManifest 'airhand-server'
+        $after = $before | ConvertTo-Json -Depth 100 | ConvertFrom-Json -AsHashtable
+        $version = '9999.0.0'
+        $after['version'] = $version
+        $after['url'] = Expand-ForwardTemplate $before['autoupdate']['url'] $version
+        $after['hash'] = 'c' * 64
+
+        $after['url'] | Should -BeExactly "https://github.com/sqlpxc/airhand/releases/download/v$version/airhand-server.exe#/airhand-server.exe"
+        $decision = Get-ManifestUpdateDecision -Before $before -After $after -ScoopHome $core
+        $decision.Allowed | Should -BeTrue -Because $decision.Reason
+        $decision.Assets.Count | Should -Be 1
     }
 }
