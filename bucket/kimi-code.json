@@ -1,18 +1,18 @@
 {
-    "version": "2.6.1",
+    "version": "2.6.3",
     "description": "Kimi Code - AI-powered coding assistant by Moonshot AI",
     "homepage": "https://code.kimi.com/",
     "license": "Proprietary",
     "notes": "Kimi Code is an AI-powered CLI coding assistant by Moonshot AI. Run 'kimi --help' after installation.",
     "architecture": {
         "64bit": {
-            "url": "https://code.kimi.com/kimi-code/binaries/2.6.1/kimi-code-win32-x64.exe#/kimi.exe",
-            "hash": "8d50fecfdc8630778b25b4b87f371ff04de4ba9f4e5ce9bc8324a5a3c4e4fbfd",
+            "url": "https://code.kimi.com/kimi-code/binaries/2.6.3/kimi-code-win32-x64.exe#/kimi.exe",
+            "hash": "b50c7ce3bed69e9be58f9a29aa090c0e7c61f7a1887503c4943267384a71ef30",
             "bin": "kimi.exe"
         },
         "arm64": {
-            "url": "https://code.kimi.com/kimi-code/binaries/2.6.1/kimi-code-win32-arm64.exe#/kimi.exe",
-            "hash": "1af693ec4fc51c46cef9d5080912426713069b044cff1addc2b83517322e0010",
+            "url": "https://code.kimi.com/kimi-code/binaries/2.6.3/kimi-code-win32-arm64.exe#/kimi.exe",
+            "hash": "99d315d9725dbb3fa908b38a20e40b496d3cfe5f98760c78cb1de0c07a65e1d2",
             "bin": "kimi.exe"
         }
     },
