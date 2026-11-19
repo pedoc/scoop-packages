@@ -1,12 +1,12 @@
 {
-    "version": "6.3.8",
+    "version": "6.4.1",
     "description": "AI deployment, no more chicken-and-egg.",
     "homepage": "https://github.com/edison7009/EchoBird",
     "license": "AGPL-3.0-or-later",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/edison7009/EchoBird/releases/download/v6.3.8/EchoBird_6.3.8_Windows_x64-setup.exe",
-            "hash": "a38fac7ecbbd18cd3508cb060707532e661cb5f899dcd45c4971266f1014521b"
+            "url": "https://github.com/edison7009/EchoBird/releases/download/v6.4.1/EchoBird_6.4.1_Windows_x64-setup.exe",
+            "hash": "c89b7538ca9e233790dcae277f7f3e3ba9aecaed362074beb5817b56464f7097"
         }
     },
     "shortcuts": [
