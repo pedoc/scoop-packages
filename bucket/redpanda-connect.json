@@ -1,13 +1,13 @@
 {
-    "version": "4.119.0",
+    "version": "4.120.0",
     "description": "Fancy stream processing made operationally mundane",
     "homepage": "https://github.com/redpanda-data/connect",
     "license": "BSL && RCL",
     "notes": "",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/redpanda-data/connect/releases/download/v4.119.0/redpanda-connect_4.119.0_windows_amd64.tar.gz",
-            "hash": "45528e4cb8abaccf2c22f8028046a781153ff49ced3c29422aea61e706647c14"
+            "url": "https://github.com/redpanda-data/connect/releases/download/v4.120.0/redpanda-connect_4.120.0_windows_amd64.tar.gz",
+            "hash": "f3e16be2ec8ae5fc697f8fe6040ec4a09631ccd2cef8b197362d9b3e32f04556"
         }
     },
     "bin": [
